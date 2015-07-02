@@ -48,6 +48,9 @@ setup(
     zip_safe=False,
 
     install_requires=[
+        'plone.app.dexterity',
+        'plone.dexterity',
+        'plone.directives.form',
         'setuptools',
     ],
 

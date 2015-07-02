@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-02 12:04+0000\n"
+"POT-Creation-Date: 2015-07-03 06:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,10 @@ msgstr ""
 #: ./ftw/news/profiles/default/types/ftw.news.NewsFolder.xml
 msgid "A container for news items."
 msgstr "Ein Behälter für News-Einträge"
+
+#: ./ftw/news/profiles/default/types/ftw.news.News.xml
+msgid "News"
+msgstr "News-Eintrag"
 
 #: ./ftw/news/profiles/default/types/ftw.news.NewsFolder.xml
 msgid "News Folder"

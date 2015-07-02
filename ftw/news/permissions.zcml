@@ -7,4 +7,9 @@
         title="ftw.news: Add NewsFolder"
         />
 
+    <permission
+        id="ftw.news.AddNews"
+        title="ftw.news: Add News"
+        />
+
 </configure>

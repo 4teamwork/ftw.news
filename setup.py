@@ -48,6 +48,7 @@ setup(
     zip_safe=False,
 
     install_requires=[
+        'ftw.simplelayout [contenttypes]',
         'plone.app.dexterity',
         'plone.dexterity',
         'plone.directives.form',

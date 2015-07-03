@@ -1,3 +1,4 @@
+from ftw.news.interfaces import INews
 from plone.dexterity.content import Container
 from plone.supermodel import model
 from zope.interface import implements
@@ -9,4 +10,4 @@ class INewsSchema(model.Schema):
 
 
 class News(Container):
-    implements(INewsSchema)
+    implements(INews)

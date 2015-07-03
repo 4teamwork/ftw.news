@@ -1,4 +1,5 @@
 from ftw.news import _
+from ftw.news.interfaces import INewsFolder
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.content import Container
 from plone.directives import form
@@ -18,4 +19,4 @@ alsoProvides(INewsFolderSchema, IFormFieldProvider)
 
 
 class NewsFolder(Container):
-    implements(INewsFolderSchema)
+    implements(INewsFolder)

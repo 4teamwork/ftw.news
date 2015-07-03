@@ -1,0 +1,22 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="ftw.news">
+
+    <browser:page
+        for="*"
+        name="news_listing"
+        class=".news_listing.NewsListing"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        for="*"
+        name="news_listing_rss"
+        class=".news_listing.NewsListingRss"
+        permission="zope2.View"
+        allowed_attributes="news_result get_news"
+        />
+
+</configure>

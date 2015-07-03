@@ -11,3 +11,7 @@ class INewsFolder(Interface):
 
 class INews(Interface):
     """Marker interface for the news item"""
+
+
+class INewsListingView(Interface):
+    """Marker interface for the news listing view"""

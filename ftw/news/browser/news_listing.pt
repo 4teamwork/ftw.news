@@ -1,0 +1,79 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+
+    <metal:block metal:fill-slot="head_slot">
+        <link rel="alternate" type="application/rss+xml" title="RSS"
+              i18n:attributes="title"
+              tal:attributes="href string:${context/absolute_url}/news_listing_rss"
+            />
+    </metal:block>
+
+    <metal:slot fill-slot="style_slot">
+        <style type="text/css">
+            dl#plone-contentmenu-factories #news {
+            display: block !important;
+            }
+        </style>
+    </metal:slot>
+
+    <metal:title fill-slot="content-title">
+        <h1 class="documentFirstHeading" tal:content="view/title"></h1>
+    </metal:title>
+
+    <metal:description fill-slot="content-description">
+        <metal:comment tal:content="nothing">
+            No description
+        </metal:comment>
+    </metal:description>
+
+    <metal:main fill-slot="content-core">
+
+        <div i18n:domain="ftw.news"
+             class="newsListing"
+             tal:define="batch view/batch;
+                         toLocalizedTime nocall:context/@@plone/toLocalizedTime">
+
+            <div tal:repeat="brain batch" class="tileItem">
+                <h2 class="tileHeadline">
+                    <a class="summary url" tal:attributes="href brain/getURL"
+                       tal:content="brain/Title"></a>
+                </h2>
+                <div class="documentByLine">
+                    <span class="dtstart"
+                          tal:content="python:toLocalizedTime(brain.effective)">
+                        21.12.2012
+                    </span>
+                    <tal:show_author condition="view/show_author">
+                        <tal:name tal:define="creator python:view.get_creator(brain)"
+                                  tal:condition="creator">
+                            <span class="documentAuthor" i18n:translate="news_listing_author_label">
+                                by
+                                <span tal:content="creator"
+                                      i18n:name="author">
+                                    Bob Dobalina
+                                </span>
+                            </span>
+                        </tal:name>
+                    </tal:show_author>
+                </div>
+                <p class="tileBody">
+                    <span class="description"
+                          tal:content="brain/Description">
+                    </span>
+                </p>
+                <p class="tileFooter">
+                    <a tal:attributes="href brain/getURL"
+                       i18n:translate="news_listing_read_more_label">Read More&hellip;</a>
+                </p>
+                <div class="visualClear"><!-- --></div>
+            </div>
+            <div metal:use-macro="context/batch_macros/macros/navigation" />
+            <p tal:condition="not:batch" i18n:translate="news_listing_no_content_text">No content available</p>
+        </div>
+
+    </metal:main>
+</html>

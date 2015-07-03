@@ -32,10 +32,10 @@
     </property>
 
     <!-- View information -->
-    <property name="immediate_view">folder_contents</property>
-    <property name="default_view">folder_contents</property>
+    <property name="immediate_view">news_listing</property>
+    <property name="default_view">news_listing</property>
     <property name="view_methods">
-        <element value="view"/>
+        <element value="news_listing"/>
     </property>
     <property name="default_view_fallback">False</property>
 

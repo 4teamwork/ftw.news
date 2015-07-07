@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-03 07:30+0000\n"
+"POT-Creation-Date: 2015-07-07 12:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,9 +26,29 @@ msgstr ""
 msgid "News Folder"
 msgstr ""
 
+#. Default: "${title} - News Feed"
+#: ./ftw/news/browser/news_listing.py:80
+msgid "label_feed_desc"
+msgstr ""
+
 #. Default: "Show title"
-#: ./ftw/news/contents/news_folder.py:12
+#: ./ftw/news/contents/news_folder.py:13
 msgid "news_folder_show_title_title_label"
+msgstr ""
+
+#. Default: "by ${author}"
+#: ./ftw/news/browser/news_listing.pt:55
+msgid "news_listing_author_label"
+msgstr ""
+
+#. Default: "No content available"
+#: ./ftw/news/browser/news_listing.pt:75
+msgid "news_listing_no_content_text"
+msgstr ""
+
+#. Default: "Read More…"
+#: ./ftw/news/browser/news_listing.pt:69
+msgid "news_listing_read_more_label"
 msgstr ""
 
 

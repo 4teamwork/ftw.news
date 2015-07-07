@@ -60,6 +60,7 @@ class NewsListing(BrowserView):
         show_inactive = _checkPermission(AccessInactivePortalContent,
                                          self.context)
         catalog = getToolByName(self.context, 'portal_catalog')
+        # TODO: The following line makes RSS feed only work on news folders.
         query['path'] = '/'.join(self.context.getPhysicalPath())
         return catalog(query, show_inactive=show_inactive)
 
@@ -83,3 +84,21 @@ class NewsListing(BrowserView):
 
 class NewsListingRss(NewsListing):
     template = ViewPageTemplateFile('news_listing_rss.pt')
+
+    def get_channel_link_tag(self):
+        """
+        Returns a string containing a link tag.
+
+        This is needed because TAL complains about empty HTML tags which
+        cannot use "tal:content" when building the translation messages.
+        """
+        return '<link>{0}</link>'.format(self.link)
+
+    def get_item_link_tag(self, url):
+        """
+        Returns a string containing a link tag.
+
+        This is needed because TAL complains about empty HTML tags which
+        cannot use "tal:content" when building the translation messages.
+        """
+        return '<link>{0}</link>'.format(url)

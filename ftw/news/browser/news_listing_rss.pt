@@ -12,7 +12,7 @@
 
         <channel rdf:about="" tal:attributes="rdf:about request/URL">
             <title tal:content="view/title">The title</title>
-            <tal:link tal:define="link view/link"><link tal:content="link">Foo</link></tal:link>
+            <span tal:replace="structure view/get_channel_link_tag"></span>
             <description tal:content="view/description" />
             <image tal:attributes="rdf:resource string:${context/portal_url}/logo.png" />
             <items>
@@ -28,7 +28,7 @@
         <tal:block repeat="item python: items">
             <item rdf:about="" tal:attributes="rdf:about item/getURL">
                 <title tal:content="item/Title" />
-                <tal:link tal:define="link item/getURL"><link tal:content="link">Foo</link></tal:link>
+                <span tal:replace="structure python: view.get_item_link_tag(item.getURL())"></span>
                 <description tal:content="item/Description" />
                 <pubDate tal:content="python: item.effective.strftime('%a, %e %b %Y %H:%M:%S %z')"/>
             </item>

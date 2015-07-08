@@ -194,22 +194,6 @@ class TestNewsPortlets(unittest.TestCase):
         )
 
     @browsing
-    def test_classification_items_available(self, browser):
-        types_tool = getToolByName(self.portal, 'portal_types')
-        types_tool['ClassificationItem'] = FactoryTypeInformation(
-            'ClassificationItem')
-        transaction.commit()
-        browser.login().visit(self.portal, view='@@manage-portlets')
-        browser.forms['form-3'].fill({':action': news_portlet_action}).submit()
-        self.assertTrue(browser.find('Classification Items'))
-
-    @browsing
-    def test_no_classification_items(self, browser):
-        browser.login().visit(self.portal, view='@@manage-portlets')
-        browser.forms['form-3'].fill({':action': news_portlet_action}).submit()
-        self.assertIsNone(browser.find('Classification Items'))
-
-    @browsing
     def test_portlet_filters_old_news(self, browser):
         form_values = {
             'Title': 'A News Portlet',

@@ -46,17 +46,6 @@ class INewsPortlet(IPortletDataProvider):
         default=True,
     )
 
-    classification_items = schema.List(
-        title=_(u'news_portlet_classification_items_label',
-                default=u'Classification Items'),
-        value_type=schema.Choice(
-            source=PathSourceBinder(
-                navigation_tree_query={'portal_type': 'ClassificationItem'},
-                portal_type='ClassificationItem'),
-        ),
-        required=False,
-    )
-
     quantity = schema.Int(
         title=_(u'news_portlet_quantity_label', default=u'Quantity'),
         description=_(u'news_portlet_quantity_description',
@@ -191,13 +180,7 @@ class AddForm(form.AddForm):
         return ob
 
     def updateWidgets(self):
-        self.fields['classification_items'].widgetFactory = \
-            MultiContentTreeFieldWidget
         self.fields['path'].widgetFactory = MultiContentTreeFieldWidget
-        if not self.context.portal_types.get('ClassificationItem', None):
-            self.fields['classification_items'].mode = interfaces.HIDDEN_MODE
-        else:
-            self.fields['classification_items'].mode = interfaces.INPUT_MODE
         super(AddForm, self).updateWidgets()
 
     def create(self, data):
@@ -205,7 +188,6 @@ class AddForm(form.AddForm):
             portlet_title=data.get('portlet_title'),
             current_context=data.get('current_context', True),
             quantity=data.get('quantity', 5),
-            classification_items=data.get('classification_items', []),
             path=data.get('path', []),
             subjects=data.get('subjects', []),
             show_description=data.get('show_description', False),
@@ -221,14 +203,13 @@ class Assignment(base.Assignment):
     implements(INewsPortlet)
 
     def __init__(self, portlet_title='News', current_context=True, quantity=5,
-                 classification_items=None, path=None, subjects=None,
-                 show_description=False, description_length=50, maximum_age=0,
+                 path=None, subjects=None, show_description=False,
+                 description_length=50, maximum_age=0,
                  show_more_news_link=False, show_rss_link=False,
                  always_render_portlet=False):
         self.portlet_title = portlet_title
         self.current_context = current_context
         self.quantity = quantity
-        self.classification_items = classification_items or []
         self.path = path or []
         self.subjects = subjects or []
         self.show_description = show_description
@@ -281,14 +262,6 @@ class Renderer(base.Renderer):
                 for item in self.data.path:
                     cat_path.append('/'.join([portal_path, item]))
                 query['path'] = {'query': cat_path}
-
-        if self.data.classification_items:
-            cs_uids = []
-            for item in self.data.classification_items:
-                obj = self.context.restrictedTraverse(
-                    '/'.join([portal_path, item.strip('/')]))
-                cs_uids.append(obj.UID())
-            query['cs_uids'] = cs_uids
 
         if self.data.subjects:
             query['Subject'] = self.data.subjects
@@ -375,9 +348,5 @@ class EditForm(form.EditForm):
         return self.request.response.redirect(nextURL)
 
     def updateWidgets(self):
-        self.fields['classification_items'].widgetFactory = \
-            MultiContentTreeFieldWidget
         self.fields['path'].widgetFactory = MultiContentTreeFieldWidget
-        if not self.context.portal_types.get('ClassificationItem', None):
-            self.fields['classification_items'].mode = interfaces.HIDDEN_MODE
         super(EditForm, self).updateWidgets()

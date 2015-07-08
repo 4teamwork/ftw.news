@@ -21,7 +21,7 @@ from zope.publisher.browser import BrowserView
 
 class NewsListing(BrowserView):
     implements(INewsListingView)
-    template = ViewPageTemplateFile('news_listing.pt')
+    template = ViewPageTemplateFile('templates/news_listing.pt')
 
     def __init__(self, context, request):
         super(NewsListing, self).__init__(context, request)
@@ -105,7 +105,7 @@ class NewsListing(BrowserView):
 
 
 class NewsListingRss(NewsListing):
-    template = ViewPageTemplateFile('news_listing_rss.pt')
+    template = ViewPageTemplateFile('templates/news_listing_rss.pt')
 
     def get_channel_link_tag(self):
         """

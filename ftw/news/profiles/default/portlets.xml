@@ -7,4 +7,10 @@
         description=""
         />
 
+    <portlet
+        addview="newsarchiveportlet"
+        title="News Archive Portlet (ftw.news)"
+        description=""
+        />
+
 </portlets>

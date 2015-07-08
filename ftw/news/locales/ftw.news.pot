@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-08 14:56+0000\n"
+"POT-Creation-Date: 2015-07-08 14:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,10 @@ msgstr ""
 msgid "A container for news items."
 msgstr ""
 
+#: ./ftw/news/portlets/news_archive_portlet.pt:10
+msgid "Archive"
+msgstr ""
+
 #: ./ftw/news/profiles/default/types/ftw.news.News.xml
 msgid "News"
 msgstr ""
@@ -27,7 +31,7 @@ msgid "News Folder"
 msgstr ""
 
 #. Default: "${title} - News Feed"
-#: ./ftw/news/browser/news_listing.py:80
+#: ./ftw/news/browser/news_listing.py:102
 msgid "label_feed_desc"
 msgstr ""
 

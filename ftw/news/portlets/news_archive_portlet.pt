@@ -1,0 +1,37 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="python: 1"
+      i18n:domain="ftw.news">
+
+    <div class="portletWrapper">
+        <dl class="portlet portletArchiveListing">
+
+            <dt class="portletHeader">
+                <span i18n:translate="">
+                    Archive
+                </span>
+            </dt>
+
+            <dd class="portletItem">
+                <ul class="years">
+                    <li tal:repeat="year view/archive_summary"
+                        tal:attributes="class python:year.get('mark') and 'year expanded' or 'year'">
+
+                        <span class="yearnumber"
+                              tal:content="python: '%s (%s)' % (year.get('title'), year.get('number'))" />
+
+                        <ul tal:attributes="class python:year.get('mark') and 'months expanded' or 'months'">
+                            <li tal:repeat="month year/months"
+                                tal:attributes="class python:month.get('mark') and 'month highlight' or 'month'">
+                                <a tal:attributes="href month/url;
+                                                   title month/title"
+                                   tal:content="python: '%s (%s)' % (month.get('title'), month.get('number'))"
+                                   i18n:translate=""/>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+</html>

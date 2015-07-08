@@ -4,6 +4,11 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.news">
 
+    <browser:resourceDirectory
+        name="ftw.news.resources"
+        directory="resources"
+        />
+
     <browser:page
         for="*"
         name="news_listing"
@@ -17,6 +22,13 @@
         class=".news_listing.NewsListingRss"
         permission="zope2.View"
         allowed_attributes="news_result get_news"
+        />
+
+    <browser:page
+        for="*"
+        name="news_portlet_listing"
+        class=".news_listing.NewsListingPortlet"
+        permission="zope2.View"
         />
 
 </configure>

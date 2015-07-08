@@ -1,0 +1,66 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="python: 1"
+      i18n:domain="ftw.news">
+
+    <dl class="portlet portletCollection newsTemplate"
+        tal:define="plone_view context/@@plone;
+                toLocalizedTime nocall:plone_view/toLocalizedTime;">
+
+        <dt class="portletHeader">
+            <tal:title replace="view/data/portlet_title" />
+
+            <tal:rsslink condition="view/show_rss_link">
+                <a class="RssLink" title="RSS"
+                   tal:attributes="href string:${here/absolute_url}/@@news_listing_rss"
+                   i18n:attributes="title rss_link"
+                   i18n:translate="rss_link">RSS</a>
+            </tal:rsslink>
+
+        </dt>
+        <dd>
+            <ul>
+                <li class="portletItem noRecentNews"
+                    tal:condition="not: view/get_news"
+                    i18n:translate="no_recent_news_label">No recent news available.</li>
+
+                <tal:loop tal:repeat="brain view/get_news">
+                    <li class="portletItem"
+                        tal:define="oddrow repeat/brain/odd;
+                                    lastrow repeat/brain/_last"
+                        tal:attributes="class python:'%s%s' % (
+                                        lastrow and 'lastItem ' or '',
+                                        oddrow and 'portletItem even' or 'portletItem odd')">
+
+                        <div class="newsText">
+                            <div class="portletItemDate"
+                                 tal:content="python:toLocalizedTime(brain.effective)" />
+
+                            <div class="portletItemTitle" tal:content="brain/Title" />
+
+                            <div class="portletItemDescription"
+                                 tal:condition="python: brain.Description and view.data.show_description">
+                                <div tal:content="python: view.crop_desc(brain.Description)" />
+                            </div>
+                        </div>
+
+                        <a class="portletItemMore"
+                           tal:attributes="href brain/getURL;"
+                           i18n:translate="label_readmore">Read more</a>
+
+                        <div class="visualClear"><!-- --></div>
+                    </li>
+                </tal:loop>
+
+                <li class="portletFooter">
+                    <tal:morelink condition="view/show_more_news_link">
+                        <a class="NewsMoreLink" title="More News"
+                           tal:attributes="href view/more_news_url"
+                           i18n:attributes="title more_news_link"
+                           i18n:translate="more_news_link">More News</a>
+                    </tal:morelink>
+                </li>
+            </ul>
+        </dd>
+    </dl>
+</html>

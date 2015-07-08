@@ -6,6 +6,7 @@
     i18n_domain="ftw.news">
 
     <include package=".browser" />
+    <include package=".portlets" />
     <include file="permissions.zcml" />
     <include file="lawgiver.zcml" zcml:condition="installed ftw.lawgiver" />
 

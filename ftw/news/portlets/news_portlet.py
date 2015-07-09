@@ -1,38 +1,40 @@
 from Acquisition import aq_parent, aq_inner
 from DateTime import DateTime
 from ftw.news import _
-from plone.app.portlets.browser.interfaces import IPortletAddForm
-from plone.app.portlets.browser.interfaces import IPortletEditForm
 from plone.app.portlets.interfaces import IPortletPermissionChecker
 from plone.app.portlets.portlets import base
+from plone.directives import form
+from plone.directives.form.form import SchemaAddForm, SchemaEditForm
 from plone.formwidget.contenttree import MultiContentTreeFieldWidget
 from plone.formwidget.contenttree import PathSourceBinder
 from plone.portlets.interfaces import IPortletDataProvider
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from z3c.form import form, button, field, interfaces
-from z3c.form.browser.checkbox import CheckBoxFieldWidget
+from z3c.form import button
+from z3c.form import form as z3cform
+from z3c.relationfield import RelationChoice
 from zope import schema
 from zope.component import getMultiAdapter
 from zope.interface import implements, invariant, Invalid
 
 
-class INewsPortlet(IPortletDataProvider):
-
+class INewsPortletSchema(form.Schema):
     portlet_title = schema.TextLine(
         title=_(u'news_portlet_title_label', default=u'Title'),
         description=u'',
         required=True,
         default=u'')
 
+    form.widget(path=MultiContentTreeFieldWidget)
     path = schema.List(
         title=_(u'news_portlet_filter_path_label', default=u'Limit to path'),
         description=_(u'news_portlet_filter_path_description',
                       default=u'Only show news items from a specific path.'),
-        value_type=schema.Choice(
+        value_type=RelationChoice(
             source=PathSourceBinder(
                 navigation_tree_query={'is_folderish': True},
-                is_folderish=True),
+                is_folderish=True
+            ),
         ),
         required=False,
     )
@@ -54,7 +56,7 @@ class INewsPortlet(IPortletDataProvider):
         default=5,
     )
 
-    # TODO: Find a better widget than the one we're using (defined in the forms below).
+    # TODO: Find a better widget.
     subjects = schema.List(
         title=_(u'news_portlet_subjects_label',
                 default=u'Filter by subject'),
@@ -130,14 +132,16 @@ class INewsPortlet(IPortletDataProvider):
             )
 
 
-class AddForm(form.AddForm):
-    implements(IPortletAddForm)
+class INewsPortlet(INewsPortletSchema, IPortletDataProvider):
+    pass
+
+
+class AddForm(SchemaAddForm):
     label = _(u'news_portlet_add_form_label', default=u'Add News Portlet')
     description = _(u'news_portlet_add_form_description',
                     default=u'This portlet displays news items')
 
-    fields = field.Fields(INewsPortlet)
-    fields['subjects'].widgetFactory = CheckBoxFieldWidget
+    schema = INewsPortlet
 
     def __init__(self, context, request):
         super(AddForm, self).__init__(context, request)
@@ -155,33 +159,10 @@ class AddForm(form.AddForm):
                                   name=u'absolute_url'))
         return url + '/@@manage-portlets'
 
-    @button.buttonAndHandler(_(u'news_portlet_add_form_save_label',
-                               default=u'Save'), name='add')
-    def handleAdd(self, action):
-        data, errors = self.extractData()
-        if errors:
-            self.status = self.formErrorsMessage
-            return
-        obj = self.createAndAdd(data)
-        if obj is not None:
-            # mark only as finished if we get the new object
-            self._finishedAdd = True
-
-    @button.buttonAndHandler(_(u'news_portlet_add_form_cancel_label',
-                               default=u'Cancel'),
-                             name='cancel_add')
-    def handleCancel(self, action):
-        nextURL = self.nextURL()
-        return self.request.response.redirect(nextURL)
-
     def add(self, object_):
         ob = self.context.add(object_)
         self._finishedAdd = True
         return ob
-
-    def updateWidgets(self):
-        self.fields['path'].widgetFactory = MultiContentTreeFieldWidget
-        super(AddForm, self).updateWidgets()
 
     def create(self, data):
         return Assignment(
@@ -298,14 +279,12 @@ class Renderer(base.Renderer):
                          '@@news_portlet_listing?{0}'.format(params)))
 
 
-class EditForm(form.EditForm):
-    implements(IPortletEditForm)
+class EditForm(SchemaEditForm):
     label = _(u'news_portlet_edit_form_label', default=u'Edit News Portlet')
     description = _(u'news_portlet_edit_form_description',
                     default=u'This portlet displays news items')
 
-    fields = field.Fields(INewsPortlet)
-    fields['subjects'].widgetFactory = CheckBoxFieldWidget
+    schema = INewsPortlet
 
     def __init__(self, context, request):
         super(EditForm, self).__init__(context, request)
@@ -347,6 +326,4 @@ class EditForm(form.EditForm):
         nextURL = self.nextURL()
         return self.request.response.redirect(nextURL)
 
-    def updateWidgets(self):
-        self.fields['path'].widgetFactory = MultiContentTreeFieldWidget
-        super(EditForm, self).updateWidgets()
+    updateActions = z3cform.EditForm.updateActions

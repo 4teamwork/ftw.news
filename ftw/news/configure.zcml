@@ -20,4 +20,9 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+    <utility
+        component=".vocabularies.SubjectVocabulary"
+        name="ftw.news.vocabulary.subjects"
+        />
+
 </configure>

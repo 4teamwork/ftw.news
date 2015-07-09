@@ -48,6 +48,7 @@ setup(
     zip_safe=False,
 
     install_requires=[
+        'collective.z3cform.widgets',
         'ftw.simplelayout [contenttypes]',
         'plone.app.dexterity',
         'plone.dexterity',

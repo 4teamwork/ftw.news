@@ -5,6 +5,7 @@ from plone.app.portlets.interfaces import IPortletPermissionChecker
 from plone.app.portlets.portlets import base
 from plone.directives import form
 from plone.directives.form.form import SchemaAddForm, SchemaEditForm
+from plone.formwidget.autocomplete.widget import AutocompleteMultiFieldWidget
 from plone.formwidget.contenttree import MultiContentTreeFieldWidget
 from plone.formwidget.contenttree import PathSourceBinder
 from plone.portlets.interfaces import IPortletDataProvider
@@ -56,14 +57,15 @@ class INewsPortletSchema(form.Schema):
         default=5,
     )
 
-    # TODO: Find a better widget.
+    # MAYBE: Find a better widget.
+    form.widget(subjects=AutocompleteMultiFieldWidget)
     subjects = schema.List(
         title=_(u'news_portlet_subjects_label',
                 default=u'Filter by subject'),
         description=_(u'news_portlet_subjects_description',
                       default=u'Only news with the selected subjects will '
                               u'be shown.'),
-        value_type=schema.Choice(vocabulary='plone.app.vocabularies.Keywords'),
+        value_type=schema.Choice(vocabulary='ftw.news.vocabulary.subjects'),
         required=False,
     )
 

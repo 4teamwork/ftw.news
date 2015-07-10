@@ -10,6 +10,7 @@ from plone.testing import z2
 from Testing.ZopeTestCase.utils import setupCoreSessions
 from zope.configuration import xmlconfig
 from ftw.news.tests import builders
+from ftw.simplelayout.tests import builders
 
 
 class FtwNewsLayer(PloneSandboxLayer):

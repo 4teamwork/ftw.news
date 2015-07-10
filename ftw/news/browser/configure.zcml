@@ -31,4 +31,11 @@
         permission="zope2.View"
         />
 
+    <browser:page
+        for="ftw.news.interfaces.INewsListingBlock"
+        name="block_view"
+        permission="zope2.View"
+        class=".news_listing_block.NewsListingBlockView"
+        />
+
 </configure>

@@ -1,0 +1,60 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="python: 1"
+      i18n:domain="ftw.news">
+
+    <h2 tal:content="view/title"
+        tal:condition="here/show_title | python: True">
+    </h2>
+
+    <tal:rss-url tal:define="rss_url view/rss_url">
+        <div condition="rss:url" class="documentByLine">
+            <a tal:attributes="href rss_url" i18n:translate="">Subscribe to the RSS feed</a>
+        </div>
+    </tal:rss-url>
+
+    <tal:news tal:define="news view/get_news;">
+
+        <div class="newsListing">
+
+            <p tal:condition="not: news"
+               i18n:translate="">No content available</p>
+
+            <div class="newsItem" tal:condition="news"
+                 tal:repeat="item news">
+                <h3 class="newsHeadline">
+                    <a tal:attributes="href item/url"
+                       tal:content="item/title">Link</a>
+                </h3>
+                <div class="documentByLine">
+                    <span tal:condition="item/effective_date"
+                          tal:content="item/effective_date">Date</span>
+                    <span condition="item/author"
+                          i18n:translate="news_listing_author_label">
+                        by
+                        <span tal:content="item/author"
+                              i18n:name="author">Author</span>
+                    </span>
+                </div>
+                <p class="newsbody">
+                    <span class="description" tal:content="item/description"
+                          tal:condition="item/description">Description</span>
+                </p>
+                <p class="newsFooter">
+                    <a tal:attributes="href item/url"
+                       i18n:translate="">Read more</a>
+                </p>
+            </div>
+
+        </div>
+
+        <p tal:define="more_news_url view/more_news_url"
+           tal:condition="more_news_url">
+            <a class="newsMoreLink" title="More News"
+               tal:attributes="href more_news_url"
+               i18n:translate="more_news_link">More News</a>
+        </p>
+
+    </tal:news>
+
+</html>

@@ -29,3 +29,17 @@ def can_view_about():
     if not allow_anonymous_view_about and api.user.is_anonymous():
         return False
     return True
+
+
+def crop_text(text, length):
+    """
+    Crops the given text to the given length.
+
+    :param text: The text to be cropped
+    :type text: str
+    :param length: The maximum length of the cropped text
+    :type length: int
+    :return: The cropped text
+    """
+    plone_view = api.portal.get().restrictedTraverse('@@plone')
+    return plone_view.cropText(text, length)

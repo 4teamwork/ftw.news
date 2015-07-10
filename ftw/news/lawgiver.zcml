@@ -15,4 +15,8 @@
         permissions="ftw.news: Add News"
         />
 
+    <lawgiver:map_permissions
+        action_group="edit"
+        permissions="ftw.news: Add NewsListingBlock"/>
+
 </configure>

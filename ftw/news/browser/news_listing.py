@@ -2,6 +2,7 @@ from Acquisition import aq_parent, aq_inner
 from DateTime import DateTime
 from DateTime.interfaces import SyntaxError as dtSytaxError
 from ftw.news import _
+from ftw.news import utils
 from ftw.news.interfaces import INewsListingView
 from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.portlets.interfaces import IPortletManager
@@ -33,30 +34,10 @@ class NewsListing(BrowserView):
         return self.template()
 
     def get_creator(self, item):
-        memberid = item.Creator
-        mt = getToolByName(self.context, 'portal_membership')
-        member_info = mt.getMemberInfo(memberid)
-        if member_info:
-            fullname = member_info.get('fullname', '')
-        else:
-            fullname = None
-        if fullname:
-            return fullname
-        else:
-            return memberid
+        return utils.get_creator(item)
 
     def show_author(self):
-        site_props = getToolByName(self.context,
-                                   'portal_properties').site_properties
-        membership_tool = getToolByName(self.context, 'portal_membership')
-
-        allow_anonymous_view_about = site_props.getProperty(
-            'allowAnonymousViewAbout', False)
-        is_anonymous_user = membership_tool.isAnonymousUser()
-
-        if not allow_anonymous_view_about and is_anonymous_user:
-            return False
-        return True
+        return utils.can_view_about()
 
     def get_items(self):
         query = {

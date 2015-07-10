@@ -50,6 +50,7 @@ setup(
     install_requires=[
         'collective.z3cform.widgets',
         'ftw.simplelayout [contenttypes]',
+        'plone.api',
         'plone.app.dexterity',
         'plone.dexterity',
         'plone.directives.form',

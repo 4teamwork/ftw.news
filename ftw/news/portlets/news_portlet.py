@@ -26,8 +26,8 @@ class INewsPortletSchema(form.Schema):
         required=True,
         default=u'')
 
-    form.widget(path=MultiContentTreeFieldWidget)
-    path = schema.List(
+    form.widget(filter_by_path=MultiContentTreeFieldWidget)
+    filter_by_path = schema.List(
         title=_(u'news_portlet_filter_path_label', default=u'Limit to path'),
         description=_(u'news_portlet_filter_path_description',
                       default=u'Only show news items from a specific path.'),
@@ -38,6 +38,7 @@ class INewsPortletSchema(form.Schema):
             ),
         ),
         required=False,
+        missing_value=(),
     )
 
     current_context = schema.Bool(
@@ -113,20 +114,11 @@ class INewsPortletSchema(form.Schema):
         default=False,
     )
 
-    always_render_portlet = schema.Bool(
-        title=_(u'news_portlet_always_render_portlet_label',
-                default=u'Always render the portlet'),
-        description=_(u'news_portlet_always_render_portlet_description',
-                      default=u'Render the portlet even if there are no news '
-                              u'entries.'),
-        default=False,
-    )
-
     @invariant
     def is_either_path_or_context(obj):
         """Checks if not both path and current context are defined.
         """
-        if obj.current_context and obj.path:
+        if obj.current_context and obj.filter_by_path:
             raise Invalid(_(
                 u'news_portlet_current_context_and_path_error',
                 default=u'You can not filter by path and current context '
@@ -135,7 +127,15 @@ class INewsPortletSchema(form.Schema):
 
 
 class INewsPortlet(INewsPortletSchema, IPortletDataProvider):
-    pass
+
+    always_render_portlet = schema.Bool(
+        title=_(u'news_portlet_always_render_portlet_label',
+                default=u'Always render the portlet'),
+        description=_(u'news_portlet_always_render_portlet_description',
+                      default=u'Render the portlet even if there are no news '
+                              u'entries.'),
+        default=False,
+    )
 
 
 class AddForm(SchemaAddForm):
@@ -171,7 +171,7 @@ class AddForm(SchemaAddForm):
             portlet_title=data.get('portlet_title'),
             current_context=data.get('current_context', True),
             quantity=data.get('quantity', 5),
-            path=data.get('path', []),
+            filter_by_path=data.get('filter_by_path', []),
             subjects=data.get('subjects', []),
             show_description=data.get('show_description', False),
             description_length=data.get('description_length', 50),
@@ -186,14 +186,14 @@ class Assignment(base.Assignment):
     implements(INewsPortlet)
 
     def __init__(self, portlet_title='News', current_context=True, quantity=5,
-                 path=None, subjects=None, show_description=False,
+                 filter_by_path=None, subjects=None, show_description=False,
                  description_length=50, maximum_age=0,
                  show_more_news_link=False, show_rss_link=False,
                  always_render_portlet=False):
         self.portlet_title = portlet_title
         self.current_context = current_context
         self.quantity = quantity
-        self.path = path or []
+        self.filter_by_path = filter_by_path or []
         self.subjects = subjects or []
         self.show_description = show_description
         self.description_length = description_length
@@ -220,13 +220,14 @@ class Renderer(base.Renderer):
         if getattr(self.data, 'always_render_portlet', False):
             return True
 
-        if self.context.portal_type == 'ftw.news.NewsFolder':
+        if self.data.portal_type == 'ftw.news.NewsFolder':
             return False
 
-        if self.show_more_news_link():
+        if self.data.show_more_news_link:
             has_news = self.get_news(all_news=True)
         else:
             has_news = self.get_news()
+
         return has_news
 
     def get_news(self, all_news=False):
@@ -238,13 +239,11 @@ class Renderer(base.Renderer):
         if self.data.current_context:
             path = '/'.join(self.context.getPhysicalPath())
             query['path'] = {'query': path}
-
-        else:
-            if self.data.path:
-                cat_path = []
-                for item in self.data.path:
-                    cat_path.append('/'.join([portal_path, item]))
-                query['path'] = {'query': cat_path}
+        elif self.data.filter_by_path:
+            cat_path = []
+            for item in self.data.filter_by_path:
+                cat_path.append('/'.join([portal_path, item]))
+            query['path'] = {'query': cat_path}
 
         if self.data.subjects:
             query['Subject'] = self.data.subjects
@@ -266,19 +265,18 @@ class Renderer(base.Renderer):
         ploneview = self.context.restrictedTraverse('@@plone')
         return ploneview.cropText(description, self.data.description_length)
 
-    def show_more_news_link(self):
-        return self.data.show_more_news_link
-
     def show_rss_link(self):
         return getattr(self.data, 'show_rss_link', False)
 
     def more_news_url(self):
-        params = 'portlet={0}&manager={1}'.format(
-            self.data.__name__,
-            self.manager.__name__)
+        if self.data.show_more_news_link:
+            params = 'portlet={0}&manager={1}'.format(
+                self.data.__name__,
+                self.manager.__name__)
 
-        return '/'.join((self.context.absolute_url(),
-                         '@@news_portlet_listing?{0}'.format(params)))
+            return '/'.join((self.context.absolute_url(),
+                             '@@news_portlet_listing?{0}'.format(params)))
+        return ''
 
 
 class EditForm(SchemaEditForm):

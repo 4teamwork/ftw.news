@@ -118,3 +118,27 @@ class TestNewsListing(TestCase):
 
         browser.visit(news_folder)
         self.assertEquals(u'A News Folder', plone.first_heading())
+
+    @browsing
+    def test_news_listing_title(self, browser):
+        """
+        This test makes sure that the news listing view renders the
+        title of the portlet, not the generic title.
+        """
+        browser.login().visit(self.news_folder, view='news_listing')
+        self.assertEquals(
+            ['A News Folder'],
+            browser.css('h1.documentFirstHeading').text
+        )
+
+    @browsing
+    def test_news_listing_no_description(self, browser):
+        """
+        This test makes sure that the news listing view does not
+        render the generic description.
+        """
+        browser.login().visit(self.news_folder, view='news_listing')
+        self.assertIsNone(
+            plone.document_description(),
+            'Found a document description which should not be there.'
+        )

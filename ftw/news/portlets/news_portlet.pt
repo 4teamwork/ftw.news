@@ -53,10 +53,9 @@
                 </tal:loop>
 
                 <li class="portletFooter">
-                    <tal:morelink condition="view/show_more_news_link">
-                        <a class="NewsMoreLink" title="More News"
+                    <tal:morelink tal:condition="view/more_news_url">
+                        <a class="newsMoreLink" title="More News"
                            tal:attributes="href view/more_news_url"
-                           i18n:attributes="title more_news_link"
                            i18n:translate="more_news_link">More News</a>
                     </tal:morelink>
                 </li>

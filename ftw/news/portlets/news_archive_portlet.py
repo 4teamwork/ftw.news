@@ -162,17 +162,32 @@ class Renderer(base.Renderer):
         there is some content to be displayed.
         """
         is_news_listing_view = INewsListingView.providedBy(self.view)
-        return is_news_listing_view and bool(self.archive_summary())
+        return is_news_listing_view and bool(self.get_items())
 
     @memoize
-    def archive_summary(self):
+    def get_items(self):
         """Returns an ordered list of summary info per month."""
-        return ArchiveSummary(
+        summary = ArchiveSummary(
             self.context,
             self.request,
             ['ftw.news.interfaces.INews'],
             'effective',
             'news_listing')()
+
+        items = [{
+            'year_and_count': '{0} ({1})'.format(year['title'],
+                                                 year['number']),
+            'class': 'year expanded' if year['mark'] else 'year',
+            'months_expanded': 'months expanded' if year['mark'] else 'months',
+            'months': [{
+                'title': month['title'],
+                'url': month['url'],
+                'class': 'month highlight' if month['mark'] else 'month',
+                'month_and_count': '{0} ({1})'.format(month['title'],
+                                                      month['number']),
+            } for month in year['months']],
+        } for year in summary]
+        return items
 
     render = ViewPageTemplateFile('templates/news_archive_portlet.pt')
 

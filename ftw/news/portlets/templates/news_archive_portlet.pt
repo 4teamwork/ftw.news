@@ -14,18 +14,18 @@
 
             <dd class="portletItem">
                 <ul class="years">
-                    <li tal:repeat="year view/archive_summary"
-                        tal:attributes="class python:year.get('mark') and 'year expanded' or 'year'">
+                    <li tal:repeat="year view/get_items"
+                        tal:attributes="class year/class">
 
                         <span class="yearnumber"
-                              tal:content="python: '%s (%s)' % (year.get('title'), year.get('number'))" />
+                              tal:content="year/year_and_count" />
 
-                        <ul tal:attributes="class python:year.get('mark') and 'months expanded' or 'months'">
+                        <ul tal:attributes="class year/months_expanded">
                             <li tal:repeat="month year/months"
-                                tal:attributes="class python:month.get('mark') and 'month highlight' or 'month'">
+                                tal:attributes="class month/class">
                                 <a tal:attributes="href month/url;
                                                    title month/title"
-                                   tal:content="python: '%s (%s)' % (month.get('title'), month.get('number'))"
+                                   tal:content="month/month_and_count"
                                    i18n:translate=""/>
                             </li>
                         </ul>

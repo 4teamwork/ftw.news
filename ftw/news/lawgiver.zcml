@@ -3,20 +3,17 @@
     xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
     i18n_domain="ftw.news">
 
-    <include package="ftw.lawgiver" file="meta.zcml" />
+    <include package="ftw.lawgiver" file="meta.zcml"/>
 
     <lawgiver:map_permissions
         action_group="add"
-        permissions="ftw.news: Add NewsFolder"
-        />
-
-    <lawgiver:map_permissions
-        action_group="add"
-        permissions="ftw.news: Add News"
+        permissions="ftw.news: Add NewsFolder,
+                     ftw.news: Add News"
         />
 
     <lawgiver:map_permissions
         action_group="edit"
-        permissions="ftw.news: Add NewsListingBlock"/>
+        permissions="ftw.news: Add NewsListingBlock"
+        />
 
 </configure>

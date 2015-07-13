@@ -76,7 +76,7 @@ class NewsListingBlockView(BaseBlock):
         item = {
             'title': brain.Title,
             'description': description,
-            'url': brain.getPath(),
+            'url': brain.getURL(),
             'author': author,
             'effective_date': self.context.toLocalizedTime(brain.effective),
         }

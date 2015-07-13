@@ -1,5 +1,4 @@
 from datetime import timedelta, datetime
-from DateTime.DateTime import DateTime
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
@@ -62,7 +61,7 @@ class TestNewsListing(TestCase):
         return '<span class="documentAuthor"' in browser.contents
 
     @browsing
-    def test_member_sees_author_when_aava_disabled(self, browser):
+    def test_member_sees_author_when_aava_enabled(self, browser):
         set_allow_anonymous_view_about(self.news_folder, True)
         browser.login(username=self.member.getProperty('id'),
                       password=DEFAULT_PASSWORD).open(self.news_folder)

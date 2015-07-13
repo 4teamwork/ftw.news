@@ -2,25 +2,21 @@ from datetime import datetime
 from datetime import timedelta
 from ftw.builder import Builder, create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
+from ftw.news.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages.statusmessages import assert_message
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-import transaction
-import unittest2 as unittest
 
 
 news_portlet_action = '/++contextportlets++plone.rightcolumn/+/newsportlet'
 
 
-class TestNewsPortlets(unittest.TestCase):
+class TestNewsPortlets(FunctionalTestCase):
 
     layer = FTW_NEWS_FUNCTIONAL_TESTING
 
     def setUp(self):
-        self.portal = self.layer['portal']
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        transaction.commit()
+        super(TestNewsPortlets, self).setUp()
+        self.grant('Manager')
 
     def _add_portlet(self, browser, context=None, **kwargs):
         """

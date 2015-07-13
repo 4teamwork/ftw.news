@@ -1,19 +1,17 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
+from ftw.news.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from unittest2 import TestCase
 
 
-class TestNewsRssListing(TestCase):
+class TestNewsRssListing(FunctionalTestCase):
 
     layer = FTW_NEWS_FUNCTIONAL_TESTING
 
     def setUp(self):
-        self.portal = self.layer['portal']
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        super(TestNewsRssListing, self).setUp()
+        self.grant('Manager')
 
         self.news_folder = create(Builder('news folder')
                                   .titled(u'A News Folder'))

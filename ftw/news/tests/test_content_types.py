@@ -1,23 +1,18 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
+from ftw.news.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from unittest2 import TestCase
-import transaction
 
 
-class TestContentTypes(TestCase):
+class TestContentTypes(FunctionalTestCase):
 
     layer = FTW_NEWS_FUNCTIONAL_TESTING
 
     def setUp(self):
         super(TestContentTypes, self).setUp()
-        self.portal = self.layer['portal']
-        setRoles(self.portal, TEST_USER_ID, ['Manager', 'Site Administrator'])
-        transaction.commit()
+        self.grant('Manager', 'Site Administrator')
 
     @browsing
     def test_add_news_folder(self, browser):

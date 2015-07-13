@@ -1,25 +1,21 @@
 from datetime import datetime
 from ftw.builder import Builder, create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
+from ftw.news.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-import transaction
-import unittest2 as unittest
 
 
 news_portlet_action = '/++contextportlets++plone.rightcolumn/+/' \
                       'newsarchiveportlet'
 
 
-class TestNewsArchivePortlets(unittest.TestCase):
+class TestNewsArchivePortlets(FunctionalTestCase):
 
     layer = FTW_NEWS_FUNCTIONAL_TESTING
 
     def setUp(self):
-        self.portal = self.layer['portal']
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        transaction.commit()
+        super(TestNewsArchivePortlets, self).setUp()
+        self.grant('Manager')
 
     def _add_portlet(self, browser, context=None):
         """

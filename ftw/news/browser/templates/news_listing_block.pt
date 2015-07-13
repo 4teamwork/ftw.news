@@ -8,7 +8,7 @@
     </h2>
 
     <tal:rss-url tal:define="rss_url view/rss_url">
-        <div condition="rss:url" class="documentByLine">
+        <div tal:condition="rss_url" class="documentByLine">
             <a tal:attributes="href rss_url" i18n:translate="">Subscribe to the RSS feed</a>
         </div>
     </tal:rss-url>

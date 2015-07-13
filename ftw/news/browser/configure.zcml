@@ -39,11 +39,11 @@
         />
 
     <browser:menuItem
-      for="ftw.news.interfaces.INewsFolder"
-      title="News listing"
-      description="Display the contents of a news folder."
-      menu="plone_displayviews"
-      action="news_listing"
-      />
+        for="ftw.news.interfaces.INewsFolder"
+        title="News listing"
+        description="Display the contents of a news folder."
+        menu="plone_displayviews"
+        action="news_listing"
+        />
 
 </configure>

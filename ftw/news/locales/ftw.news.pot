@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-13 08:52+0000\n"
+"POT-Creation-Date: 2015-07-13 15:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,6 +50,7 @@ msgid "Read more"
 msgstr ""
 
 #: ./ftw/news/browser/templates/news_listing_block.pt:12
+#: ./ftw/news/portlets/templates/news_portlet.pt:59
 msgid "Subscribe to the RSS feed"
 msgstr ""
 
@@ -59,13 +60,13 @@ msgid "label_feed_desc"
 msgstr ""
 
 #. Default: "Read more"
-#: ./ftw/news/portlets/templates/news_portlet.pt:46
+#: ./ftw/news/portlets/templates/news_portlet.pt:41
 msgid "label_readmore"
 msgstr ""
 
 #. Default: "More News"
 #: ./ftw/news/browser/templates/news_listing_block.pt:53
-#: ./ftw/news/portlets/templates/news_portlet.pt:56
+#: ./ftw/news/portlets/templates/news_portlet.pt:53
 msgid "more_news_link"
 msgstr ""
 
@@ -75,7 +76,7 @@ msgid "news_folder_show_title_title_label"
 msgstr ""
 
 #. Default: "by ${author}"
-#: ./ftw/news/browser/templates/news_listing.pt:57
+#: ./ftw/news/browser/templates/news_listing.pt:55
 #: ./ftw/news/browser/templates/news_listing_block.pt:35
 msgid "news_listing_author_label"
 msgstr ""
@@ -91,7 +92,7 @@ msgid "news_listing_no_content_text"
 msgstr ""
 
 #. Default: "Read More…"
-#: ./ftw/news/browser/templates/news_listing.pt:72
+#: ./ftw/news/browser/templates/news_listing.pt:67
 msgid "news_listing_read_more_label"
 msgstr ""
 
@@ -231,12 +232,12 @@ msgid "news_portlet_title_label"
 msgstr ""
 
 #. Default: "No recent news available."
-#: ./ftw/news/portlets/templates/news_portlet.pt:22
+#: ./ftw/news/portlets/templates/news_portlet.pt:17
 msgid "no_recent_news_label"
 msgstr ""
 
 #. Default: "RSS"
-#: ./ftw/news/portlets/templates/news_portlet.pt:13
+#: ./ftw/news/portlets/templates/news_portlet.pt:59
 msgid "rss_link"
 msgstr ""
 

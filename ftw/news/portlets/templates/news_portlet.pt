@@ -8,13 +8,6 @@
 
         <dt class="portletHeader">
             <tal:title replace="view/data/portlet_title" />
-
-            <tal:rsslink condition="view/show_rss_link">
-                <a class="RssLink" title="RSS"
-                   tal:attributes="href string:${here/absolute_url}/@@news_listing_rss"
-                   i18n:attributes="title rss_link"
-                   i18n:translate="rss_link">RSS</a>
-            </tal:rsslink>
         </dt>
 
         <dd>
@@ -51,12 +44,21 @@
                     </li>
                 </tal:loop>
 
-                <li class="portletFooter">
-                    <tal:morelink tal:condition="view/more_news_url">
+                <li class="portletFooter"
+                    tal:define="more_news_url view/more_news_url;
+                                show_rss_link view/show_rss_link">
+                    <tal:morelink tal:condition="more_news_url">
                         <a class="newsMoreLink" title="More News"
-                           tal:attributes="href view/more_news_url"
+                           tal:attributes="href more_news_url"
                            i18n:translate="more_news_link">More News</a>
                     </tal:morelink>
+                    <br tal:condition="python: more_news_url and show_rss_link"/>
+                    <tal:rsslink condition="show_rss_link">
+                        <a class="RssLink" title="RSS"
+                           tal:attributes="href string:${here/absolute_url}/@@news_listing_rss"
+                           i18n:attributes="title rss_link"
+                           i18n:translate="">Subscribe to the RSS feed</a>
+                    </tal:rsslink>
                 </li>
             </ul>
         </dd>

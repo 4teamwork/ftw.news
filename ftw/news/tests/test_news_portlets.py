@@ -347,7 +347,8 @@ class TestNewsPortlets(FunctionalTestCase):
             'Link to RSS feed': True,
         }
         self._add_portlet(browser, **portlet_config)
-        self.assertEquals('RSS', browser.find('RSS').text)
+        self.assertEquals('Subscribe to the RSS feed',
+                          browser.find('Subscribe to the RSS feed').text)
 
     @browsing
     def test_portlet_does_not_render_rss_link_when_disabled(self, browser):
@@ -359,7 +360,7 @@ class TestNewsPortlets(FunctionalTestCase):
             'Link to RSS feed': False,
         }
         self._add_portlet(browser, **portlet_config)
-        self.assertIsNone(browser.find('RSS'))
+        self.assertIsNone(browser.find('Subscribe to the RSS feed'))
 
     @browsing
     def test_portlet_is_available_without_news_entries(self, browser):

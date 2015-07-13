@@ -105,14 +105,15 @@ class NewsListingRss(NewsListing):
         """
         return '<link>{0}</link>'.format(self.link)
 
-    def get_item_link_tag(self, url):
-        """
-        Returns a string containing a link tag.
-
-        This is needed because TAL complains about empty HTML tags which
-        cannot use "tal:content" when building the translation messages.
-        """
-        return '<link>{0}</link>'.format(url)
+    def get_item_dict(self, brain):
+        return {
+            'title': brain.Title,
+            'description': brain.Description,
+            'url': brain.getURL(),
+            'effective_date': brain.effective.strftime('%a, %e %b %Y '
+                                                       '%H:%M:%S %z'),
+            'link_tag': '<link>{0}</link>'.format(brain.getURL())
+        }
 
 
 class NewsListingPortlet(NewsListing):

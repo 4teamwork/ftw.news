@@ -8,7 +8,7 @@
     xmlns:metal="http://xml.zope.org/namespaces/metal">
 
     <tal:block
-        tal:define="items python: view.get_items()">
+        tal:define="items view/get_items">
 
         <channel rdf:about="" tal:attributes="rdf:about request/URL">
             <title tal:content="view/title">The title</title>
@@ -17,20 +17,20 @@
             <image tal:attributes="rdf:resource string:${context/portal_url}/logo.png" />
             <items>
                 <rdf:Seq>
-                    <tal:block repeat="item python: items">
+                    <tal:block repeat="item items">
                         <rdf:li rdf:resource=""
-                                tal:attributes="rdf:resource item/getURL" />
+                                tal:attributes="rdf:resource item/url" />
                     </tal:block>
                 </rdf:Seq>
             </items>
         </channel>
 
-        <tal:block repeat="item python: items">
-            <item rdf:about="" tal:attributes="rdf:about item/getURL">
-                <title tal:content="item/Title" />
-                <span tal:replace="structure python: view.get_item_link_tag(item.getURL())"></span>
-                <description tal:content="item/Description" />
-                <pubDate tal:content="python: item.effective.strftime('%a, %e %b %Y %H:%M:%S %z')"/>
+        <tal:block repeat="item items">
+            <item rdf:about="" tal:attributes="rdf:about item/url">
+                <title tal:content="item/title" />
+                <span tal:replace="structure item/link_tag"></span>
+                <description tal:content="item/description" />
+                <pubDate tal:content="item/effective_date"/>
             </item>
         </tal:block>
 

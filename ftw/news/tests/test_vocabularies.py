@@ -24,12 +24,11 @@ class TestVocabularies(FunctionalTestCase):
 
     def test_subject_vocabulary(self):
         create(Builder('news').titled(u'News 1')
-               .having(subjects=['hans', 'maria']))
+               .having(subjects=['hans', u'mari\xe4']))
         create(Builder('news').titled(u'News 2')
-               .having(subjects=['peter', 'maria']))
+               .having(subjects=['peter', u'mari\xe4']))
 
         login(self.portal, TEST_USER_NAME)
-
         self.assertEquals(
-            {'hans': u'hans', 'peter': u'peter', 'maria': u'maria'},
+            {'hans': u'hans', 'mari\xc3\xa4': u'mari\xe4', 'peter': u'peter'},
             terms_for('ftw.news.vocabulary.subjects', self.portal))

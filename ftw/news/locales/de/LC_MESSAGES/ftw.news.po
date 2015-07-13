@@ -16,7 +16,7 @@ msgstr ""
 
 #: ./ftw/news/profiles/default/types/ftw.news.NewsListingBlock.xml
 msgid "A block which renders news entries to be used with ftw.simplelayout."
-msgstr ""
+msgstr "Ein Block für ftw.simplelayout, welcher News-Einträge auflistet."
 
 #: ./ftw/news/profiles/default/types/ftw.news.NewsFolder.xml
 msgid "A container for news items."
@@ -39,7 +39,7 @@ msgstr "News-Auflistung"
 
 #: ./ftw/news/profiles/default/types/ftw.news.NewsListingBlock.xml
 msgid "NewsListingBlock"
-msgstr ""
+msgstr "News-Auflistung"
 
 #: ./ftw/news/browser/templates/news_listing_block.pt:20
 msgid "No content available"
@@ -51,7 +51,7 @@ msgstr "Weiterlesen"
 
 #: ./ftw/news/browser/templates/news_listing_block.pt:12
 msgid "Subscribe to the RSS feed"
-msgstr ""
+msgstr "RSS abonnieren"
 
 #. Default: "${title} - News Feed"
 #: ./ftw/news/browser/news_listing.py:91

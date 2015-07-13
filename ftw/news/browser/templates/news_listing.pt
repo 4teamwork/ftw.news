@@ -47,17 +47,12 @@
                 </h2>
 
                 <div class="documentByLine">
-                    <span class="dtstart" tal:content="item/effective_date">
-                        21.12.2012
-                    </span>
+                    <span class="dtstart" tal:content="item/effective_date" />
                     <tal:author condition="item/author">
                         <span class="documentAuthor"
                               i18n:translate="news_listing_author_label">
                             by
-                            <span tal:content="item/author"
-                                  i18n:name="author">
-                                Bob Dobalina
-                            </span>
+                            <span tal:content="item/author" i18n:name="author" />
                         </span>
                     </tal:author>
                 </div>

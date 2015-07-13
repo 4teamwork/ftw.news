@@ -6,7 +6,6 @@ maintainer = 'Mathias Leimgruber'
 
 tests_require = [
     'ftw.builder',
-    'ftw.testing',
     'ftw.testbrowser',
     'plone.app.testing',
     'plone.testing',
@@ -51,7 +50,6 @@ setup(
         'collective.z3cform.widgets',
         'ftw.simplelayout [contenttypes]',
         'plone.api',
-        'plone.app.dexterity',
         'plone.dexterity',
         'plone.directives.form',
         'setuptools',

@@ -20,7 +20,7 @@ extras_require = {
 setup(
     name='ftw.news',
     version=version,
-    description='TODO',
+    description='Provides dexterity content types for news articles.',
     long_description=open('README.rst').read() + '\n' + open(
         os.path.join('docs', 'HISTORY.txt')).read(),
 

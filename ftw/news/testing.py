@@ -3,14 +3,12 @@ from ftw.builder.testing import functional_session_factory
 from ftw.builder.testing import set_builder_session_factory
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
-from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.testing import z2
 from Testing.ZopeTestCase.utils import setupCoreSessions
 from zope.configuration import xmlconfig
 from ftw.news.tests import builders
-from ftw.simplelayout.tests import builders
 
 
 class FtwNewsLayer(PloneSandboxLayer):
@@ -33,10 +31,6 @@ class FtwNewsLayer(PloneSandboxLayer):
         applyProfile(portal, 'ftw.news:default')
 
 FTW_NEWS_FIXTURE = FtwNewsLayer()
-
-FTW_NEWS_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(FTW_NEWS_FIXTURE,),
-    name="ftw.news:integration")
 
 FTW_NEWS_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(FTW_NEWS_FIXTURE,

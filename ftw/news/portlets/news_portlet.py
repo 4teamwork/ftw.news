@@ -213,7 +213,7 @@ class Assignment(base.Assignment):
 
 
 class Renderer(base.Renderer):
-    render = ViewPageTemplateFile('news_portlet.pt')
+    render = ViewPageTemplateFile('templates/news_portlet.pt')
 
     @property
     def available(self):

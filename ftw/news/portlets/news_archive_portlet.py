@@ -174,7 +174,7 @@ class Renderer(base.Renderer):
             'effective',
             'news_listing')()
 
-    render = ViewPageTemplateFile('news_archive_portlet.pt')
+    render = ViewPageTemplateFile('templates/news_archive_portlet.pt')
 
 
 class AddForm(base.NullAddForm):

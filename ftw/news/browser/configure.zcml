@@ -38,4 +38,12 @@
         class=".news_listing_block.NewsListingBlockView"
         />
 
+    <browser:menuItem
+      for="ftw.news.interfaces.INewsFolder"
+      title="News listing"
+      description="Display the contents of a news folder."
+      menu="plone_displayviews"
+      action="news_listing"
+      />
+
 </configure>

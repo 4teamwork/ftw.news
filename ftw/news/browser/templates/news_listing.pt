@@ -34,45 +34,48 @@
 
         <div i18n:domain="ftw.news"
              class="newsListing"
-             tal:define="batch view/batch;
-                         toLocalizedTime nocall:context/@@plone/toLocalizedTime">
+             tal:define="batch view/batch;">
 
-            <div tal:repeat="brain batch" class="tileItem">
+            <p tal:condition="not:batch"
+               i18n:translate="news_listing_no_content_text">No content available</p>
+
+            <div tal:repeat="item batch" class="tileItem">
                 <h2 class="tileHeadline">
-                    <a class="summary url" tal:attributes="href brain/getURL"
-                       tal:content="brain/Title"></a>
+                    <a class="summary url"
+                       tal:attributes="href item/url"
+                       tal:content="item/title"></a>
                 </h2>
+
                 <div class="documentByLine">
-                    <span class="dtstart"
-                          tal:content="python:toLocalizedTime(brain.effective)">
+                    <span class="dtstart" tal:content="item/effective_date">
                         21.12.2012
                     </span>
-                    <tal:show_author condition="view/show_author">
-                        <tal:name tal:define="creator python:view.get_creator(brain)"
-                                  tal:condition="creator">
-                            <span class="documentAuthor" i18n:translate="news_listing_author_label">
-                                by
-                                <span tal:content="creator"
-                                      i18n:name="author">
-                                    Bob Dobalina
-                                </span>
+                    <tal:author condition="item/author">
+                        <span class="documentAuthor"
+                              i18n:translate="news_listing_author_label">
+                            by
+                            <span tal:content="item/author"
+                                  i18n:name="author">
+                                Bob Dobalina
                             </span>
-                        </tal:name>
-                    </tal:show_author>
+                        </span>
+                    </tal:author>
                 </div>
+
                 <p class="tileBody">
                     <span class="description"
-                          tal:content="brain/Description">
+                          tal:content="item/description">
                     </span>
                 </p>
+
                 <p class="tileFooter">
-                    <a tal:attributes="href brain/getURL"
+                    <a tal:attributes="href item/url"
                        i18n:translate="news_listing_read_more_label">Read More&hellip;</a>
                 </p>
+
                 <div class="visualClear"><!-- --></div>
             </div>
             <div metal:use-macro="context/batch_macros/macros/navigation" />
-            <p tal:condition="not:batch" i18n:translate="news_listing_no_content_text">No content available</p>
         </div>
 
     </metal:main>

@@ -33,12 +33,6 @@ class NewsListing(BrowserView):
         self.batch = Batch(self.get_items(), 10, b_start)
         return self.template()
 
-    def get_creator(self, item):
-        return utils.get_creator(item)
-
-    def show_author(self):
-        return utils.can_view_about()
-
     def get_items(self):
         query = {
             'object_provides': 'ftw.news.interfaces.INews',
@@ -65,7 +59,21 @@ class NewsListing(BrowserView):
                 'range': 'minmax',
             }
 
-        return catalog(query, show_inactive=show_inactive)
+        brains = catalog(query, show_inactive=show_inactive)
+        return [self.get_item_dict(brain) for brain in brains]
+
+    def get_item_dict(self, brain):
+        obj = brain.getObject()
+
+        item = {
+            'title': brain.Title,
+            'description': brain.Description,
+            'url': brain.getURL(),
+            'author':
+                utils.get_creator(obj) if utils.can_view_about() else '',
+            'effective_date': self.context.toLocalizedTime(brain.effective),
+        }
+        return item
 
     @property
     def title(self):

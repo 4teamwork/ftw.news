@@ -1,6 +1,7 @@
 from Acquisition import aq_parent, aq_inner
 from DateTime import DateTime
 from ftw.news import _
+from ftw.news import utils
 from plone.app.portlets.interfaces import IPortletPermissionChecker
 from plone.app.portlets.portlets import base
 from plone.directives import form
@@ -231,6 +232,9 @@ class Renderer(base.Renderer):
         return has_news
 
     def get_news(self, all_news=False):
+        """
+        Return a list of catalog brains.
+        """
         catalog = getToolByName(self.context, 'portal_catalog')
         url_tool = getToolByName(self.context, 'portal_url')
         portal_path = url_tool.getPortalPath()
@@ -261,9 +265,30 @@ class Renderer(base.Renderer):
 
         return results
 
-    def crop_desc(self, description):
-        ploneview = self.context.restrictedTraverse('@@plone')
-        return ploneview.cropText(description, self.data.description_length)
+    def get_items(self):
+        """
+        Returns a list of dict to be used in the template.
+        """
+        news = self.get_news()
+
+        items = []
+        for news_item in news:
+            description = ''
+            if self.data.show_description:
+                description = news_item.Description
+            if self.data.description_length:
+                description = utils.crop_text(description,
+                                              self.data.description_length)
+            item = {
+                'title': news_item.Title,
+                'description': description,
+                'effective_date': self.context.toLocalizedTime(
+                    news_item.effective),
+                'url': news_item.getURL(),
+            }
+            items.append(item)
+
+        return items
 
     def show_rss_link(self):
         return getattr(self.data, 'show_rss_link', False)

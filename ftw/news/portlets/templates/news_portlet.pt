@@ -4,8 +4,7 @@
       i18n:domain="ftw.news">
 
     <dl class="portlet portletCollection newsTemplate"
-        tal:define="plone_view context/@@plone;
-                toLocalizedTime nocall:plone_view/toLocalizedTime;">
+        tal:define="items view/get_items;">
 
         <dt class="portletHeader">
             <tal:title replace="view/data/portlet_title" />
@@ -16,36 +15,36 @@
                    i18n:attributes="title rss_link"
                    i18n:translate="rss_link">RSS</a>
             </tal:rsslink>
-
         </dt>
+
         <dd>
             <ul>
                 <li class="portletItem noRecentNews"
-                    tal:condition="not: view/get_news"
+                    tal:condition="not: items"
                     i18n:translate="no_recent_news_label">No recent news available.</li>
 
-                <tal:loop tal:repeat="brain view/get_news">
+                <tal:loop tal:repeat="item items">
                     <li class="portletItem"
-                        tal:define="oddrow repeat/brain/odd;
-                                    lastrow repeat/brain/_last"
+                        tal:define="oddrow repeat/item/odd;
+                                    lastrow repeat/item/last"
                         tal:attributes="class python:'%s%s' % (
                                         lastrow and 'lastItem ' or '',
                                         oddrow and 'portletItem even' or 'portletItem odd')">
 
                         <div class="newsText">
                             <div class="portletItemDate"
-                                 tal:content="python:toLocalizedTime(brain.effective)" />
+                                 tal:content="item/effective_date" />
 
-                            <div class="portletItemTitle" tal:content="brain/Title" />
+                            <div class="portletItemTitle" tal:content="item/title" />
 
                             <div class="portletItemDescription"
-                                 tal:condition="python: brain.Description and view.data.show_description">
-                                <div tal:content="python: view.crop_desc(brain.Description)" />
+                                 tal:condition="item/description">
+                                <div tal:content="item/description" />
                             </div>
                         </div>
 
                         <a class="portletItemMore"
-                           tal:attributes="href brain/getURL;"
+                           tal:attributes="href item/url;"
                            i18n:translate="label_readmore">Read more</a>
 
                         <div class="visualClear"><!-- --></div>

@@ -1,4 +1,5 @@
-@include portal-type-font-awesome-icon(ftw-news-news, fa-newspaper-o);
+@include portal-type-font-awesome-icon(ftw-news-news, newspaper-o);
+@include portal-type-font-awesome-icon(ftw-news-newsfolder, newspaper-o);
 
 .portletArchiveListing .highlight a {
   font-weight: bold;

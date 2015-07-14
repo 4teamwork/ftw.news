@@ -33,8 +33,8 @@ class SubjectVocabulary(SimpleVocabulary):
             # prevent double tokens and the token is still readable.
             token = '{0}-{1}'.format(md5(term).hexdigest(),
                                      normalizer.normalize(term))
-            terms.append(SimpleTerm(value=term,
-                                    token=token,
+            terms.append(SimpleTerm(value=term.decode('utf8'),
+                                    token=token.decode('utf8'),
                                     title=term.decode('utf8')))
         return terms
 

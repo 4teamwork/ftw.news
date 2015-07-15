@@ -12,7 +12,7 @@ class NewsListingBlockView(BaseBlock):
 
     @property
     def title(self):
-        return self.context.portlet_title
+        return self.context.news_listing_config_title
 
     @property
     def rss_url(self):

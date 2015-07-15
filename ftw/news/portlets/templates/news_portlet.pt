@@ -7,7 +7,7 @@
         tal:define="items view/get_items;">
 
         <dt class="portletHeader">
-            <tal:title replace="view/data/portlet_title" />
+            <tal:title replace="view/data/news_listing_config_title" />
         </dt>
 
         <dd>

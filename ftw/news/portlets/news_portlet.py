@@ -2,133 +2,22 @@ from Acquisition import aq_parent, aq_inner
 from DateTime import DateTime
 from ftw.news import _
 from ftw.news import utils
+from ftw.news.contents.common import INewsListingBaseSchema
 from plone.app.portlets.interfaces import IPortletPermissionChecker
 from plone.app.portlets.portlets import base
-from plone.directives import form
 from plone.directives.form.form import SchemaAddForm, SchemaEditForm
-from plone.formwidget.autocomplete.widget import AutocompleteMultiFieldWidget
-from plone.formwidget.contenttree import MultiContentTreeFieldWidget
-from plone.formwidget.contenttree import PathSourceBinder
 from plone.portlets.interfaces import IPortletDataProvider
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from z3c.form import button
 from z3c.form import form as z3cform
-from z3c.relationfield import RelationChoice
 from zope import schema
 from zope.component import getMultiAdapter
-from zope.interface import implements, invariant, Invalid
+from zope.interface import implements
 import datetime
 
 
-class INewsPortletSchema(form.Schema):
-    portlet_title = schema.TextLine(
-        title=_(u'news_portlet_title_label', default=u'Title'),
-        description=u'',
-        required=True,
-        default=u'')
-
-    form.widget(filter_by_path=MultiContentTreeFieldWidget)
-    filter_by_path = schema.List(
-        title=_(u'news_portlet_filter_path_label', default=u'Limit to path'),
-        description=_(u'news_portlet_filter_path_description',
-                      default=u'Only show news items from a specific path.'),
-        value_type=RelationChoice(
-            source=PathSourceBinder(
-                navigation_tree_query={'is_folderish': True},
-                is_folderish=True
-            ),
-        ),
-        required=False,
-        missing_value=(),
-    )
-
-    current_context = schema.Bool(
-        title=_(u'news_portlet_filter_current_context_label',
-                default=u'Limit to current context'),
-        description=_(u'news_portlet_filter_current_context_description',
-                      default=u'Only show news items from the current '
-                              u'context.'),
-        default=True,
-    )
-
-    quantity = schema.Int(
-        title=_(u'news_portlet_quantity_label', default=u'Quantity'),
-        description=_(u'news_portlet_quantity_description',
-                      default=u'The number of news entries to be '
-                              u'shown at most.'),
-        default=5,
-    )
-
-    # MAYBE: Find a better widget.
-    form.widget(subjects=AutocompleteMultiFieldWidget)
-    subjects = schema.List(
-        title=_(u'news_portlet_subjects_label',
-                default=u'Filter by subject'),
-        description=_(u'news_portlet_subjects_description',
-                      default=u'Only news with the selected subjects will '
-                              u'be shown.'),
-        value_type=schema.Choice(vocabulary='ftw.news.vocabulary.subjects'),
-        required=False,
-    )
-
-    show_description = schema.Bool(
-        title=_(u'news_portlet_show_description_label',
-                default=u'Show the description of the news item'),
-        default=True
-    )
-
-    description_length = schema.Int(
-        title=_(u'news_portlet_description_length_label',
-                default=u'Length of the description'),
-        description=_(u'news_portlet_description_length_description',
-                      default=u'The maximum length of the news item\'s '
-                              u'description. Longer descriptions will be '
-                              u'cropped.'),
-        default=50,
-    )
-
-    maximum_age = schema.Int(
-        title=_(u'news_portlet_maximum_age_label',
-                default=u'Maximum age (days)'),
-        description=_(u'news_portlet_maximum_age_description',
-                      default=u'Only news younger than this value will be '
-                              u'rendered. Enter 0 for no limitation.'),
-        default=0,
-        required=True,
-    )
-
-    show_more_news_link = schema.Bool(
-        title=_(u'news_portlet_show_more_news_link_label',
-                default=u'Link to more news'),
-        description=_(u'news_portlet_show_more_news_link_description',
-                      default=u'Render a link to a page which renders more '
-                              u'news (only if there is at least one news '
-                              u'item.'),
-        default=False,
-    )
-
-    show_rss_link = schema.Bool(
-        title=_(u'news_portlet_show_rss_link_label',
-                default=u'Link to RSS feed'),
-        description=_(u'news_portlet_show_rss_link_description',
-                      default=u'Render a link to the RSS feed of the news.'),
-        default=False,
-    )
-
-    @invariant
-    def is_either_path_or_context(obj):
-        """Checks if not both path and current context are defined.
-        """
-        if obj.current_context and obj.filter_by_path:
-            raise Invalid(_(
-                u'news_portlet_current_context_and_path_error',
-                default=u'You can not filter by path and current context '
-                        u'at the same time.')
-            )
-
-
-class INewsPortlet(INewsPortletSchema, IPortletDataProvider):
+class INewsPortlet(INewsListingBaseSchema, IPortletDataProvider):
 
     always_render_portlet = schema.Bool(
         title=_(u'news_portlet_always_render_portlet_label',
@@ -170,7 +59,7 @@ class AddForm(SchemaAddForm):
 
     def create(self, data):
         return Assignment(
-            portlet_title=data.get('portlet_title'),
+            news_listing_config_title=data.get('news_listing_config_title'),
             current_context=data.get('current_context', True),
             quantity=data.get('quantity', 5),
             filter_by_path=data.get('filter_by_path', []),
@@ -187,12 +76,12 @@ class AddForm(SchemaAddForm):
 class Assignment(base.Assignment):
     implements(INewsPortlet)
 
-    def __init__(self, portlet_title='News', current_context=True, quantity=5,
+    def __init__(self, news_listing_config_title='News', current_context=True, quantity=5,
                  filter_by_path=None, subjects=None, show_description=False,
                  description_length=50, maximum_age=0,
                  show_more_news_link=False, show_rss_link=False,
                  always_render_portlet=False):
-        self.portlet_title = portlet_title
+        self.news_listing_config_title = news_listing_config_title
         self.current_context = current_context
         self.quantity = quantity
         self.filter_by_path = filter_by_path or []
@@ -211,7 +100,7 @@ class Assignment(base.Assignment):
         instance is appended to the default title which is useful if there
         is more than one news portlet.
         """
-        return u'News Portlet ({0})'.format(self.portlet_title)
+        return u'News Portlet ({0})'.format(self.news_listing_config_title)
 
 
 class Renderer(base.Renderer):

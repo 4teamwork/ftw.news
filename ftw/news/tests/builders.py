@@ -19,7 +19,8 @@ class NewsListingBlockBuilder(DexterityBuilder):
     portal_type = 'ftw.news.NewsListingBlock'
 
     def titled(self, title):
-        self.arguments['title'] = self.arguments['portlet_title'] = title
+        self.arguments['title'] = self.arguments['news_listing_config_title'] \
+            = title
         return self
 
 

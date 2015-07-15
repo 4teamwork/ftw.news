@@ -175,5 +175,5 @@ class NewsListingPortlet(NewsListing):
     def title(self):
         portlet = self.get_portlet()
         if portlet:
-            return portlet.data.portlet_title
+            return portlet.data.news_listing_config_title
         return super(NewsListingPortlet, self).title()

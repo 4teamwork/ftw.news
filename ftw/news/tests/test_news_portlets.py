@@ -268,6 +268,7 @@ class TestNewsPortlets(FunctionalTestCase):
                .having(description=u'This description',
                        news_date=date(2000, 12, 31)))
 
+        # First make sure the description is rendered.
         portlet_config = {
             'Title': 'A News Portlet',
             'Show the description of the news item': True,
@@ -276,10 +277,12 @@ class TestNewsPortlets(FunctionalTestCase):
         self.assertIn('This description',
                       browser.css('li.portletItem').first.text)
 
+        # Tell the portlet to not render the description anymore.
         browser.visit(self.portal, view='manage-portlets')
         browser.find('News Portlet (A News Portlet)').click()
         browser.fill({'Show the description of the news item': False}).save()
 
+        # Make sure the description is not rendered.
         browser.visit(self.portal)
         self.assertNotIn('This description',
                          browser.css('li.portletItem').first.text)

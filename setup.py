@@ -47,7 +47,6 @@ setup(
     zip_safe=False,
 
     install_requires=[
-        'collective.z3cform.widgets',
         'ftw.datepicker',
         'ftw.simplelayout [contenttypes]',
         'plone.api',

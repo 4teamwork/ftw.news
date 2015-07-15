@@ -1,6 +1,5 @@
 from ftw.builder import Builder
 from ftw.builder import create
-import transaction
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
 from ftw.news.tests import FunctionalTestCase
 from ftw.testbrowser import browsing

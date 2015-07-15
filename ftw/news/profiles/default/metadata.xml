@@ -4,5 +4,6 @@
     <dependencies>
         <dependency>profile-ftw.simplelayout:default</dependency>
         <dependency>profile-collective.z3cform.widgets:default</dependency>
+        <dependency>profile-ftw.datepicker:default</dependency>
     </dependencies>
 </metadata>

@@ -47,7 +47,7 @@
                 </h2>
 
                 <div class="documentByLine">
-                    <span class="dtstart" tal:content="item/effective_date" />
+                    <span class="dtstart" tal:content="item/news_date" />
                     <tal:author condition="item/author">
                         <span class="documentAuthor"
                               i18n:translate="news_listing_author_label">

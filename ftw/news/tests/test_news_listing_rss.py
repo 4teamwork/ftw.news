@@ -1,3 +1,4 @@
+from datetime import date
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
@@ -17,7 +18,8 @@ class TestNewsRssListing(FunctionalTestCase):
                                   .titled(u'A News Folder'))
 
         self.news = create(Builder('news').titled(u'News Entry')
-                           .within(self.news_folder))
+                           .within(self.news_folder)
+                           .having(news_date=date(2000, 12, 31)))
 
     @browsing
     def test_news_listing_rss_items(self, browser):
@@ -38,12 +40,11 @@ class TestNewsRssListing(FunctionalTestCase):
         # Use HTML parser so that we have no XML namespaces.
         browser.parse_as_html()
 
-        effective_date = self.news.effective()
         self.assertEqual(
             # Difference between "%e" and "%-e":
             # %e has a leading space on single numbers - that's why the tests
             # were failing between the 1st and the 9th every month :-)
             # %-e Removes the leading space - only works on unix machines.
-            effective_date.strftime('%a, %-e %b %Y %H:%M:%S %z').strip(),
+            self.news.news_date.strftime('%a, %-e %b %Y %H:%M:%S %z').strip(),
             browser.css('rdf item pubDate').first.text
         )

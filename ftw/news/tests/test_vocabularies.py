@@ -1,10 +1,10 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
+from ftw.news.tests import FunctionalTestCase
 from plone.app.testing import login, TEST_USER_NAME
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
-from ftw.news.tests import FunctionalTestCase
 
 
 def terms_for(vocabulary_name, context):
@@ -30,5 +30,5 @@ class TestVocabularies(FunctionalTestCase):
 
         login(self.portal, TEST_USER_NAME)
         self.assertEquals(
-            {'hans': u'hans', 'mari\xc3\xa4': u'mari\xe4', 'peter': u'peter'},
+            {u'hans': u'hans', u'mari\xe4': u'mari\xe4', u'peter': u'peter'},
             terms_for('ftw.news.vocabulary.subjects', self.portal))

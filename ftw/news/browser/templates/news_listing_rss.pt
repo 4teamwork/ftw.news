@@ -30,7 +30,7 @@
                 <title tal:content="item/title" />
                 <span tal:replace="structure item/link_tag"></span>
                 <description tal:content="item/description" />
-                <pubDate tal:content="item/effective_date"/>
+                <pubDate tal:content="item/news_date"/>
             </item>
         </tal:block>
 

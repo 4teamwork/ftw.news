@@ -26,7 +26,7 @@
 
                         <div class="newsText">
                             <div class="portletItemDate"
-                                 tal:content="item/effective_date" />
+                                 tal:content="item/news_date" />
 
                             <div class="portletItemTitle" tal:content="item/title" />
 

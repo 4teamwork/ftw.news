@@ -27,8 +27,8 @@
                        tal:content="item/title">Link</a>
                 </h3>
                 <div class="documentByLine">
-                    <span tal:condition="item/effective_date"
-                          tal:content="item/effective_date"/>
+                    <span tal:condition="item/news_date"
+                          tal:content="item/news_date"/>
                     <span condition="item/author"
                           i18n:translate="news_listing_author_label">
                         by

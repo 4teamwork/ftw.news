@@ -21,8 +21,7 @@ class TestContentTypes(FunctionalTestCase):
 
         news_folder_title = u'This is a news folder'
 
-        browser.fill({'Title': news_folder_title})
-        browser.find_button_by_label('Save').click()
+        browser.fill({'Title': news_folder_title}).save()
 
         browser.open()
         browser.find(news_folder_title).click()
@@ -38,8 +37,7 @@ class TestContentTypes(FunctionalTestCase):
 
         news_item_title = u'This is a news entry'
 
-        browser.fill({'Title': news_item_title})
-        browser.find_button_by_label('Save').click()
+        browser.fill({'Title': news_item_title, 'Date': '12/31/00'}).save()
 
         self.assertEqual(news_item_title,
                          browser.css('h1.documentFirstHeading').first.text)

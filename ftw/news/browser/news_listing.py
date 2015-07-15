@@ -1,6 +1,4 @@
 from Acquisition import aq_parent, aq_inner
-from DateTime import DateTime
-from DateTime.interfaces import SyntaxError as dtSytaxError
 from ftw.news import _
 from ftw.news import utils
 from ftw.news.interfaces import INewsListingView
@@ -18,6 +16,8 @@ from zope.component import getUtility
 from zope.component import queryMultiAdapter
 from zope.interface import implements
 from zope.publisher.browser import BrowserView
+import DateTime
+import datetime
 
 
 class NewsListing(BrowserView):
@@ -36,7 +36,7 @@ class NewsListing(BrowserView):
     def get_items(self):
         query = {
             'object_provides': 'ftw.news.interfaces.INews',
-            'sort_on': 'effective',
+            'sort_on': 'start',
             'sort_order': 'reverse'
         }
         show_inactive = _checkPermission(AccessInactivePortalContent,
@@ -48,11 +48,13 @@ class NewsListing(BrowserView):
         datestring = self.request.get('archive')
         if datestring:
             try:
-                start = DateTime(datestring)
-            except dtSytaxError:
-                return query
-            end = DateTime('%s/%s/%s' % (start.year() + start.month() / 12,
-                                         start.month() % 12 + 1, 1))
+                start = DateTime.DateTime(datestring)
+            except DateTime.interfaces.SyntaxError:
+                raise
+            end = DateTime.DatetTime('%s/%s/%s'.format(
+                start.year() + start.month() / 12,
+                start.month() % 12 + 1,
+                1))
             end = end - 1
             query['effective'] = {
                 'query': (start.earliestTime(), end.latestTime()),
@@ -71,7 +73,9 @@ class NewsListing(BrowserView):
             'url': brain.getURL(),
             'author':
                 utils.get_creator(obj) if utils.can_view_about() else '',
-            'effective_date': self.context.toLocalizedTime(brain.effective),
+            'news_date': self.context.toLocalizedTime(
+                datetime.datetime.combine(brain.start, datetime.time.min)
+            ),
         }
         return item
 
@@ -110,8 +114,8 @@ class NewsListingRss(NewsListing):
             'title': brain.Title,
             'description': brain.Description,
             'url': brain.getURL(),
-            'effective_date': brain.effective.strftime('%a, %e %b %Y '
-                                                       '%H:%M:%S %z'),
+            'news_date': brain.start.strftime(
+                '%a, %e %b %Y %H:%M:%S %z'),
             'link_tag': '<link>{0}</link>'.format(brain.getURL())
         }
 

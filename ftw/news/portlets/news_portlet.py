@@ -18,6 +18,7 @@ from z3c.relationfield import RelationChoice
 from zope import schema
 from zope.component import getMultiAdapter
 from zope.interface import implements, invariant, Invalid
+import datetime
 
 
 class INewsPortletSchema(form.Schema):
@@ -241,7 +242,9 @@ class Renderer(base.Renderer):
         query = {'object_provides': 'ftw.news.interfaces.INews'}
 
         if self.data.current_context:
-            path = '/'.join(self.context.getPhysicalPath())
+            context_state = self.context.restrictedTraverse(
+                'plone_context_state')
+            path = '/'.join(context_state.canonical_object().getPhysicalPath())
             query['path'] = {'query': path}
         elif self.data.filter_by_path:
             cat_path = []
@@ -256,7 +259,7 @@ class Renderer(base.Renderer):
             date = DateTime() - self.data.maximum_age
             query['effective'] = {'query': date, 'range': 'min'}
 
-        query['sort_on'] = 'effective'
+        query['sort_on'] = 'start'
         query['sort_order'] = 'descending'
         results = catalog.searchResults(query)
 
@@ -282,8 +285,10 @@ class Renderer(base.Renderer):
             item = {
                 'title': news_item.Title,
                 'description': description,
-                'effective_date': self.context.toLocalizedTime(
-                    news_item.effective),
+                'news_date': self.context.toLocalizedTime(
+                    datetime.datetime.combine(news_item.start,
+                                              datetime.time.min)
+                ),
                 'url': news_item.getURL(),
             }
             items.append(item)

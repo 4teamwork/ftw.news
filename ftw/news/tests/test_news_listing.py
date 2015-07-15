@@ -28,13 +28,13 @@ class TestNewsListing(FunctionalTestCase):
         yesterday = datetime.today() - timedelta(days=1)
         self.news1 = create(Builder('news').titled(u'News Entry 1')
                             .within(self.news_folder)
-                            .having(effective=yesterday)
+                            .having(effective=yesterday, news_date=yesterday)
                             )
 
         tomorrow = datetime.today() + timedelta(days=1)
         self.news2 = create(Builder('news').titled(u'News Entry 2')
                             .within(self.news_folder)
-                            .having(effective=tomorrow)
+                            .having(effective=tomorrow, news_date=tomorrow)
                             )
 
         set_allow_anonymous_view_about(self.news_folder, True)

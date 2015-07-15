@@ -26,4 +26,6 @@
         name="ftw.news.vocabulary.subjects"
         />
 
+    <adapter factory=".indexer.news_start_date" name="start"/>
+
 </configure>

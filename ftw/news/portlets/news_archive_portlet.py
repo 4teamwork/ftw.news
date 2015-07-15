@@ -10,6 +10,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.i18n import translate
 from zope.interface import implements
 
+import logging; handler = logging.StreamHandler(); logging.root.addHandler(handler)
 
 def zLocalizedTime(request, time, long_format=False):
     """Convert time to localized time
@@ -23,11 +24,11 @@ def zLocalizedTime(request, time, long_format=False):
 
 class ArchiveSummary(object):
 
-    def __init__(self, context, request, interfaces, date_filed, view_name):
+    def __init__(self, context, request, interfaces, date_field, view_name):
         self.context = context
         self.request = request
         self.interfaces = interfaces
-        self.date_filed = date_filed
+        self.date_field = date_field
         self.view_name = view_name
         self.selected_year = None
         self.selected_month = None
@@ -114,7 +115,7 @@ class ArchiveSummary(object):
 
         for entry in entries:
 
-            date = getattr(entry, self.date_filed)
+            date = getattr(entry, self.date_field)
             if not date:
                 continue
 
@@ -168,11 +169,11 @@ class Renderer(base.Renderer):
     def get_items(self):
         """Returns an ordered list of summary info per month."""
         summary = ArchiveSummary(
-            self.context,
-            self.request,
-            ['ftw.news.interfaces.INews'],
-            'effective',
-            'news_listing')()
+            context=self.context,
+            request=self.request,
+            interfaces=['ftw.news.interfaces.INews'],
+            date_field='start',
+            view_name='news_listing')()
 
         items = [{
             'year_and_count': '{0} ({1})'.format(year['title'],

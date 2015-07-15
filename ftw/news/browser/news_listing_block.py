@@ -4,6 +4,7 @@ from ftw.news import utils
 from ftw.simplelayout.browser.blocks.base import BaseBlock
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+import datetime
 
 
 class NewsListingBlockView(BaseBlock):
@@ -50,7 +51,7 @@ class NewsListingBlockView(BaseBlock):
             date = DateTime() - self.context.maximum_age
             query['effective'] = {'query': date, 'range': 'min'}
 
-        query['sort_on'] = 'effective'
+        query['sort_on'] = 'start'
         query['sort_order'] = 'descending'
         brains = catalog.searchResults(query)
 
@@ -78,6 +79,8 @@ class NewsListingBlockView(BaseBlock):
             'description': description,
             'url': brain.getURL(),
             'author': author,
-            'effective_date': self.context.toLocalizedTime(brain.effective),
+            'news_date': self.context.toLocalizedTime(
+                datetime.datetime.combine(brain.start, datetime.time.min)
+            ),
         }
         return item

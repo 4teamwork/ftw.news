@@ -17,7 +17,6 @@
 .portletArchiveListing li.month {
   padding-left: 2em;
 }
-
 .portletArchiveListing li.year span.yearnumber:before {
   content: '►';
   padding-right: 5px;

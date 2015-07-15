@@ -10,7 +10,6 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.i18n import translate
 from zope.interface import implements
 
-import logging; handler = logging.StreamHandler(); logging.root.addHandler(handler)
 
 def zLocalizedTime(request, time, long_format=False):
     """Convert time to localized time

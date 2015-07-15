@@ -76,9 +76,9 @@ class AddForm(SchemaAddForm):
 class Assignment(base.Assignment):
     implements(INewsPortlet)
 
-    def __init__(self, news_listing_config_title='News', current_context=True, quantity=5,
-                 filter_by_path=None, subjects=None, show_description=False,
-                 description_length=50, maximum_age=0,
+    def __init__(self, news_listing_config_title='News', current_context=True,
+                 quantity=5, filter_by_path=None, subjects=None,
+                 show_description=False, description_length=50, maximum_age=0,
                  show_more_news_link=False, show_rss_link=False,
                  always_render_portlet=False):
         self.news_listing_config_title = news_listing_config_title

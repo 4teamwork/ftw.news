@@ -55,7 +55,7 @@
                     <br tal:condition="python: more_news_url and show_rss_link"/>
                     <tal:rsslink condition="show_rss_link">
                         <a class="RssLink" title="RSS"
-                           tal:attributes="href string:${context/@@plone_context_state/canonical_object_url}/news_listing_rss'"Fi
+                           tal:attributes="href string:${context/@@plone_context_state/canonical_object_url}/news_listing_rss'"
                            i18n:attributes="title rss_link"
                            i18n:translate="">Subscribe to the RSS feed</a>
                     </tal:rsslink>

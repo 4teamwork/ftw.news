@@ -50,7 +50,9 @@
 
         <p tal:define="more_news_url view/more_news_url"
            tal:condition="more_news_url">
-            <a class="newsMoreLink" title="More News"
+            <a class="newsMoreLink"
+               title="More News"
+               i18n:attributes="title more_news_link"
                tal:attributes="href more_news_url"
                i18n:translate="more_news_link">More News</a>
         </p>

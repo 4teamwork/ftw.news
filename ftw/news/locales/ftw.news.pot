@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-15 07:33+0000\n"
+"POT-Creation-Date: 2015-07-22 10:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,7 +50,6 @@ msgid "Read more"
 msgstr ""
 
 #: ./ftw/news/browser/templates/news_listing_block.pt:12
-#: ./ftw/news/portlets/templates/news_portlet.pt:57
 msgid "Subscribe to the RSS feed"
 msgstr ""
 
@@ -246,9 +245,9 @@ msgstr ""
 msgid "no_recent_news_label"
 msgstr ""
 
-#. Default: "RSS"
-#: ./ftw/news/portlets/templates/news_portlet.pt:57
-msgid "rss_link"
+#. Default: "Subscribe to the RSS feed"
+#: ./ftw/news/portlets/templates/news_portlet.pt:59
+msgid "rss_link_title"
 msgstr ""
 
 

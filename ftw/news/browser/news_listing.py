@@ -10,12 +10,12 @@ from Products.CMFCore.utils import _checkPermission
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFPlone.PloneBatch import Batch
+from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component import queryMultiAdapter
 from zope.interface import implements
-from zope.publisher.browser import BrowserView
 import DateTime
 import datetime
 
@@ -51,12 +51,12 @@ class NewsListing(BrowserView):
                 start = DateTime.DateTime(datestring)
             except DateTime.interfaces.SyntaxError:
                 raise
-            end = DateTime.DatetTime('%s/%s/%s'.format(
+            end = DateTime.DateTime('{0}/{1}/{2}'.format(
                 start.year() + start.month() / 12,
                 start.month() % 12 + 1,
-                1))
-            end = end - 1
-            query['effective'] = {
+                1)
+            ) - 1
+            query['start'] = {
                 'query': (start.earliestTime(), end.latestTime()),
                 'range': 'minmax',
             }

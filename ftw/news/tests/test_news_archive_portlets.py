@@ -98,3 +98,19 @@ class TestNewsArchivePortlets(FunctionalTestCase):
         self._add_portlet(browser, page)
         self.assertNotIn('Archive', browser.css('dt.portletHeader').text,
                          'Archive portlet is here but it should not be.')
+
+    @browsing
+    def test_archive_portlet_link(self, browser):
+        """
+        This test makes sure the summary is correct.
+        """
+        news_folder = create(Builder('news folder').titled(u'News Folder'))
+        create(Builder('news').titled(u'News Entry 1').within(news_folder)
+               .having(news_date=datetime(2013, 1, 1)))
+        create(Builder('news').titled(u'News Entry 2').within(news_folder)
+               .having(news_date=datetime(2013, 1, 11)))
+
+        self._add_portlet(browser, news_folder)
+
+        browser.find('January (2)').click()
+        self.assertEqual(2, len(browser.css('div.tileItem')))

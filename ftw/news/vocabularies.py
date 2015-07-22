@@ -2,11 +2,11 @@ from hashlib import md5
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.utils import getToolByName
 from zope.component import queryUtility
+from zope.component.hooks import getSite
 from zope.interface import directlyProvides
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
-from zope.site.hooks import getSite
 
 
 class SubjectVocabulary(SimpleVocabulary):

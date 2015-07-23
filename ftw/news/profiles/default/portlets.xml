@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<portlets>
+
+    <portlet
+        addview="newsportlet"
+        title="News Portlet (ftw.news)"
+        description=""
+        />
+
+    <portlet
+        addview="newsarchiveportlet"
+        title="News Archive Portlet (ftw.news)"
+        description=""
+        />
+
+</portlets>

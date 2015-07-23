@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="ftw.news">
+
+    <permission
+        id="ftw.news.AddNewsFolder"
+        title="ftw.news: Add NewsFolder"
+        />
+
+    <permission
+        id="ftw.news.AddNews"
+        title="ftw.news: Add News"
+        />
+
+    <permission
+        id="ftw.news.AddNewsListingBlock"
+        title="ftw.news: Add NewsListingBlock"
+        />
+
+</configure>

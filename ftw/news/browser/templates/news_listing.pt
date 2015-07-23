@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+
+    <metal:block metal:fill-slot="head_slot">
+        <link rel="alternate" type="application/rss+xml" title="RSS"
+              i18n:attributes="title"
+              tal:attributes="href string:${context/absolute_url}/news_listing_rss"
+            />
+    </metal:block>
+
+    <metal:slot fill-slot="style_slot">
+        <style type="text/css">
+            dl#plone-contentmenu-factories #news {
+            display: block !important;
+            }
+        </style>
+    </metal:slot>
+
+    <metal:title fill-slot="content-title">
+        <h1 class="documentFirstHeading" tal:content="view/title"></h1>
+    </metal:title>
+
+    <metal:description fill-slot="content-description">
+        <metal:comment tal:content="nothing">
+            No description
+        </metal:comment>
+    </metal:description>
+
+    <metal:main fill-slot="content-core">
+
+        <div i18n:domain="ftw.news"
+             class="newsListing"
+             tal:define="batch view/batch;">
+
+            <p tal:condition="not:batch"
+               i18n:translate="news_listing_no_content_text">No content available</p>
+
+            <div tal:repeat="item batch" class="tileItem">
+                <h2 class="tileHeadline">
+                    <a class="summary url"
+                       tal:attributes="href item/url"
+                       tal:content="item/title"></a>
+                </h2>
+
+                <div class="documentByLine">
+                    <span class="dtstart" tal:content="item/news_date" />
+                    <tal:author condition="item/author">
+                        <span class="documentAuthor"
+                              i18n:translate="news_listing_author_label">
+                            by
+                            <span tal:content="item/author" i18n:name="author" />
+                        </span>
+                    </tal:author>
+                </div>
+
+                <p class="tileBody">
+                    <span class="description"
+                          tal:content="item/description">
+                    </span>
+                </p>
+
+                <p class="tileFooter">
+                    <a tal:attributes="href item/url"
+                       i18n:translate="news_listing_read_more_label">Read More&hellip;</a>
+                </p>
+
+                <div class="visualClear"><!-- --></div>
+            </div>
+            <div metal:use-macro="context/batch_macros/macros/navigation" />
+        </div>
+
+    </metal:main>
+</html>

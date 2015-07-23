@@ -1,0 +1,49 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="ftw.news">
+
+    <browser:resourceDirectory
+        name="ftw.news.resources"
+        directory="resources"
+        />
+
+    <browser:page
+        for="*"
+        name="news_listing"
+        class=".news_listing.NewsListing"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        for="*"
+        name="news_listing_rss"
+        class=".news_listing.NewsListingRss"
+        permission="zope2.View"
+        allowed_attributes="news_result get_news"
+        />
+
+    <browser:page
+        for="*"
+        name="news_portlet_listing"
+        class=".news_listing.NewsListingPortlet"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        for="ftw.news.interfaces.INewsListingBlock"
+        name="block_view"
+        permission="zope2.View"
+        class=".news_listing_block.NewsListingBlockView"
+        />
+
+    <browser:menuItem
+        for="ftw.news.interfaces.INewsFolder"
+        title="News listing"
+        description="Display the contents of a news folder."
+        menu="plone_displayviews"
+        action="news_listing"
+        />
+
+</configure>

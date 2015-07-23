@@ -6,7 +6,6 @@ maintainer = 'Mathias Leimgruber'
 
 tests_require = [
     'ftw.builder',
-    'ftw.testing',
     'ftw.testbrowser',
     'plone.app.testing',
     'plone.testing',
@@ -20,7 +19,7 @@ extras_require = {
 setup(
     name='ftw.news',
     version=version,
-    description='TODO',
+    description='Provides dexterity content types for news articles.',
     long_description=open('README.rst').read() + '\n' + open(
         os.path.join('docs', 'HISTORY.txt')).read(),
 
@@ -48,6 +47,11 @@ setup(
     zip_safe=False,
 
     install_requires=[
+        'ftw.datepicker',
+        'ftw.simplelayout [contenttypes]',
+        'plone.api',
+        'plone.dexterity',
+        'plone.directives.form',
         'setuptools',
     ],
 

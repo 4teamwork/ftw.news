@@ -41,7 +41,7 @@ Development
 
 1. Fork this repo
 2. Clone your fork
-3. Shell: ``ln -s development.cfg buidlout.cfg``
+3. Shell: ``ln -s development.cfg buildout.cfg``
 4. Shell: ``python boostrap.py``
 5. Shell: ``bin/buildout``
 

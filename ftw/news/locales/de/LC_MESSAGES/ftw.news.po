@@ -1,0 +1,253 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2015-07-22 10:06+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Preferred-Encodings: utf-8 latin1\n"
+
+#: ./ftw/news/profiles/default/types/ftw.news.NewsListingBlock.xml
+msgid "A block which renders news entries to be used with ftw.simplelayout."
+msgstr "Ein Block für ftw.simplelayout, welcher News-Einträge auflistet."
+
+#: ./ftw/news/profiles/default/types/ftw.news.NewsFolder.xml
+msgid "A container for news items."
+msgstr "Ein Behälter für News-Einträge"
+
+#: ./ftw/news/portlets/templates/news_archive_portlet.pt:10
+msgid "Archive"
+msgstr "Archiv"
+
+#: ./ftw/news/profiles/default/types/ftw.news.News.xml
+msgid "News"
+msgstr "News-Eintrag"
+
+#: ./ftw/news/profiles/default/types/ftw.news.NewsFolder.xml
+msgid "News Folder"
+msgstr "News-Verzeichnis"
+
+msgid "News listing"
+msgstr "News-Auflistung"
+
+#: ./ftw/news/profiles/default/types/ftw.news.NewsListingBlock.xml
+msgid "NewsListingBlock"
+msgstr "News-Auflistung"
+
+#: ./ftw/news/browser/templates/news_listing_block.pt:20
+msgid "No content available"
+msgstr "Kein Inhalt verfügbar"
+
+#: ./ftw/news/browser/templates/news_listing_block.pt:44
+msgid "Read more"
+msgstr "Weiterlesen"
+
+#: ./ftw/news/browser/templates/news_listing_block.pt:12
+msgid "Subscribe to the RSS feed"
+msgstr "RSS abonnieren"
+
+#. Default: "${title} - News Feed"
+#: ./ftw/news/browser/news_listing.py:95
+msgid "label_feed_desc"
+msgstr "${title} - News Feed"
+
+#. Default: "Read more"
+#: ./ftw/news/portlets/templates/news_portlet.pt:39
+msgid "label_readmore"
+msgstr "Weiterlesen"
+
+#. Default: "More News"
+#: ./ftw/news/browser/templates/news_listing_block.pt:53
+#: ./ftw/news/portlets/templates/news_portlet.pt:51
+msgid "more_news_link"
+msgstr "Weitere Einträge"
+
+#. Default: "News will be sorted by this date"
+#: ./ftw/news/contents/news.py:18
+msgid "news_date_description"
+msgstr "News-Einträge werden nach diesem Datum sortiert"
+
+#. Default: "Date"
+#: ./ftw/news/contents/news.py:17
+msgid "news_date_label"
+msgstr "Datum des News-Eintrages"
+
+#. Default: "Show title"
+#: ./ftw/news/contents/news_folder.py:13
+msgid "news_folder_show_title_title_label"
+msgstr "Titel anzeigen"
+
+#. Default: "by ${author}"
+#: ./ftw/news/browser/templates/news_listing.pt:55
+#: ./ftw/news/browser/templates/news_listing_block.pt:35
+msgid "news_listing_author_label"
+msgstr "von ${author}"
+
+#. Default: "Show title"
+#: ./ftw/news/contents/news_listing_block.py:14
+msgid "news_listing_block_show_title_label"
+msgstr "Titel anzeigen"
+
+#. Default: "You can not filter by path and current context at the same time."
+#: ./ftw/news/contents/common.py:116
+msgid "news_listing_config_current_context_and_path_error"
+msgstr "Es nicht möglich, gleichzeitig nach Pfad und aktuellem Bereich zu filtern."
+
+#. Default: "The maximum length of the news item's description. Longer descriptions will be cropped. Enter 0 for no limitation."
+#: ./ftw/news/contents/common.py:76
+msgid "news_listing_config_description_length_description"
+msgstr "Maximale Länger der Beschreibung. Längere Beschreibungen werden gekürzt (0 = keine Einschränkung)."
+
+#. Default: "Length of the description"
+#: ./ftw/news/contents/common.py:74
+msgid "news_listing_config_description_length_label"
+msgstr "Länge der Beschreibung"
+
+#. Default: "Only show news items from the current context."
+#: ./ftw/news/contents/common.py:41
+msgid "news_listing_config_filter_current_context_description"
+msgstr "Nur News-Einträge aus dem aktuellen Bereich anzeigen."
+
+#. Default: "Limit to current context"
+#: ./ftw/news/contents/common.py:39
+msgid "news_listing_config_filter_current_context_label"
+msgstr "Einschränken auf aktuellen Bereich"
+
+#. Default: "Only show news items from a specific path."
+#: ./ftw/news/contents/common.py:26
+msgid "news_listing_config_filter_path_description"
+msgstr "Nur News-Einträge aus einem bestimmten Pfad anzeigen"
+
+#. Default: "Limit to path"
+#: ./ftw/news/contents/common.py:24
+msgid "news_listing_config_filter_path_label"
+msgstr "Auf Pfad einschränken"
+
+#. Default: "Only news younger than this value will be rendered. Enter 0 for no limitation."
+#: ./ftw/news/contents/common.py:86
+msgid "news_listing_config_maximum_age_description"
+msgstr "Nur neuere News werden angezeigt (0 = keine Einschränkung)."
+
+#. Default: "Maximum age (days)"
+#: ./ftw/news/contents/common.py:84
+msgid "news_listing_config_maximum_age_label"
+msgstr "Maximales Alter (in Tagen)"
+
+#. Default: "The number of news entries to be shown at most. Enter 0 for no limitation."
+#: ./ftw/news/contents/common.py:49
+msgid "news_listing_config_quantity_description"
+msgstr "Die maximale Anzahl anzuzeigender Einträge (0 = keine Einschränkung)."
+
+#. Default: "Quantity"
+#: ./ftw/news/contents/common.py:48
+msgid "news_listing_config_quantity_label"
+msgstr "Anzahl"
+
+#. Default: "Show the description of the news item"
+#: ./ftw/news/contents/common.py:68
+msgid "news_listing_config_show_description_label"
+msgstr "Beschreibung anzeigen"
+
+#. Default: "Render a link to a page which renders more news (only if there is at least one news item."
+#: ./ftw/news/contents/common.py:96
+msgid "news_listing_config_show_more_news_link_description"
+msgstr "Einen Link zu weiteren Einträgen anzeigen (wird nur angezeigt, wenn es mindestesn einen Eintrag gibt)."
+
+#. Default: "Link to more news"
+#: ./ftw/news/contents/common.py:94
+msgid "news_listing_config_show_more_news_link_label"
+msgstr "Link zu weiteren Einträgen"
+
+#. Default: "Render a link to the RSS feed of the news."
+#: ./ftw/news/contents/common.py:106
+msgid "news_listing_config_show_rss_link_description"
+msgstr "Einen Link zum RSS-Feed der Einträge anzeigen."
+
+#. Default: "Link to RSS feed"
+#: ./ftw/news/contents/common.py:104
+msgid "news_listing_config_show_rss_link_label"
+msgstr "Link zum RSS-Feed"
+
+#. Default: "Only news with the selected subjects will be shown."
+#: ./ftw/news/contents/common.py:60
+msgid "news_listing_config_subjects_description"
+msgstr "Es werden nur Einträge angezeigt, welche mit diesen Stichworten versehen sind."
+
+#. Default: "Filter by subject"
+#: ./ftw/news/contents/common.py:58
+msgid "news_listing_config_subjects_label"
+msgstr "Nach Stichwort filtern"
+
+#. Default: "Title"
+#: ./ftw/news/contents/common.py:17
+msgid "news_listing_config_title_label"
+msgstr "Titel"
+
+#. Default: "No content available"
+#: ./ftw/news/browser/templates/news_listing.pt:39
+msgid "news_listing_no_content_text"
+msgstr "Keine Inhalte vorhanden"
+
+#. Default: "Read More…"
+#: ./ftw/news/browser/templates/news_listing.pt:67
+msgid "news_listing_read_more_label"
+msgstr "Weiterlesen…"
+
+#. Default: "This portlet displays news items"
+#: ./ftw/news/portlets/news_portlet.py:34
+msgid "news_portlet_add_form_description"
+msgstr "Dieses Portlet zeigt News an"
+
+#. Default: "Add News Portlet"
+#: ./ftw/news/portlets/news_portlet.py:33
+msgid "news_portlet_add_form_label"
+msgstr "News-Portlet hinzufügen"
+
+#. Default: "Render the portlet even if there are no news entries."
+#: ./ftw/news/portlets/news_portlet.py:25
+msgid "news_portlet_always_render_portlet_description"
+msgstr "Portlet auch anzeigen, wenn keine News vorhanden sind."
+
+#. Default: "Always render the portlet"
+#: ./ftw/news/portlets/news_portlet.py:23
+msgid "news_portlet_always_render_portlet_label"
+msgstr "Portlet immer anzeigen"
+
+#. Default: "Cancel"
+#: ./ftw/news/portlets/news_portlet.py:241
+msgid "news_portlet_edit_form_cancel_label"
+msgstr "Abbrechen"
+
+#. Default: "This portlet displays news items"
+#: ./ftw/news/portlets/news_portlet.py:203
+msgid "news_portlet_edit_form_description"
+msgstr "Dieses Portlet zeigt News an"
+
+#. Default: "Edit News Portlet"
+#: ./ftw/news/portlets/news_portlet.py:202
+msgid "news_portlet_edit_form_label"
+msgstr "News-Portlet bearbeiten"
+
+#. Default: "Save"
+#: ./ftw/news/portlets/news_portlet.py:224
+msgid "news_portlet_edit_form_save_label"
+msgstr "Speichern"
+
+#. Default: "No recent news available."
+#: ./ftw/news/portlets/templates/news_portlet.pt:15
+msgid "no_recent_news_label"
+msgstr "Keine News vorhanden."
+
+#. Default: "Subscribe to the RSS feed"
+#: ./ftw/news/portlets/templates/news_portlet.pt:59
+msgid "rss_link_title"
+msgstr "RSS abonnieren"
+
+

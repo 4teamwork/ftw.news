@@ -461,3 +461,27 @@ class TestNewsPortlets(FunctionalTestCase):
         self.assertEqual(1, len(browser.css('li.portletItem')))
         self.assertIn('Hello World 1',
                       browser.css('li.portletItem').first.text)
+
+    @browsing
+    def test_news_portlet_listing_shows_more_items(self, browser):
+        """
+        This test makes sure the view behind the link "more news" on
+        the portlet renders more news items.
+        """
+        # Create some content and the portlet
+        page = create(Builder('sl content page').titled(u'Content Page'))
+        news_folder = create(Builder('news folder').titled(u'News Folder')
+                             .within(page))
+        create(Builder('news').titled(u'Hello World').within(news_folder)
+               .having(news_date=date(2000, 12, 31)))
+        create(Builder('news').titled(u'Hello Again').within(news_folder)
+               .having(news_date=date(2001, 1, 1)))
+        self._add_portlet(browser, page, **{'Title': 'A News Portlet',
+                                            'Quantity': u'1',
+                                            'Link to more news': True})
+
+        browser.find('More News').click()
+        self.assertEqual(
+            ['Hello Again', 'Hello World'],
+            browser.css('.newsListing .tileItem .tileHeadline').text
+        )

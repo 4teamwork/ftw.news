@@ -168,7 +168,7 @@ class NewsListingPortlet(NewsListing):
     def get_items(self):
         portlet = self.get_portlet()
         if portlet:
-            return portlet.get_news(all_news=True)
+            return portlet.get_items(all_news=True)
 
         return []
 

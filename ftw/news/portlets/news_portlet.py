@@ -157,14 +157,15 @@ class Renderer(base.Renderer):
 
         return results
 
-    def get_items(self):
+    def get_items(self, all_news=False):
         """
         Returns a list of dict to be used in the template.
         """
-        news = self.get_news()
+        news = self.get_news(all_news)
 
         items = []
         for news_item in news:
+            obj = news_item.getObject()
             description = ''
             if self.data.show_description:
                 description = news_item.Description
@@ -174,11 +175,13 @@ class Renderer(base.Renderer):
             item = {
                 'title': news_item.Title,
                 'description': description,
+                'url': news_item.getURL(),
                 'news_date': self.context.toLocalizedTime(
                     datetime.datetime.combine(news_item.start,
                                               datetime.time.min)
                 ),
-                'url': news_item.getURL(),
+                'author': utils.get_creator(
+                    obj) if utils.can_view_about() else '',
             }
             items.append(item)
 

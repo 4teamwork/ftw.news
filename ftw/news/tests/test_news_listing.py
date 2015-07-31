@@ -3,9 +3,12 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
 from ftw.news.tests import FunctionalTestCase
+from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import plone
+from plone.uuid.interfaces import IUUID
 from Products.CMFCore.utils import getToolByName
+import transaction
 
 
 def set_allow_anonymous_view_about(context, enable):
@@ -133,4 +136,39 @@ class TestNewsListing(FunctionalTestCase):
         self.assertIsNone(
             plone.document_description(),
             'Found a document description which should not be there.'
+        )
+
+    @browsing
+    def test_news_listing_lead_image(self, browser):
+        """
+        This test makes sure that the news listing view renders
+        the lead image of a news entry.
+        """
+        block = create(Builder('sl textblock')
+                       .titled(u'Textblock with image')
+                       .within(self.news1)
+                       .with_dummy_image())
+        page_state = {
+            "default": [
+                {
+                    "cols": [
+                        {
+                            "blocks": [
+                                {
+                                    "uid": IUUID(block)
+                                }
+                            ]
+                        }
+                    ]
+                },
+            ]
+        }
+        page_config = IPageConfiguration(self.news1)
+        page_config.store(page_state)
+        transaction.commit()
+
+        browser.login().visit(self.news_folder, view='news_listing')
+        self.assertEqual(
+            'Textblock with image',
+            browser.css('.newsListing .tileBody img').first.attrib['title']
         )

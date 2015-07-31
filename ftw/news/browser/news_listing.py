@@ -76,6 +76,7 @@ class NewsListing(BrowserView):
             'news_date': self.context.toLocalizedTime(
                 datetime.datetime.combine(brain.start, datetime.time.min)
             ),
+            'image_tag': obj.restrictedTraverse('@@leadimage')(),
         }
         return item
 

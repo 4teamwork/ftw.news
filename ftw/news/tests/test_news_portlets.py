@@ -3,6 +3,7 @@ from datetime import timedelta
 from ftw.builder import Builder, create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
 from ftw.news.tests import FunctionalTestCase
+from ftw.news.tests import utils
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages.statusmessages import assert_message
 
@@ -485,3 +486,47 @@ class TestNewsPortlets(FunctionalTestCase):
             ['Hello Again', 'Hello World'],
             browser.css('.newsListing .tileItem .tileHeadline').text
         )
+
+    @browsing
+    def test_news_portlet_shows_lead_image(self, browser):
+        """
+        This test makes sure that the news portlet renders the lead image
+        if configured to do so.
+        """
+        page = create(Builder('sl content page').titled(u'Content Page'))
+        news_folder = create(Builder('news folder')
+                             .titled(u'News Folder')
+                             .within(page))
+        news = create(Builder('news')
+                      .titled(u'Hello World')
+                      .within(news_folder)
+                      .having(news_date=date(2000, 12, 31)))
+        block = create(Builder('sl textblock')
+                       .titled(u'Textblock with image')
+                       .within(news)
+                       .with_dummy_image())
+        utils.create_page_state(news, block)
+
+        self._add_portlet(browser,
+                          self.portal,
+                          **{'Title': 'A News Portlet',
+                             'Limit to current context': False,
+                             'Quantity': u'1',
+                             'Show lead image': True})
+
+        lead_image_css_selector = 'li.portletItem img'
+
+        browser.login().visit(page)
+        self.assertEqual(
+            'Textblock with image',
+            browser.css(lead_image_css_selector).first.attrib['title']
+        )
+
+        # Configure the portlet not to show the lead image and make sure the
+        # lead image is not rendered anymore.
+        browser.find('Manage portlets').click()
+        browser.find('News Portlet (A News Portlet)').click()
+        browser.forms['form'].fill({'Show lead image': False}).save()
+
+        browser.login().visit(page)
+        self.assertEqual([], browser.css(lead_image_css_selector))

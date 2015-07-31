@@ -3,12 +3,10 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
 from ftw.news.tests import FunctionalTestCase
-from ftw.simplelayout.interfaces import IPageConfiguration
+from ftw.news.tests import utils
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import plone
-from plone.uuid.interfaces import IUUID
 from Products.CMFCore.utils import getToolByName
-import transaction
 
 
 def set_allow_anonymous_view_about(context, enable):
@@ -148,24 +146,8 @@ class TestNewsListing(FunctionalTestCase):
                        .titled(u'Textblock with image')
                        .within(self.news1)
                        .with_dummy_image())
-        page_state = {
-            "default": [
-                {
-                    "cols": [
-                        {
-                            "blocks": [
-                                {
-                                    "uid": IUUID(block)
-                                }
-                            ]
-                        }
-                    ]
-                },
-            ]
-        }
-        page_config = IPageConfiguration(self.news1)
-        page_config.store(page_state)
-        transaction.commit()
+
+        utils.create_page_state(self.news1, block)
 
         browser.login().visit(self.news_folder, view='news_listing')
         self.assertEqual(

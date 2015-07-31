@@ -27,6 +27,14 @@ class INewsPortlet(INewsListingBaseSchema, IPortletDataProvider):
                               u'entries.'),
         default=False,
     )
+    show_lead_image = schema.Bool(
+        title=_(u'news_portlet_show_lead_image_label',
+                default=u'Show lead image'),
+        description=_(u'news_portlet_show_lead_image_description',
+                      default=u'Renders a lead image (taken from the item\'s '
+                              u'first text block having an image.)'),
+        default=False,
+    )
 
 
 class AddForm(SchemaAddForm):
@@ -69,7 +77,8 @@ class AddForm(SchemaAddForm):
             maximum_age=data.get('maximum_age', 0),
             show_more_news_link=data.get('show_more_news_link', 0),
             show_rss_link=data.get('show_rss_link', 0),
-            always_render_portlet=data.get('always_render_portlet', False)
+            always_render_portlet=data.get('always_render_portlet', False),
+            show_lead_image=data.get('show_lead_image', False),
         )
 
 
@@ -80,7 +89,7 @@ class Assignment(base.Assignment):
                  quantity=5, filter_by_path=None, subjects=None,
                  show_description=False, description_length=50, maximum_age=0,
                  show_more_news_link=False, show_rss_link=False,
-                 always_render_portlet=False):
+                 always_render_portlet=False, show_lead_image=False):
         self.news_listing_config_title = news_listing_config_title
         self.current_context = current_context
         self.quantity = quantity
@@ -92,6 +101,7 @@ class Assignment(base.Assignment):
         self.show_more_news_link = show_more_news_link
         self.show_rss_link = show_rss_link
         self.always_render_portlet = always_render_portlet
+        self.show_lead_image = show_lead_image
 
     @property
     def title(self):
@@ -166,12 +176,17 @@ class Renderer(base.Renderer):
         items = []
         for news_item in news:
             obj = news_item.getObject()
+
             description = ''
             if self.data.show_description:
                 description = news_item.Description
             if self.data.description_length:
                 description = utils.crop_text(description,
                                               self.data.description_length)
+            image_tag = ''
+            if self.data.show_lead_image:
+                image_tag = obj.restrictedTraverse('@@leadimage')
+
             item = {
                 'title': news_item.Title,
                 'description': description,
@@ -182,6 +197,7 @@ class Renderer(base.Renderer):
                 ),
                 'author': utils.get_creator(
                     obj) if utils.can_view_about() else '',
+                'image_tag':  image_tag,
             }
             items.append(item)
 

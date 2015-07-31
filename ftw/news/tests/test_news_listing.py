@@ -152,5 +152,5 @@ class TestNewsListing(FunctionalTestCase):
         browser.login().visit(self.news_folder, view='news_listing')
         self.assertEqual(
             'Textblock with image',
-            browser.css('.newsListing .tileBody img').first.attrib['title']
+            browser.css('.newsListing .tileItem img').first.attrib['title']
         )

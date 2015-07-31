@@ -27,14 +27,6 @@ class INewsPortlet(INewsListingBaseSchema, IPortletDataProvider):
                               u'entries.'),
         default=False,
     )
-    show_lead_image = schema.Bool(
-        title=_(u'news_portlet_show_lead_image_label',
-                default=u'Show lead image'),
-        description=_(u'news_portlet_show_lead_image_description',
-                      default=u'Renders a lead image (taken from the item\'s '
-                              u'first text block having an image.)'),
-        default=False,
-    )
 
 
 class AddForm(SchemaAddForm):

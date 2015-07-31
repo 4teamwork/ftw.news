@@ -22,6 +22,12 @@
 
             <div class="newsItem" tal:condition="news"
                  tal:repeat="item news">
+
+                <div tal:condition="item/image_tag"
+                     tal:content="structure item/image_tag"
+                     class="image">
+                </div>
+
                 <h3 class="newsHeadline">
                     <a tal:attributes="href item/url"
                        tal:content="item/title">Link</a>

@@ -74,6 +74,10 @@ class NewsListingBlockView(BaseBlock):
         if utils.can_view_about():
             author = utils.get_creator(obj)
 
+        image_tag = ''
+        if self.context.show_lead_image:
+            image_tag = obj.restrictedTraverse('@@leadimage')
+
         item = {
             'title': brain.Title,
             'description': description,
@@ -82,5 +86,6 @@ class NewsListingBlockView(BaseBlock):
             'news_date': self.context.toLocalizedTime(
                 datetime.datetime.combine(brain.start, datetime.time.min)
             ),
+            'image_tag': image_tag,
         }
         return item

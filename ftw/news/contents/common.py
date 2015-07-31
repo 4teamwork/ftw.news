@@ -108,6 +108,15 @@ class INewsListingBaseSchema(form.Schema):
         default=False,
     )
 
+    show_lead_image = schema.Bool(
+        title=_(u'news_listing_config_show_lead_image_label',
+                default=u'Show lead image'),
+        description=_(u'news_listing_config_show_lead_image_description',
+                      default=u'Renders a lead image (taken from the item\'s '
+                              u'first text block having an image.)'),
+        default=False,
+    )
+
     @invariant
     def is_either_path_or_context(obj):
         """Checks if not both path and current context are defined.

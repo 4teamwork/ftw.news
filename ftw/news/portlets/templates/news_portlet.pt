@@ -30,6 +30,11 @@
 
                             <div class="portletItemTitle" tal:content="item/title" />
 
+                            <div tal:condition="item/image_tag"
+                                 tal:content="structure item/image_tag"
+                                 class="image">
+                            </div>
+
                             <div class="portletItemDescription"
                                  tal:condition="item/description">
                                 <div tal:content="item/description" />

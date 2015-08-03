@@ -1,3 +1,11 @@
+/* @group news listing */
+.newsListing div.image {
+  float: left;
+  margin-right: 1em;
+}
+/* @end news listing */
+
+
 /* @group archive portlet */
 .portletArchiveListing .highlight a {
   font-weight: bold;
@@ -28,3 +36,5 @@
   display: block;
 }
 /* @end archive portlet */
+
+

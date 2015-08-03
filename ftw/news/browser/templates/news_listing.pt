@@ -40,6 +40,12 @@
                i18n:translate="news_listing_no_content_text">No content available</p>
 
             <div tal:repeat="item batch" class="tileItem">
+
+                <div tal:condition="item/image_tag"
+                     tal:content="structure item/image_tag"
+                     class="image">
+                </div>
+
                 <h2 class="tileHeadline">
                     <a class="summary url"
                        tal:attributes="href item/url"
@@ -59,7 +65,7 @@
 
                 <p class="tileBody">
                     <span class="description"
-                          tal:content="item/description">
+                       tal:content="item/description">
                     </span>
                 </p>
 

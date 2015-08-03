@@ -3,6 +3,7 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
 from ftw.news.tests import FunctionalTestCase
+from ftw.news.tests import utils
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import plone
 from Products.CMFCore.utils import getToolByName
@@ -133,4 +134,23 @@ class TestNewsListing(FunctionalTestCase):
         self.assertIsNone(
             plone.document_description(),
             'Found a document description which should not be there.'
+        )
+
+    @browsing
+    def test_news_listing_lead_image(self, browser):
+        """
+        This test makes sure that the news listing view renders
+        the lead image of a news entry.
+        """
+        block = create(Builder('sl textblock')
+                       .titled(u'Textblock with image')
+                       .within(self.news1)
+                       .with_dummy_image())
+
+        utils.create_page_state(self.news1, block)
+
+        browser.login().visit(self.news_folder, view='news_listing')
+        self.assertEqual(
+            'Textblock with image',
+            browser.css('.newsListing .tileItem img').first.attrib['title']
         )

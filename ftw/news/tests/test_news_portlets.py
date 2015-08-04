@@ -30,7 +30,7 @@ class TestNewsPortlets(FunctionalTestCase):
         browser.login().visit(context, view='@@manage-portlets')
         browser.forms['form-3'].fill({':action': news_portlet_action}).submit()
         browser.forms['form'].fill(kwargs).save()
-        browser.login().visit(context)
+        browser.visit(context)
 
     @browsing
     def test_add_portlet_on_content_page(self, browser):
@@ -528,5 +528,5 @@ class TestNewsPortlets(FunctionalTestCase):
         browser.find('News Portlet (A News Portlet)').click()
         browser.forms['form'].fill({'Show lead image': False}).save()
 
-        browser.login().visit(page)
+        browser.visit(page)
         self.assertEqual([], browser.css(lead_image_css_selector))

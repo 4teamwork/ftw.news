@@ -1,6 +1,7 @@
 from Acquisition._Acquisition import aq_inner, aq_parent
 from DateTime.DateTime import DateTime
 from ftw.news import utils
+from ftw.news.contents.common import INewsListingBaseSchema
 from ftw.simplelayout.browser.blocks.base import BaseBlock
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -75,7 +76,7 @@ class NewsListingBlockView(BaseBlock):
             author = utils.get_creator(obj)
 
         image_tag = ''
-        if self.context.show_lead_image:
+        if INewsListingBaseSchema(self.context).show_lead_image:
             image_tag = obj.restrictedTraverse('@@leadimage')
 
         item = {

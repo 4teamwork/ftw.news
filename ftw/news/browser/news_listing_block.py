@@ -84,9 +84,12 @@ class NewsListingBlockView(BaseBlock):
             'description': description,
             'url': brain.getURL(),
             'author': author,
-            'news_date': self.context.toLocalizedTime(
-                datetime.datetime.combine(brain.start, datetime.time.min)
-            ),
+            'news_date': self.format_date(brain),
             'image_tag': image_tag,
         }
         return item
+
+    def format_date(self, brain):
+        return self.context.toLocalizedTime(
+            datetime.datetime.combine(brain.start, datetime.time.min)
+        )

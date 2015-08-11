@@ -66,10 +66,10 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
         self.assertIsNone(browser.find('Subscribe to the RSS feed'))
 
         # Now edit the block so it will show the RSS link.
-        browser.login().visit(block, view='edit')
+        browser.visit(block, view='edit')
         browser.fill({'Link to RSS feed': True}).save()
 
-        browser.login().visit(page)
+        browser.visit(page)
         self.assertEqual('Subscribe to the RSS feed',
                          browser.find('Subscribe to the RSS feed').text)
 
@@ -103,8 +103,8 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
         )
 
         # Now edit the block so it will not show the lead image.
-        browser.login().visit(block, view='edit')
+        browser.visit(block, view='edit')
         browser.fill({'Show lead image': False}).save()
 
-        browser.login().visit(page)
+        browser.visit(page)
         self.assertEqual([], browser.css(lead_image_css_selector))

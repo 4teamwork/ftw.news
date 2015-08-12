@@ -4,6 +4,7 @@ from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
 from ftw.news.tests import FunctionalTestCase
 from ftw.news.tests import utils
+from ftw.news.tests.utils import set_allow_anonymous_view_about
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 
@@ -15,6 +16,28 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
     def setUp(self):
         super(TestNewsListingBlockContentType, self).setUp()
         self.grant('Manager', 'Site Administrator')
+
+        self.member = create(Builder('user')
+                             .named('John', 'Doe')
+                             .with_roles('Member'))
+
+    def _create_content_for_anonymous_view_about_tests(self):
+        """
+        This helper method creates some content which is used by multiple
+        tests used to test if the author is shown or not depending on
+        the value of "allowAnonymousViewAbout".
+        """
+        self.page = create(Builder('sl content page').titled(u'Content page'))
+        news_folder = create(Builder('news folder')
+                             .titled(u'News Folder')
+                             .within(self.page))
+        create(Builder('news')
+               .titled(u'Hello World')
+               .within(news_folder)
+               .having(news_date=date(2000, 12, 31)))
+        create(Builder('news listing block')
+               .within(self.page)
+               .titled('News listing block'))
 
     @browsing
     def test_news_listing_block_can_be_added_on_contentpage(self, browser):
@@ -108,3 +131,50 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
 
         browser.visit(page)
         self.assertEqual([], browser.css(lead_image_css_selector))
+
+    @browsing
+    def test_member_sees_author_when_aava_disabled(self, browser):
+        self._create_content_for_anonymous_view_about_tests()
+
+        set_allow_anonymous_view_about(False)
+
+        browser.login(self.member).open(self.page)
+        self.assertEqual('Dec 31, 2000 by test_user_1_',
+                         browser.css('.newsItem .documentByLine').first.text,
+                         'Authenticated member should see author if '
+                         'allowAnonymousViewAbout is False.')
+
+    @browsing
+    def test_member_sees_author_when_aava_enabled(self, browser):
+        self._create_content_for_anonymous_view_about_tests()
+
+        set_allow_anonymous_view_about(True)
+
+        browser.login(self.member).open(self.page)
+        self.assertEqual('Dec 31, 2000 by test_user_1_',
+                         browser.css('.newsItem .documentByLine').first.text,
+                         'Authenticated member should see author.')
+
+    @browsing
+    def test_anonymous_cannot_see_author_when_aava_disabled(self, browser):
+        self._create_content_for_anonymous_view_about_tests()
+
+        set_allow_anonymous_view_about(False)
+
+        browser.logout().open(self.page)
+        self.assertEqual('Dec 31, 2000',
+                         browser.css('.newsItem .documentByLine').first.text,
+                         'Anonymous user should not see author if '
+                         'allowAnonymousViewAbout is False.')
+
+    @browsing
+    def test_anonymous_sees_author_when_aava_enabled(self, browser):
+        self._create_content_for_anonymous_view_about_tests()
+
+        set_allow_anonymous_view_about(True)
+
+        browser.logout().open(self.page)
+        self.assertEqual('Dec 31, 2000 by test_user_1_',
+                         browser.css('.newsItem .documentByLine').first.text,
+                         'Anonymous user should see author if '
+                         'allowAnonymousViewAbout is True.')

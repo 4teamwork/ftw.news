@@ -4,16 +4,19 @@
 
         <permission name="ftw.news: Add NewsFolder" acquire="False">
             <role name="Manager"/>
+            <role name="Site Administrator"/>
             <role name="Contributor"/>
         </permission>
 
         <permission name="ftw.news: Add News" acquire="False">
             <role name="Manager"/>
+            <role name="Site Administrator"/>
             <role name="Contributor"/>
         </permission>
 
         <permission name="ftw.news: Add NewsListingBlock" acquire="False">
             <role name="Manager"/>
+            <role name="Site Administrator"/>
             <role name="Contributor"/>
         </permission>
 

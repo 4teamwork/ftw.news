@@ -4,15 +4,9 @@ from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
 from ftw.news.tests import FunctionalTestCase
 from ftw.news.tests import utils
+from ftw.news.tests.utils import set_allow_anonymous_view_about
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import plone
-from Products.CMFCore.utils import getToolByName
-
-
-def set_allow_anonymous_view_about(context, enable):
-    site_props = getToolByName(
-        context, 'portal_properties').site_properties
-    site_props.allowAnonymousViewAbout = enable
 
 
 class TestNewsListing(FunctionalTestCase):
@@ -38,7 +32,7 @@ class TestNewsListing(FunctionalTestCase):
                             .having(effective=tomorrow, news_date=tomorrow)
                             )
 
-        set_allow_anonymous_view_about(self.news_folder, True)
+        set_allow_anonymous_view_about(False)
 
         self.portal.manage_permission('Access inactive portal content',
                                       ['Contributor', 'Manager'],
@@ -54,49 +48,55 @@ class TestNewsListing(FunctionalTestCase):
                              .named('John', 'Doe')
                              .with_roles('Member'))
 
-    def _is_author_visible(self, browser):
-        browser.login().visit(self.news_folder)
-        return browser.css('span.documentAuthor')
-
     @browsing
     def test_member_sees_author_when_aava_disabled(self, browser):
-        set_allow_anonymous_view_about(self.news_folder, False)
-        browser.login(self.member).open(self.news_folder)
-        self.assertTrue(self._is_author_visible(browser),
-                        'Authenticated member should see author if '
-                        'allowAnonymousViewAbout is False.')
+        set_allow_anonymous_view_about(False)
+        browser.login(self.member)
+        browser.visit(self.news_folder, view='@@news_listing')
+        self.assertEqual(
+            'by test_user_1_',
+            browser.css('.newsListing .documentAuthor').first.text,
+            'Authenticated member should see author if '
+            'allowAnonymousViewAbout is False.')
 
     @browsing
     def test_member_sees_author_when_aava_enabled(self, browser):
-        set_allow_anonymous_view_about(self.news_folder, True)
-        browser.login(self.member).open(self.news_folder)
-        self.assertTrue(self._is_author_visible(browser),
-                        'Authenticated member should see author.')
+        set_allow_anonymous_view_about(True)
+        browser.login(self.member)
+        browser.visit(self.news_folder, view='@@news_listing')
+        self.assertEqual(
+            'by test_user_1_',
+            browser.css('.newsListing .documentAuthor').first.text,
+            'Authenticated member should see author.')
 
     @browsing
     def test_anonymous_cannot_see_author_when_aava_disabled(self, browser):
-        set_allow_anonymous_view_about(self.news_folder, False)
-        browser.open(self.news_folder)
-        self.assertTrue(self._is_author_visible(browser),
-                        'Anonymous user should not see author if '
-                        'allowAnonymousViewAbout is False.')
+        set_allow_anonymous_view_about(False)
+        browser.logout().visit(self.news_folder, view='@@news_listing')
+        self.assertEquals([], browser.css('.newsListing .documentAuthor'),
+                          'Anonymous user should not see author if '
+                          'allowAnonymousViewAbout is False.')
 
     @browsing
     def test_anonymous_sees_author_when_aava_enabled(self, browser):
-        set_allow_anonymous_view_about(self.news_folder, True)
-        browser.open(self.news_folder)
-        self.assertTrue(self._is_author_visible(browser),
-                        'Anonymous user should see author if '
-                        'allowAnonymousViewAbout is True.')
+        set_allow_anonymous_view_about(True)
+        browser.logout().visit(self.news_folder, view='@@news_listing')
+        self.assertEqual(
+            'by test_user_1_',
+            browser.css('.newsListing .documentAuthor').first.text,
+            'Anonymous user should see author if '
+            'allowAnonymousViewAbout is True.')
 
     @browsing
     def test_inactive_news_is_visible_for_contributor(self, browser):
-        browser.login(self.contributor).open(self.news_folder)
+        browser.login(self.contributor)
+        browser.visit(self.news_folder, view='@@news_listing')
         self.assertEqual(2, len(browser.css('div.tileItem')))
 
     @browsing
     def test_inactive_news_is_not_visible_for_regular_users(self, browser):
-        browser.login(self.member).open(self.news_folder)
+        browser.login(self.member)
+        browser.visit(self.news_folder, view='@@news_listing')
         self.assertEqual(1, len(browser.css('div.tileItem')))
 
     @browsing

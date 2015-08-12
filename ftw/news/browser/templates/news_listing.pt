@@ -63,13 +63,11 @@
                     </tal:author>
                 </div>
 
-                <p class="tileBody">
-                    <span class="description"
-                       tal:content="item/description">
-                    </span>
+                <p class="tileBody" tal:condition="item/description">
+                    <span class="description" tal:content="item/description" />
                 </p>
 
-                <p class="tileFooter">
+                <p class="tileFooter" tal:condition="item/url">
                     <a tal:attributes="href item/url"
                        i18n:translate="news_listing_read_more_label">Read More&hellip;</a>
                 </p>

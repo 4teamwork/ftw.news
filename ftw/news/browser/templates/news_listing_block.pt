@@ -20,8 +20,7 @@
             <p tal:condition="not: news"
                i18n:translate="">No content available</p>
 
-            <div class="newsItem" tal:condition="news"
-                 tal:repeat="item news">
+            <div class="newsItem" tal:condition="news" tal:repeat="item news">
 
                 <div tal:condition="item/image_tag"
                      tal:content="structure item/image_tag"
@@ -35,18 +34,19 @@
                 <div class="documentByLine">
                     <span tal:condition="item/news_date"
                           tal:content="item/news_date"/>
-                    <span condition="item/author"
-                          i18n:translate="news_listing_author_label">
-                        by
-                        <span tal:content="item/author"
-                              i18n:name="author">Author</span>
-                    </span>
+                    <tal:author condition="item/author">
+                        <span i18n:translate="news_listing_author_label">
+                            by
+                            <span tal:content="item/author"
+                                  i18n:name="author">Author</span>
+                        </span>
+                    </tal:author>
                 </div>
-                <p class="newsbody">
-                    <span class="description" tal:content="item/description"
-                          tal:condition="item/description">Description</span>
+                <p class="newsbody" tal:condition="item/description">
+                    <span class="description"
+                          tal:content="item/description">Description</span>
                 </p>
-                <p class="newsFooter">
+                <p class="newsFooter" tal:condition="item/url">
                     <a tal:attributes="href item/url"
                        i18n:translate="">Read more</a>
                 </p>

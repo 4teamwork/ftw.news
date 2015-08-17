@@ -71,10 +71,9 @@ class NewsListing(BrowserView):
             'title': brain.Title,
             'description': brain.Description,
             'url': brain.getURL(),
-            'author':
-                utils.get_creator(obj) if utils.can_view_about() else '',
+            'author': utils.get_creator(obj) if utils.can_view_about() else '',
             'news_date': self.context.toLocalizedTime(
-                datetime.datetime.combine(brain.start, datetime.time.min)
+                brain.start, long_format=True
             ),
             'image_tag': obj.restrictedTraverse('@@leadimage')(),
         }

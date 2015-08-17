@@ -1,4 +1,4 @@
-from datetime import datetime, date
+from datetime import datetime
 from ftw.builder import Builder, create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
 from ftw.news.tests import FunctionalTestCase
@@ -32,7 +32,7 @@ class TestNewsArchivePortlets(FunctionalTestCase):
     def test_archive_portlet_available_when_there_are_news(self, browser):
         news_folder = create(Builder('news folder').titled(u'News Folder'))
         create(Builder('news').titled(u'News Entry').within(news_folder)
-               .having(news_date=date(2000, 12, 31)))
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
 
         self._add_portlet(browser, news_folder)
 

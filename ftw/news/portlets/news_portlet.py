@@ -14,7 +14,6 @@ from z3c.form import form as z3cform
 from zope import schema
 from zope.component import getMultiAdapter
 from zope.interface import implements
-import datetime
 
 
 class INewsPortlet(INewsListingBaseSchema, IPortletDataProvider):
@@ -184,11 +183,9 @@ class Renderer(base.Renderer):
                 'description': description,
                 'url': news_item.getURL(),
                 'news_date': self.context.toLocalizedTime(
-                    datetime.datetime.combine(news_item.start,
-                                              datetime.time.min)
+                    news_item.start, long_format=True
                 ),
-                'author': utils.get_creator(
-                    obj) if utils.can_view_about() else '',
+                'author': utils.get_creator(obj) if utils.can_view_about() else '',
                 'image_tag':  image_tag,
             }
             items.append(item)

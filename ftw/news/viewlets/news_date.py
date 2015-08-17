@@ -1,7 +1,6 @@
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.news.contents.news import INewsSchema
 from plone.app.layout.viewlets import ViewletBase
-import datetime
 
 
 class NewsDateViewlet(ViewletBase):
@@ -17,9 +16,8 @@ class NewsDateViewlet(ViewletBase):
 
     def get_news_date(self):
         news_date = INewsSchema(self.context).news_date
+
         if not news_date:
             return ''
 
-        news_date = datetime.datetime.combine(self.context.news_date,
-                                              datetime.time.min)
-        return self.context.toLocalizedTime(news_date)
+        return self.context.toLocalizedTime(news_date, long_format=True)

@@ -1,4 +1,4 @@
-from datetime import datetime, date
+from datetime import datetime
 from datetime import timedelta
 from ftw.builder import Builder, create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
@@ -43,7 +43,7 @@ class TestNewsPortlets(FunctionalTestCase):
         news_folder = create(Builder('news folder').titled(u'News Folder')
                              .within(page))
         create(Builder('news').titled(u'Hello World').within(news_folder)
-               .having(news_date=date(2000, 12, 31)))
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
         self._add_portlet(browser, page, **{'Title': 'A News Portlet'})
 
         self.assertEqual(1, len(browser.css('li.portletItem')))
@@ -59,7 +59,7 @@ class TestNewsPortlets(FunctionalTestCase):
         news_folder = create(Builder('news folder').titled(u'News Folder')
                              .within(self.portal))
         create(Builder('news').titled(u'Hello World').within(news_folder)
-               .having(news_date=date(2000, 12, 31)))
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
         self._add_portlet(browser, self.portal, **{'Title': 'A News Portlet'})
 
         self.assertEqual(1, len(browser.css('li.portletItem')))
@@ -174,13 +174,13 @@ class TestNewsPortlets(FunctionalTestCase):
         news_folder1 = create(Builder('news folder').titled(u'News Folder 1')
                               .within(page1))
         create(Builder('news').titled(u'Hello World 1').within(news_folder1)
-               .having(news_date=date(2000, 12, 31)))
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
 
         page2 = create(Builder('sl content page').titled(u'Content Page 2'))
         news_folder2 = create(Builder('news folder').titled(u'News Folder 2')
                               .within(page2))
         create(Builder('news').titled(u'Hello World 2').within(news_folder2)
-               .having(news_date=date(2000, 12, 31)))
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
 
         # Create the portlet on page 2.
         portlet_config = {
@@ -201,13 +201,13 @@ class TestNewsPortlets(FunctionalTestCase):
         news_folder1 = create(Builder('news folder').titled(u'News Folder 1')
                               .within(page1))
         create(Builder('news').titled(u'Hello World 1').within(news_folder1)
-               .having(news_date=date(2000, 12, 31)))
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
 
         page2 = create(Builder('sl content page').titled(u'Content Page 2'))
         news_folder2 = create(Builder('news folder').titled(u'News Folder 2')
                               .within(page2))
         create(Builder('news').titled(u'Hello World 2').within(news_folder2)
-               .having(news_date=date(2000, 12, 31)))
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
 
         # Create the portlet on page 2.
         portlet_config = {
@@ -230,13 +230,13 @@ class TestNewsPortlets(FunctionalTestCase):
         news_folder1 = create(Builder('news folder').titled(u'News Folder 1')
                               .within(page1))
         create(Builder('news').titled(u'Hello World 1').within(news_folder1)
-               .having(news_date=date(2000, 12, 31)))
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
 
         page2 = create(Builder('sl content page').titled(u'Content Page 2'))
         news_folder2 = create(Builder('news folder').titled(u'News Folder 2')
                               .within(page2))
         create(Builder('news').titled(u'Hello World 2').within(news_folder2)
-               .having(news_date=date(2000, 12, 31)))
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
 
         # Create the portlet on plone root.
         portlet_config = {
@@ -255,8 +255,11 @@ class TestNewsPortlets(FunctionalTestCase):
         news_folder = create(Builder('news folder').titled(u'News Folder'))
         description = u"This description must be longer than 50 characters " \
                       u"so we are able to test if it will be cropped."
-        create(Builder('news').titled(u'Hello World').within(news_folder)
-               .having(description=description, news_date=date(2000, 12, 31)))
+        create(Builder('news')
+               .titled(u'Hello World')
+               .within(news_folder)
+               .having(description=description)
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
 
         self._add_portlet(browser, **{'Title': 'A News Portlet'})
         self.assertIn('This description must be longer than 50 ... Read more',
@@ -267,7 +270,7 @@ class TestNewsPortlets(FunctionalTestCase):
         news_folder = create(Builder('news folder').titled(u'News Folder'))
         create(Builder('news').titled(u'Hello World').within(news_folder)
                .having(description=u'This description',
-                       news_date=date(2000, 12, 31)))
+                       news_date=datetime(2000, 12, 31, 15, 0, 0)))
 
         # First make sure the description is rendered.
         portlet_config = {
@@ -291,10 +294,14 @@ class TestNewsPortlets(FunctionalTestCase):
     @browsing
     def test_portlet_filters_by_subject(self, browser):
         news_folder = create(Builder('news folder').titled(u'News Folder'))
-        create(Builder('news').titled(u'Hello World 1').within(news_folder)
-               .having(subjects=['Hans'], news_date=date(2000, 12, 31)))
+        create(Builder('news')
+               .titled(u'Hello World 1')
+               .within(news_folder)
+               .having(subjects=['Hans'])
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
         create(Builder('news').titled(u'Hello World 2').within(news_folder)
-               .having(subjects=['Peter'], news_date=date(2000, 12, 31)))
+               .having(subjects=['Peter'])
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
 
         browser.login().visit(self.portal, view='@@manage-portlets')
         browser.forms['form-3'].fill({':action': news_portlet_action}).submit()
@@ -333,7 +340,7 @@ class TestNewsPortlets(FunctionalTestCase):
     def test_portlet_renders_more_link_when_enabled(self, browser):
         news_folder = create(Builder('news folder').titled(u'News Folder'))
         create(Builder('news').titled(u'Hello World 1').within(news_folder)
-               .having(news_date=date(2000, 12, 31)))
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
 
         portlet_config = {
             'Title': 'A News Portlet',
@@ -346,7 +353,7 @@ class TestNewsPortlets(FunctionalTestCase):
     def test_portlet_does_not_render_more_link_when_disabled(self, browser):
         news_folder = create(Builder('news folder').titled(u'News Folder'))
         create(Builder('news').titled(u'Hello World 1').within(news_folder)
-               .having(news_date=date(2000, 12, 31)))
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
 
         portlet_config = {
             'Title': 'A News Portlet',
@@ -359,7 +366,7 @@ class TestNewsPortlets(FunctionalTestCase):
     def test_portlet_renders_rss_link_when_enabled(self, browser):
         news_folder = create(Builder('news folder').titled(u'News Folder'))
         create(Builder('news').titled(u'Hello World 1').within(news_folder)
-               .having(news_date=date(2000, 12, 31)))
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
 
         portlet_config = {
             'Title': u'A News Portlet',
@@ -373,7 +380,7 @@ class TestNewsPortlets(FunctionalTestCase):
     def test_portlet_does_not_render_rss_link_when_disabled(self, browser):
         news_folder = create(Builder('news folder').titled(u'News Folder'))
         create(Builder('news').titled(u'Hello World 1').within(news_folder)
-               .having(news_date=date(2000, 12, 31)))
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
 
         portlet_config = {
             'Title': u'A News Portlet',
@@ -448,9 +455,9 @@ class TestNewsPortlets(FunctionalTestCase):
         """
         news_folder = create(Builder('news folder').titled(u'News Folder'))
         create(Builder('news').titled(u'Hello World 1').within(news_folder)
-               .having(news_date=date(2000, 12, 31)))
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
         create(Builder('news').titled(u'Hello World 2').within(news_folder)
-               .having(news_date=date(2000, 12, 31)))
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
 
         # Create the portlet on plone root.
         portlet_config = {
@@ -474,9 +481,9 @@ class TestNewsPortlets(FunctionalTestCase):
         news_folder = create(Builder('news folder').titled(u'News Folder')
                              .within(page))
         create(Builder('news').titled(u'Hello World').within(news_folder)
-               .having(news_date=date(2000, 12, 31)))
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
         create(Builder('news').titled(u'Hello Again').within(news_folder)
-               .having(news_date=date(2001, 1, 1)))
+               .having(news_date=datetime(2001, 1, 1, 15, 0, 0)))
         self._add_portlet(browser, page, **{'Title': 'A News Portlet',
                                             'Quantity': u'1',
                                             'Link to more news': True})
@@ -500,7 +507,7 @@ class TestNewsPortlets(FunctionalTestCase):
         news = create(Builder('news')
                       .titled(u'Hello World')
                       .within(news_folder)
-                      .having(news_date=date(2000, 12, 31)))
+                      .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
         block = create(Builder('sl textblock')
                        .titled(u'Textblock with image')
                        .within(news)

@@ -37,7 +37,9 @@ class TestContentTypes(FunctionalTestCase):
 
         news_item_title = u'This is a news entry'
 
-        browser.fill({'Title': news_item_title, 'Date': '12/31/00'}).save()
+        browser.fill(
+            {'Title': news_item_title, 'Date': '31.12.2000 15:00'}
+        ).save()
 
         self.assertEqual(news_item_title,
                          browser.css('h1.documentFirstHeading').first.text)

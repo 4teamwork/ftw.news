@@ -10,10 +10,10 @@ from zope.interface import implements
 
 class INewsSchema(model.Schema):
     """
-    This schema represents a news item..
+    This schema represents a news item.
     """
-    form.widget(news_date=DatePickerFieldWidget)
-    news_date = schema.Date(
+    form.widget('news_date', DatePickerFieldWidget)
+    news_date = schema.Datetime(
         title=_(u'news_date_label', default=u'Date'),
         description=_(u'news_date_description',
                       default=u'News will be sorted by this date'),

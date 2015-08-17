@@ -1,11 +1,10 @@
 from Acquisition._Acquisition import aq_inner, aq_parent
 from DateTime.DateTime import DateTime
+from Products.CMFCore.utils import getToolByName
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.news import utils
 from ftw.news.contents.common import INewsListingBaseSchema
 from ftw.simplelayout.browser.blocks.base import BaseBlock
-from Products.CMFCore.utils import getToolByName
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-import datetime
 
 
 class NewsListingBlockView(BaseBlock):
@@ -90,6 +89,4 @@ class NewsListingBlockView(BaseBlock):
         return item
 
     def format_date(self, brain):
-        return self.context.toLocalizedTime(
-            datetime.datetime.combine(brain.start, datetime.time.min)
-        )
+        return self.context.toLocalizedTime(brain.start, long_format=True)

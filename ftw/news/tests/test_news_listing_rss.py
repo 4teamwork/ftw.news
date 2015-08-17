@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
@@ -19,7 +19,7 @@ class TestNewsRssListing(FunctionalTestCase):
 
         self.news = create(Builder('news').titled(u'News Entry')
                            .within(self.news_folder)
-                           .having(news_date=date(2000, 12, 31)))
+                           .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
 
     @browsing
     def test_news_listing_rss_items(self, browser):

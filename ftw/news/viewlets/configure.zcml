@@ -1,0 +1,16 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="ftw.news">
+
+
+    <browser:viewlet
+        name="ftw.news.news_date"
+        for="ftw.news.interfaces.INews"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+        class=".news_date.NewsDateViewlet"
+        permission="zope2.View"
+        />
+
+</configure>

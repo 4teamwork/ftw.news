@@ -7,6 +7,7 @@
 
     <include package=".browser" />
     <include package=".portlets" />
+    <include package=".viewlets" />
     <include file="permissions.zcml" />
     <include file="lawgiver.zcml" zcml:condition="installed ftw.lawgiver" />
     <include file="resources.zcml" zcml:condition="installed ftw.theming" />

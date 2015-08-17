@@ -1,0 +1,8 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="python: 1"
+      i18n:domain="ftw.news">
+
+    <p class="newsDate" tal:condition="view/news_date" tal:content="view/news_date" />
+
+</html>

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-31 14:28+0000\n"
+"POT-Creation-Date: 2015-08-17 15:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,10 +13,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
-
-#: ./ftw/news/profiles/default/types/ftw.news.NewsListingBlock.xml
-msgid "A block which renders news entries to be used with ftw.simplelayout."
-msgstr "Ein Block für ftw.simplelayout, welcher News-Einträge auflistet."
 
 #: ./ftw/news/profiles/default/types/ftw.news.NewsFolder.xml
 msgid "A container for news items."
@@ -53,6 +49,10 @@ msgstr "Weiterlesen"
 msgid "Subscribe to the RSS feed"
 msgstr "RSS abonnieren"
 
+#: ./ftw/news/profiles/default/types/ftw.news.NewsListingBlock.xml
+msgid "The news listing block renders a configurable list of news entries."
+msgstr "Der Newsauflistungsblock zeigt eine konfigurierbare Liste von Nachrichten-Meldungen an."
+
 #. Default: "${title} - News Feed"
 #: ./ftw/news/browser/news_listing.py:96
 msgid "label_feed_desc"
@@ -81,7 +81,7 @@ msgstr "Datum des News-Eintrages"
 
 #. Default: "by ${author}"
 #: ./ftw/news/browser/templates/news_listing.pt:61
-#: ./ftw/news/browser/templates/news_listing_block.pt:41
+#: ./ftw/news/browser/templates/news_listing_block.pt:40
 msgid "news_listing_author_label"
 msgstr "von ${author}"
 
@@ -201,7 +201,7 @@ msgid "news_listing_no_content_text"
 msgstr "Keine Inhalte vorhanden"
 
 #. Default: "Read More…"
-#: ./ftw/news/browser/templates/news_listing.pt:73
+#: ./ftw/news/browser/templates/news_listing.pt:71
 msgid "news_listing_read_more_label"
 msgstr "Weiterlesen…"
 

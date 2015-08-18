@@ -8,6 +8,8 @@ class NewsDateViewlet(ViewletBase):
     template = ViewPageTemplateFile('news_date.pt')
 
     def render(self):
+        if not self.context.portal_type == 'ftw.news.News':
+            return ''
         return self.template()
 
     def update(self):

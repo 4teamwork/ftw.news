@@ -6,7 +6,7 @@
 
     <!-- Basic metadata -->
     <property name="title" i18n:translate="">NewsListingBlock</property>
-    <property name="description" i18n:translate="">A block which renders news entries to be used with ftw.simplelayout.</property>
+    <property name="description" i18n:translate="">The news listing block renders a configurable list of news entries.</property>
     <property name="icon_expr"></property>
     <property name="allow_discussion">False</property>
     <property name="global_allow">False</property>

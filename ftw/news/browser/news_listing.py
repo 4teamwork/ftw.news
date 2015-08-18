@@ -1,10 +1,4 @@
 from Acquisition import aq_parent, aq_inner
-from ftw.news import _
-from ftw.news import utils
-from ftw.news.interfaces import INewsListingView
-from plone.portlets.interfaces import IPortletAssignmentMapping
-from plone.portlets.interfaces import IPortletManager
-from plone.portlets.interfaces import IPortletRenderer
 from Products.CMFCore.permissions import AccessInactivePortalContent
 from Products.CMFCore.utils import _checkPermission
 from Products.CMFCore.utils import getToolByName
@@ -12,12 +6,17 @@ from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFPlone.PloneBatch import Batch
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from ftw.news import _
+from ftw.news import utils
+from ftw.news.interfaces import INewsListingView, INewsFolder
+from plone.portlets.interfaces import IPortletAssignmentMapping
+from plone.portlets.interfaces import IPortletManager
+from plone.portlets.interfaces import IPortletRenderer
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component import queryMultiAdapter
 from zope.interface import implements
 import DateTime
-import datetime
 
 
 class NewsListing(BrowserView):
@@ -82,7 +81,7 @@ class NewsListing(BrowserView):
     @property
     def title(self):
         title = self.context.Title()
-        if self.context.portal_type == 'ftw.news.NewsFolder':
+        if INewsFolder.providedBy(self.context):
             return title
         return self.context.Title() + ' - News'
 

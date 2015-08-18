@@ -1,14 +1,15 @@
 from Acquisition import aq_parent, aq_inner
 from DateTime import DateTime
+from Products.CMFCore.utils import getToolByName
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.news import _
 from ftw.news import utils
 from ftw.news.contents.common import INewsListingBaseSchema
+from ftw.news.interfaces import INewsFolder
 from plone.app.portlets.interfaces import IPortletPermissionChecker
 from plone.app.portlets.portlets import base
 from plone.directives.form.form import SchemaAddForm, SchemaEditForm
 from plone.portlets.interfaces import IPortletDataProvider
-from Products.CMFCore.utils import getToolByName
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from z3c.form import button
 from z3c.form import form as z3cform
 from zope import schema
@@ -112,7 +113,7 @@ class Renderer(base.Renderer):
         if getattr(self.data, 'always_render_portlet', False):
             return True
 
-        if self.data.portal_type == 'ftw.news.NewsFolder':
+        if INewsFolder.providedBy(self.data):
             return False
 
         if self.data.show_more_news_link:

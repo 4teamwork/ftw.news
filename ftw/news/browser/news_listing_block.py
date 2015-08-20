@@ -85,6 +85,7 @@ class NewsListingBlockView(BaseBlock):
             'author': author,
             'news_date': self.format_date(brain),
             'image_tag': image_tag,
+            'brain': brain,
         }
         return item
 

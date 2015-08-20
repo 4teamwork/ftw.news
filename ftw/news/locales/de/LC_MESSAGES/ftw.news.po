@@ -72,12 +72,12 @@ msgstr "Weitere Einträge"
 #. Default: "News will be sorted by this date"
 #: ./ftw/news/contents/news.py:18
 msgid "news_date_description"
-msgstr "News-Einträge werden nach diesem Datum sortiert"
+msgstr "Einträge werden nach diesem Datum sortiert"
 
 #. Default: "Date"
 #: ./ftw/news/contents/news.py:17
 msgid "news_date_label"
-msgstr "Datum des News-Eintrages"
+msgstr "Datum des Eintrages"
 
 #. Default: "by ${author}"
 #: ./ftw/news/browser/templates/news_listing.pt:61
@@ -98,7 +98,7 @@ msgstr "Es nicht möglich, gleichzeitig nach Pfad und aktuellem Bereich zu filte
 #. Default: "The maximum length of the news item's description. Longer descriptions will be cropped. Enter 0 for no limitation."
 #: ./ftw/news/contents/common.py:76
 msgid "news_listing_config_description_length_description"
-msgstr "Maximale Länger der Beschreibung. Längere Beschreibungen werden gekürzt (0 = keine Einschränkung)."
+msgstr "Maximale Länge der Beschreibung. Längere Beschreibungen werden gekürzt (0 = keine Einschränkung)."
 
 #. Default: "Length of the description"
 #: ./ftw/news/contents/common.py:74
@@ -108,7 +108,7 @@ msgstr "Länge der Beschreibung"
 #. Default: "Only show news items from the current context."
 #: ./ftw/news/contents/common.py:41
 msgid "news_listing_config_filter_current_context_description"
-msgstr "Nur News-Einträge aus dem aktuellen Bereich anzeigen."
+msgstr "Nur Einträge aus dem aktuellen Bereich anzeigen."
 
 #. Default: "Limit to current context"
 #: ./ftw/news/contents/common.py:39
@@ -118,7 +118,7 @@ msgstr "Einschränken auf aktuellen Bereich"
 #. Default: "Only show news items from a specific path."
 #: ./ftw/news/contents/common.py:26
 msgid "news_listing_config_filter_path_description"
-msgstr "Nur News-Einträge aus einem bestimmten Pfad anzeigen"
+msgstr "Nur Einträge aus einem bestimmten Pfad anzeigen"
 
 #. Default: "Limit to path"
 #: ./ftw/news/contents/common.py:24
@@ -128,7 +128,7 @@ msgstr "Auf Pfad einschränken"
 #. Default: "Only news younger than this value will be rendered. Enter 0 for no limitation."
 #: ./ftw/news/contents/common.py:86
 msgid "news_listing_config_maximum_age_description"
-msgstr "Nur neuere News werden angezeigt (0 = keine Einschränkung)."
+msgstr "Nur neuere Einträge werden angezeigt (0 = keine Einschränkung)."
 
 #. Default: "Maximum age (days)"
 #: ./ftw/news/contents/common.py:84
@@ -153,7 +153,7 @@ msgstr "Beschreibung anzeigen"
 #. Default: "Renders a lead image (taken from the item's first text block having an image.)"
 #: ./ftw/news/contents/common.py:114
 msgid "news_listing_config_show_lead_image_description"
-msgstr "Falls ein Textblock des Newseintrages ein Bild hat, wird dieses Bild angezeigt."
+msgstr "Falls ein Textblock des Eintrages ein Bild hat, wird dieses Bild angezeigt."
 
 #. Default: "Show lead image"
 #: ./ftw/news/contents/common.py:112
@@ -163,7 +163,7 @@ msgstr "Bild anzeigen"
 #. Default: "Render a link to a page which renders more news (only if there is at least one news item."
 #: ./ftw/news/contents/common.py:96
 msgid "news_listing_config_show_more_news_link_description"
-msgstr "Einen Link zu weiteren Einträgen anzeigen (wird nur angezeigt, wenn es mindestesn einen Eintrag gibt)."
+msgstr "Einen Link zu weiteren Einträgen anzeigen (wird nur angezeigt, wenn es mindestens einen Eintrag gibt)."
 
 #. Default: "Link to more news"
 #: ./ftw/news/contents/common.py:94
@@ -218,7 +218,7 @@ msgstr "News-Portlet hinzufügen"
 #. Default: "Render the portlet even if there are no news entries."
 #: ./ftw/news/portlets/news_portlet.py:25
 msgid "news_portlet_always_render_portlet_description"
-msgstr "Portlet auch anzeigen, wenn keine News vorhanden sind."
+msgstr "Portlet auch anzeigen, wenn keine Einträge vorhanden sind."
 
 #. Default: "Always render the portlet"
 #: ./ftw/news/portlets/news_portlet.py:23
@@ -248,7 +248,7 @@ msgstr "Speichern"
 #. Default: "No recent news available."
 #: ./ftw/news/portlets/templates/news_portlet.pt:15
 msgid "no_recent_news_label"
-msgstr "Keine News vorhanden."
+msgstr "Keine Einträge vorhanden."
 
 #. Default: "Subscribe to the RSS feed"
 #: ./ftw/news/portlets/templates/news_portlet.pt:64

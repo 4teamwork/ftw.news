@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-08-17 15:43+0000\n"
+"POT-Creation-Date: 2015-08-24 08:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,15 +37,15 @@ msgstr "News-Auflistung"
 msgid "NewsListingBlock"
 msgstr "News-Auflistung"
 
-#: ./ftw/news/browser/templates/news_listing_block.pt:20
+#: ./ftw/news/browser/templates/news_listing_block.pt:21
 msgid "No content available"
 msgstr "Kein Inhalt verfügbar"
 
-#: ./ftw/news/browser/templates/news_listing_block.pt:50
+#: ./ftw/news/browser/templates/news_listing_block.pt:51
 msgid "Read more"
 msgstr "Weiterlesen"
 
-#: ./ftw/news/browser/templates/news_listing_block.pt:12
+#: ./ftw/news/browser/templates/news_listing_block.pt:13
 msgid "Subscribe to the RSS feed"
 msgstr "RSS abonnieren"
 
@@ -53,10 +53,20 @@ msgstr "RSS abonnieren"
 msgid "The news listing block renders a configurable list of news entries."
 msgstr "Der Newsauflistungsblock zeigt eine konfigurierbare Liste von Nachrichten-Meldungen an."
 
+#. Default: "This custom label will not be translated."
+#: ./ftw/news/contents/news_listing_block.py:22
+msgid "description_more_news_link_label"
+msgstr "Dieses Label wird nicht übersetzt."
+
 #. Default: "${title} - News Feed"
-#: ./ftw/news/browser/news_listing.py:96
+#: ./ftw/news/browser/news_listing.py:94
 msgid "label_feed_desc"
 msgstr "${title} - News Feed"
+
+#. Default: "Label for the \"more news\" link"
+#: ./ftw/news/contents/news_listing_block.py:20
+msgid "label_more_news_link_label"
+msgstr "Label für den Link \"Weitere Einträge\""
 
 #. Default: "Read more"
 #: ./ftw/news/portlets/templates/news_portlet.pt:44
@@ -64,9 +74,10 @@ msgid "label_readmore"
 msgstr "Weiterlesen"
 
 #. Default: "More News"
-#: ./ftw/news/browser/templates/news_listing_block.pt:59
+#: ./ftw/news/browser/news_listing_block.py:32
+#: ./ftw/news/browser/templates/news_listing_block.pt:61
 #: ./ftw/news/portlets/templates/news_portlet.pt:56
-msgid "more_news_link"
+msgid "more_news_link_label"
 msgstr "Weitere Einträge"
 
 #. Default: "News will be sorted by this date"
@@ -81,7 +92,7 @@ msgstr "Datum des Eintrages"
 
 #. Default: "by ${author}"
 #: ./ftw/news/browser/templates/news_listing.pt:61
-#: ./ftw/news/browser/templates/news_listing_block.pt:40
+#: ./ftw/news/browser/templates/news_listing_block.pt:41
 msgid "news_listing_author_label"
 msgstr "von ${author}"
 
@@ -226,22 +237,22 @@ msgid "news_portlet_always_render_portlet_label"
 msgstr "Portlet immer anzeigen"
 
 #. Default: "Cancel"
-#: ./ftw/news/portlets/news_portlet.py:252
+#: ./ftw/news/portlets/news_portlet.py:250
 msgid "news_portlet_edit_form_cancel_label"
 msgstr "Abbrechen"
 
 #. Default: "This portlet displays news items"
-#: ./ftw/news/portlets/news_portlet.py:214
+#: ./ftw/news/portlets/news_portlet.py:212
 msgid "news_portlet_edit_form_description"
 msgstr "Dieses Portlet zeigt News an"
 
 #. Default: "Edit News Portlet"
-#: ./ftw/news/portlets/news_portlet.py:213
+#: ./ftw/news/portlets/news_portlet.py:211
 msgid "news_portlet_edit_form_label"
 msgstr "News-Portlet bearbeiten"
 
 #. Default: "Save"
-#: ./ftw/news/portlets/news_portlet.py:235
+#: ./ftw/news/portlets/news_portlet.py:233
 msgid "news_portlet_edit_form_save_label"
 msgstr "Speichern"
 

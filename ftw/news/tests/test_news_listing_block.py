@@ -64,6 +64,33 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
         self.assertTrue(len(browser.css('.sl-block')), 'Expect one block')
 
     @browsing
+    def test_news_listing_block_renders_link_to_more_news(self, browser):
+        page = create(Builder('sl content page').titled(u'A page'))
+
+        create(Builder('news listing block')
+               .within(page)
+               .titled(u'News listing block')
+               .having(show_more_news_link=True))
+
+        browser.login().visit(page)
+        self.assertEqual('More News',
+                         browser.find('More News').text)
+
+    @browsing
+    def test_news_listing_block_more_news_link_custom_label(self, browser):
+        page = create(Builder('sl content page').titled(u'A page'))
+
+        create(Builder('news listing block')
+               .within(page)
+               .titled(u'News listing block')
+               .having(show_more_news_link=True)
+               .having(more_news_link_label=u'Really more news'))
+
+        browser.login().visit(page)
+        self.assertEqual('Really more news',
+                         browser.find('Really more news').text)
+
+    @browsing
     def test_news_listing_block_renders_rss_link(self, browser):
         page = create(Builder('sl content page').titled(u'A page'))
 

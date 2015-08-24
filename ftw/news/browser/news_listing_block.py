@@ -2,31 +2,45 @@ from Acquisition._Acquisition import aq_inner, aq_parent
 from DateTime.DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from ftw.news import _
 from ftw.news import utils
 from ftw.news.contents.common import INewsListingBaseSchema
 from ftw.simplelayout.browser.blocks.base import BaseBlock
+from zope.i18n import translate
 
 
 class NewsListingBlockView(BaseBlock):
     template = ViewPageTemplateFile('templates/news_listing_block.pt')
 
-    @property
-    def title(self):
-        return self.context.news_listing_config_title
+    def get_block_info(self):
+        """
+        This method returns a dict containing information to be used in
+        the block's template.
+        """
+        parent = aq_parent(aq_inner(self.context))
 
-    @property
-    def rss_url(self):
+        rss_link_url = ''
         if self.context.show_rss_link:
-            parent = aq_parent(aq_inner(self.context))
-            return '/'.join([parent.absolute_url(), 'news_listing_rss'])
-        return ''
+            rss_link_url = '/'.join([parent.absolute_url(), 'news_listing_rss'])
 
-    @property
-    def more_news_url(self):
+        more_news_link_url = ''
         if self.context.show_more_news_link:
-            parent = aq_parent(aq_inner(self.context))
-            return '/'.join([parent.absolute_url(), 'news_listing'])
-        return ''
+            more_news_link_url = '/'.join([parent.absolute_url(), 'news_listing'])
+
+        more_news_link_label = (
+            self.context.more_news_link_label or
+            translate(_('more_news_link_label', default=u'More News'),
+                      context=self.request)
+        )
+
+        info = {
+            'title': self.context.news_listing_config_title,
+            'show_title': self.context.show_title,
+            'more_news_link_url': more_news_link_url,
+            'more_news_link_label': more_news_link_label,
+            'rss_link_url': rss_link_url or '',
+        }
+        return info
 
     def get_news(self):
         catalog = getToolByName(self.context, 'portal_catalog')

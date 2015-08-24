@@ -16,7 +16,16 @@ class INewsListingBlockSchema(INewsListingBaseSchema):
         required=False,
     )
 
+    more_news_link_label = schema.TextLine(
+        title=_(u'label_more_news_link_label',
+                default=u'Label for the "more news" link'),
+        description=_(u'description_more_news_link_label',
+                      default=u'This custom label will not be translated.'),
+        required=False,
+    )
+
     form.order_after(show_title='news_listing_config_title')
+    form.order_after(more_news_link_label='show_more_news_link')
 
 alsoProvides(INewsListingBlockSchema, IFormFieldProvider)
 

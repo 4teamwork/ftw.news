@@ -30,9 +30,19 @@ class NewsListingBlockView(BaseBlock):
 
     def get_news(self):
         catalog = getToolByName(self.context, 'portal_catalog')
+        brains = catalog.searchResults(
+            self.get_query()
+        )
+
+        if self.context.quantity:
+            brains = brains[:self.context.quantity]
+
+        return [self.get_item_dict(brain) for brain in brains]
+
+    def get_query(self):
         url_tool = getToolByName(self.context, 'portal_url')
         portal_path = url_tool.getPortalPath()
-        query = {'object_provides': 'ftw.news.interfaces.INews'}
+        query = {'object_provides': ['ftw.news.interfaces.INews']}
 
         if self.context.current_context:
             parent = aq_parent(aq_inner((self.context)))
@@ -53,12 +63,7 @@ class NewsListingBlockView(BaseBlock):
 
         query['sort_on'] = 'start'
         query['sort_order'] = 'descending'
-        brains = catalog.searchResults(query)
-
-        if self.context.quantity:
-            brains = brains[:self.context.quantity]
-
-        return [self.get_item_dict(brain) for brain in brains]
+        return query
 
     def get_item_dict(self, brain):
         obj = brain.getObject()

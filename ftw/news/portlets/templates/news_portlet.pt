@@ -55,9 +55,9 @@
                     <tal:morelink tal:condition="more_news_url">
                         <a class="newsMoreLink"
                            title="More News"
-                           i18n:attributes="title more_news_link"
+                           i18n:attributes="title more_news_link_label"
                            tal:attributes="href more_news_url"
-                           i18n:translate="more_news_link">More News</a>
+                           i18n:translate="more_news_link_label">More News</a>
                     </tal:morelink>
                     <br tal:condition="python: more_news_url and show_rss_link"/>
                     <tal:rsslink condition="show_rss_link">

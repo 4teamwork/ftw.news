@@ -26,23 +26,20 @@ class NewsListing(BrowserView):
     def __init__(self, context, request):
         super(NewsListing, self).__init__(context, request)
         self.batch = None
+        self.batch_size = 10
 
     def __call__(self):
         b_start = self.request.form.get('b_start', 0)
-        self.batch = Batch(self.get_items(), 10, b_start)
+        self.batch = Batch(self.get_items(), self.batch_size, b_start)
         return self.template()
 
-    def get_items(self):
+    def get_query(self):
         query = {
             'object_provides': 'ftw.news.interfaces.INews',
             'sort_on': 'start',
-            'sort_order': 'reverse'
+            'sort_order': 'reverse',
+            'path': '/'.join(self.context.getPhysicalPath())
         }
-        show_inactive = _checkPermission(AccessInactivePortalContent,
-                                         self.context)
-        catalog = getToolByName(self.context, 'portal_catalog')
-        # TODO: The following line makes RSS feed only work on news folders.
-        query['path'] = '/'.join(self.context.getPhysicalPath())
 
         datestring = self.request.get('archive')
         if datestring:
@@ -60,7 +57,12 @@ class NewsListing(BrowserView):
                 'range': 'minmax',
             }
 
-        brains = catalog(query, show_inactive=show_inactive)
+        return query
+
+    def get_items(self):
+        catalog = getToolByName(self.context, 'portal_catalog')
+        show_inactive = _checkPermission(AccessInactivePortalContent, self.context)
+        brains = catalog(self.get_query(), show_inactive=show_inactive)
         return [self.get_item_dict(brain) for brain in brains]
 
     def get_item_dict(self, brain):
@@ -71,9 +73,7 @@ class NewsListing(BrowserView):
             'description': brain.Description,
             'url': brain.getURL(),
             'author': utils.get_creator(obj) if utils.can_view_about() else '',
-            'news_date': self.context.toLocalizedTime(
-                brain.start, long_format=True
-            ),
+            'news_date': self.format_date(brain),
             'image_tag': obj.restrictedTraverse('@@leadimage')(),
         }
         return item
@@ -94,6 +94,9 @@ class NewsListing(BrowserView):
         return _(u'label_feed_desc',
                  default=u'${title} - News Feed',
                  mapping={'title': self.context.Title().decode('utf-8')})
+
+    def format_date(self, brain):
+        return self.context.toLocalizedTime(brain.start, long_format=True)
 
 
 class NewsListingRss(NewsListing):

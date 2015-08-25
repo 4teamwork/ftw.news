@@ -2,7 +2,7 @@
 <metadata>
     <version>1000</version>
     <dependencies>
-        <dependency>profile-ftw.simplelayout:default</dependency>
+        <dependency>profile-ftw.simplelayout.contenttypes:default</dependency>
         <dependency>profile-ftw.datepicker:default</dependency>
     </dependencies>
 </metadata>

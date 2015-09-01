@@ -49,25 +49,29 @@
                     </li>
                 </tal:loop>
 
-                <li class="portletFooter"
+                <tal:portlet_footer
                     tal:define="more_news_url view/more_news_url;
                                 show_rss_link view/show_rss_link">
-                    <tal:morelink tal:condition="more_news_url">
+                    <li class="portletFooter"
+                        tal:condition="python: more_news_url or show_rss_link">
+
                         <a class="newsMoreLink"
                            title="More News"
+                           tal:condition="more_news_url"
                            i18n:attributes="title more_news_link_label"
                            tal:attributes="href more_news_url"
                            i18n:translate="more_news_link_label">More News</a>
-                    </tal:morelink>
-                    <br tal:condition="python: more_news_url and show_rss_link"/>
-                    <tal:rsslink condition="show_rss_link">
+
+                        <br tal:condition="python: more_news_url and show_rss_link"/>
+
                         <a class="RssLink"
                            title="Subscribe to the RSS feed"
+                           tal:condition="show_rss_link"
                            i18n:attributes="title rss_link_title"
                            tal:attributes="href string:${context/@@plone_context_state/canonical_object_url}/news_listing_rss"
                            i18n:translate="rss_link_title">Subscribe to the RSS feed</a>
-                    </tal:rsslink>
-                </li>
+                    </li>
+                </tal:portlet_footer>
             </ul>
         </dd>
     </dl>

@@ -537,3 +537,38 @@ class TestNewsPortlets(FunctionalTestCase):
 
         browser.visit(page)
         self.assertEqual([], browser.css(lead_image_css_selector))
+
+    @browsing
+    def test_news_portlet_no_footer(self, browser):
+        """
+        This test makes sure that the portlet footer is absent when
+        it does not have any content.
+        """
+        page = create(Builder('sl content page').titled(u'Content Page'))
+        news_folder = create(Builder('news folder').titled(u'News Folder')
+                             .within(page))
+        create(Builder('news').titled(u'Hello World').within(news_folder)
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
+        create(Builder('news').titled(u'Hello Again').within(news_folder)
+               .having(news_date=datetime(2001, 1, 1, 15, 0, 0)))
+        self._add_portlet(browser, page, **{'Title': 'A News Portlet',
+                                            'Always render the portlet': True,
+                                            'Link to more news': False,
+                                            'Link to RSS feed': False})
+
+        self.assertEqual(
+            [],
+            browser.css('dl.portlet.newsTemplate li.portletFooter'),
+            'A portlet footer has been found. But there should not be footer.'
+        )
+
+        # Now make sure the footer is there if it has content.
+        browser.find('Manage portlets').click()
+        browser.find('News Portlet (A News Portlet)').click()
+        browser.forms['form'].fill({'Link to RSS feed': True}).save()
+
+        browser.open(page)
+        self.assertEqual(
+            'Subscribe to the RSS feed',
+            browser.css('dl.portlet.newsTemplate li.portletFooter').first.text
+        )

@@ -1,7 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
-    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.news">
 
     <browser:resourceDirectory
@@ -13,6 +12,7 @@
         for="*"
         name="news_listing"
         class=".news_listing.NewsListing"
+        template="./templates/news_listing.pt"
         permission="zope2.View"
         />
 
@@ -20,6 +20,7 @@
         for="*"
         name="news_listing_rss"
         class=".news_listing.NewsListingRss"
+        template="./templates/news_listing_rss.pt"
         permission="zope2.View"
         allowed_attributes="news_result get_news"
         />
@@ -28,6 +29,7 @@
         for="*"
         name="news_portlet_listing"
         class=".news_listing.NewsListingPortlet"
+        template="./templates/news_listing.pt"
         permission="zope2.View"
         />
 

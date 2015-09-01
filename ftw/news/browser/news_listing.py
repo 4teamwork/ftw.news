@@ -5,7 +5,6 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFPlone.PloneBatch import Batch
 from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.news import _
 from ftw.news import utils
 from ftw.news.interfaces import INewsListingView, INewsFolder
@@ -21,17 +20,15 @@ import DateTime
 
 class NewsListing(BrowserView):
     implements(INewsListingView)
-    template = ViewPageTemplateFile('templates/news_listing.pt')
 
     def __init__(self, context, request):
         super(NewsListing, self).__init__(context, request)
-        self.batch = None
         self.batch_size = 10
 
-    def __call__(self):
+    @property
+    def batch(self):
         b_start = self.request.form.get('b_start', 0)
-        self.batch = Batch(self.get_items(), self.batch_size, b_start)
-        return self.template()
+        return Batch(self.get_items(), self.batch_size, b_start)
 
     def get_query(self):
         query = {
@@ -100,7 +97,6 @@ class NewsListing(BrowserView):
 
 
 class NewsListingRss(NewsListing):
-    template = ViewPageTemplateFile('templates/news_listing_rss.pt')
 
     def get_channel_link_tag(self):
         """

@@ -12,14 +12,6 @@
             />
     </metal:block>
 
-    <metal:slot fill-slot="style_slot">
-        <style type="text/css">
-            dl#plone-contentmenu-factories #news {
-            display: block !important;
-            }
-        </style>
-    </metal:slot>
-
     <metal:title fill-slot="content-title">
         <h1 class="documentFirstHeading" tal:content="view/title"></h1>
     </metal:title>

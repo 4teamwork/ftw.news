@@ -17,7 +17,8 @@ class INewsListingBaseSchema(form.Schema):
         title=_(u'news_listing_config_title_label', default=u'Title'),
         description=u'',
         required=True,
-        default=u'')
+        default=u'',
+    )
 
     form.widget(filter_by_path=MultiContentTreeFieldWidget)
     filter_by_path = schema.List(
@@ -32,7 +33,7 @@ class INewsListingBaseSchema(form.Schema):
             ),
         ),
         required=False,
-        missing_value=(),
+        missing_value=[],
     )
 
     current_context = schema.Bool(
@@ -62,12 +63,13 @@ class INewsListingBaseSchema(form.Schema):
                               u'be shown.'),
         value_type=schema.Choice(vocabulary='ftw.news.vocabulary.subjects'),
         required=False,
+        missing_value=[],
     )
 
     show_description = schema.Bool(
         title=_(u'news_listing_config_show_description_label',
                 default=u'Show the description of the news item'),
-        default=True
+        default=True,
     )
 
     description_length = schema.Int(

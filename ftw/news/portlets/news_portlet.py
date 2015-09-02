@@ -123,13 +123,10 @@ class Renderer(base.Renderer):
 
         return has_news
 
-    def get_news(self, all_news=False):
-        """
-        Return a list of catalog brains.
-        """
-        catalog = getToolByName(self.context, 'portal_catalog')
+    def get_query(self, all_news):
         url_tool = getToolByName(self.context, 'portal_url')
         portal_path = url_tool.getPortalPath()
+
         query = {'object_provides': 'ftw.news.interfaces.INews'}
 
         if self.data.current_context:
@@ -152,7 +149,15 @@ class Renderer(base.Renderer):
 
         query['sort_on'] = 'start'
         query['sort_order'] = 'descending'
-        results = catalog.searchResults(query)
+
+        return query
+
+    def get_news(self, all_news=False):
+        """
+        Return a list of catalog brains.
+        """
+        catalog = getToolByName(self.context, 'portal_catalog')
+        results = catalog.searchResults(self.get_query(all_news))
 
         if not all_news and self.data.quantity:
             results = results[:self.data.quantity]
@@ -164,34 +169,34 @@ class Renderer(base.Renderer):
         Returns a list of dict to be used in the template.
         """
         news = self.get_news(all_news)
-
-        items = []
-        for news_item in news:
-            obj = news_item.getObject()
-
-            description = ''
-            if self.data.show_description:
-                description = news_item.Description
-            if self.data.description_length:
-                description = utils.crop_text(description,
-                                              self.data.description_length)
-            image_tag = ''
-            if self.data.show_lead_image:
-                image_tag = obj.restrictedTraverse('@@leadimage')
-
-            item = {
-                'title': news_item.Title,
-                'description': description,
-                'url': news_item.getURL(),
-                'news_date': self.context.toLocalizedTime(
-                    news_item.start, long_format=True
-                ),
-                'author': utils.get_creator(obj) if utils.can_view_about() else '',
-                'image_tag':  image_tag,
-            }
-            items.append(item)
-
+        items = [self.get_item_dict(brain) for brain in news]
         return items
+
+    def get_item_dict(self, brain):
+        obj = brain.getObject()
+
+        description = ''
+        if self.data.show_description:
+            description = brain.Description
+        if self.data.description_length:
+            description = utils.crop_text(description,
+                                          self.data.description_length)
+        image_tag = ''
+        if self.data.show_lead_image:
+            image_tag = obj.restrictedTraverse('@@leadimage')
+
+        item = {
+            'title': brain.Title,
+            'description': description,
+            'url': brain.getURL(),
+            'news_date': self.format_date(brain),
+            'author': utils.get_creator(obj) if utils.can_view_about() else '',
+            'image_tag':  image_tag,
+        }
+        return item
+
+    def format_date(self, brain):
+        return self.context.toLocalizedTime(brain.start, long_format=True)
 
     def show_rss_link(self):
         return getattr(self.data, 'show_rss_link', False)

@@ -1,14 +1,18 @@
+from datetime import datetime
 from ftw.datepicker.widget import DatePickerFieldWidget
 from ftw.news import _
 from ftw.news.interfaces import INews
 from plone.dexterity.content import Container
 from plone.directives import form
-from plone.supermodel import model
 from zope import schema
 from zope.interface import implements
 
 
-class INewsSchema(model.Schema):
+def default_news_date():
+    return datetime.now()
+
+
+class INewsSchema(form.Schema):
     """
     This schema represents a news item.
     """
@@ -18,6 +22,7 @@ class INewsSchema(model.Schema):
         description=_(u'news_date_description',
                       default=u'News will be sorted by this date'),
         required=True,
+        defaultFactory=default_news_date,
     )
 
 

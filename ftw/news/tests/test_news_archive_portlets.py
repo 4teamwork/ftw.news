@@ -31,8 +31,7 @@ class TestNewsArchivePortlets(FunctionalTestCase):
     @browsing
     def test_archive_portlet_available_when_there_are_news(self, browser):
         news_folder = create(Builder('news folder').titled(u'News Folder'))
-        create(Builder('news').titled(u'News Entry').within(news_folder)
-               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
+        create(Builder('news').titled(u'News Entry').within(news_folder))
 
         self._add_portlet(browser, news_folder)
 
@@ -78,8 +77,7 @@ class TestNewsArchivePortlets(FunctionalTestCase):
         The news archive portlet is only rendered on news listing views.
         """
         news_folder = create(Builder('news folder').titled(u'News Folder'))
-        create(Builder('news').titled(u'News Entry 1').within(news_folder)
-               .having(news_date=datetime(2013, 1, 1)))
+        create(Builder('news').titled(u'News Entry 1').within(news_folder))
 
         self._add_portlet(browser)
         self.assertNotIn('Archive', browser.css('dt.portletHeader').text,
@@ -92,8 +90,7 @@ class TestNewsArchivePortlets(FunctionalTestCase):
         """
         page = create(Builder('sl content page').titled(u'Content Page'))
         news_folder = create(Builder('news folder').titled(u'News Folder'))
-        create(Builder('news').titled(u'News Entry 1').within(news_folder)
-               .having(news_date=datetime(2013, 1, 1)))
+        create(Builder('news').titled(u'News Entry 1').within(news_folder))
 
         self._add_portlet(browser, page)
         self.assertNotIn('Archive', browser.css('dt.portletHeader').text,

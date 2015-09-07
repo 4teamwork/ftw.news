@@ -31,7 +31,9 @@
             <p tal:condition="not:batch"
                i18n:translate="news_listing_no_content_text">No content available</p>
 
-            <div tal:repeat="item batch" class="tileItem">
+            <tal:batch repeat="lazy_item batch">
+            <div class="tileItem"
+                tal:define="item python:view.get_item_dict(lazy_item)">
 
                 <div tal:condition="item/image_tag"
                      tal:content="structure item/image_tag"
@@ -66,6 +68,7 @@
 
                 <div class="visualClear"><!-- --></div>
             </div>
+            </tal:batch>
             <div metal:use-macro="context/batch_macros/macros/navigation" />
         </div>
 

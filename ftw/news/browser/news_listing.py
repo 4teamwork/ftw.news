@@ -59,8 +59,7 @@ class NewsListing(BrowserView):
     def get_items(self):
         catalog = getToolByName(self.context, 'portal_catalog')
         show_inactive = _checkPermission(AccessInactivePortalContent, self.context)
-        brains = catalog(self.get_query(), show_inactive=show_inactive)
-        return [self.get_item_dict(brain) for brain in brains]
+        return catalog(self.get_query(), show_inactive=show_inactive)
 
     def get_item_dict(self, brain):
         obj = brain.getObject()
@@ -170,8 +169,14 @@ class NewsListingPortlet(NewsListing):
 
         return []
 
+    def get_item_dict(self, brain):
+        """Overrides the parents item_dict becuase
+        we have already a dict instead a brain from the news_portlet Renderer
+        """
+        return brain
+
     def title(self):
         portlet = self.get_portlet()
         if portlet:
             return portlet.data.news_listing_config_title
-        return super(NewsListingPortlet, self).title()
+        return super(NewsListingPortlet, self).title

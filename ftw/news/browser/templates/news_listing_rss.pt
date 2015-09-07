@@ -17,22 +17,25 @@
             <image tal:attributes="rdf:resource string:${context/portal_url}/logo.png" />
             <items>
                 <rdf:Seq>
-                    <tal:block repeat="item items">
+                    <tal:batch repeat="lazy_item items">
+                    <tal:block define="item python:view.get_item_dict(lazy_item)">
                         <rdf:li rdf:resource=""
                                 tal:attributes="rdf:resource item/url" />
                     </tal:block>
+                    </tal:batch>
                 </rdf:Seq>
             </items>
         </channel>
-
-        <tal:block repeat="item items">
+        <tal:batch repeat="lazy_item items">
+            <tal:block define="item python:view.get_item_dict(lazy_item)">
             <item rdf:about="" tal:attributes="rdf:about item/url">
                 <title tal:content="item/title" />
                 <span tal:replace="structure item/link_tag"></span>
                 <description tal:content="item/description" />
                 <pubDate tal:content="item/news_date"/>
             </item>
-        </tal:block>
+            </tal:block>
+        </tal:batch>
 
     </tal:block>
 

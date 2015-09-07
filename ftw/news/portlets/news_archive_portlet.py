@@ -18,7 +18,7 @@ def zLocalizedTime(request, time, long_format=False):
     month = translate(month_msgid, domain='plonelocales',
                       context=request)
 
-    return u"%s" % (month)
+    return month.encode('utf-8')
 
 
 class ArchiveSummary(object):

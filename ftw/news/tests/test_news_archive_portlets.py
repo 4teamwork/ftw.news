@@ -1,8 +1,11 @@
 from datetime import datetime
-from ftw.builder import Builder, create
+from ftw.builder import Builder
+from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
 from ftw.news.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
+from plone import api
+import transaction
 
 
 news_portlet_action = '/++contextportlets++plone.rightcolumn/+/' \
@@ -111,3 +114,18 @@ class TestNewsArchivePortlets(FunctionalTestCase):
 
         browser.find('January (2)').click()
         self.assertEqual(2, len(browser.css('div.tileItem')))
+
+    @browsing
+    def test_month_with_umlaut(self, browser):
+        lang_tool = api.portal.get_tool('portal_languages')
+        lang_tool.setDefaultLanguage('de')
+        transaction.commit()
+
+        news_folder = create(Builder('news folder').titled(u'News Folder'))
+        create(Builder('news').titled(u'News Entry 1').within(news_folder)
+               .having(news_date=datetime(2013, 3, 1)))
+
+        self._add_portlet(browser, news_folder)
+
+        browser.find(u'M\xe4rz (1)').click()
+        self.assertEqual(1, len(browser.css('div.tileItem')))

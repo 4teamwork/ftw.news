@@ -134,6 +134,7 @@ class NewsListingPortlet(NewsListing):
                     (self.context, self.request, self,
                      manager, assignments[name]),
                     IPortletRenderer)
+
         return
 
     def get_manager_and_assignments(self, manager_name):
@@ -165,15 +166,9 @@ class NewsListingPortlet(NewsListing):
     def get_items(self):
         portlet = self.get_portlet()
         if portlet:
-            return portlet.get_items(all_news=True)
+            return portlet.get_news(all_news=True)
 
         return []
-
-    def get_item_dict(self, brain):
-        """Overrides the parents item_dict becuase
-        we have already a dict instead a brain from the news_portlet Renderer
-        """
-        return brain
 
     def title(self):
         portlet = self.get_portlet()

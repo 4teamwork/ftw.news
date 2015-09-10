@@ -28,10 +28,10 @@
                      class="image">
                 </div>
 
-                <h3 class="newsHeadline">
+                <div class="newsHeadline">
                     <a tal:attributes="href item/url"
                        tal:content="item/title">Link</a>
-                </h3>
+                </div>
                 <div class="documentByLine">
                     <span tal:condition="item/news_date"
                           tal:content="item/news_date"/>

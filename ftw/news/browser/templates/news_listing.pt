@@ -40,11 +40,11 @@
                      class="image">
                 </div>
 
-                <h2 class="tileHeadline">
+                <div class="tileHeadline">
                     <a class="summary url"
                        tal:attributes="href item/url"
                        tal:content="item/title"></a>
-                </h2>
+                </div>
 
                 <div class="documentByLine">
                     <span class="dtstart" tal:content="item/news_date" />

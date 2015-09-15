@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 from ftw.datepicker.widget import DatePickerFieldWidget
 from ftw.news import _
 from ftw.news.interfaces import INews
@@ -9,7 +9,7 @@ from zope.interface import implements
 
 
 def default_news_date():
-    return datetime.now()
+    return datetime.datetime.now()
 
 
 class INewsSchema(form.Schema):

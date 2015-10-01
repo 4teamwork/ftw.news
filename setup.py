@@ -48,6 +48,7 @@ setup(
     zip_safe=False,
 
     install_requires=[
+        'Plone',
         'ftw.datepicker',
         'ftw.simplelayout [contenttypes]',
         'plone.api',

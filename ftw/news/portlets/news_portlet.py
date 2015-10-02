@@ -145,7 +145,7 @@ class Renderer(base.Renderer):
 
         if self.data.maximum_age > 0 and not all_news:
             date = DateTime() - self.data.maximum_age
-            query['effective'] = {'query': date, 'range': 'min'}
+            query['start'] = {'query': date, 'range': 'min'}
 
         query['sort_on'] = 'start'
         query['sort_order'] = 'descending'

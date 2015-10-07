@@ -309,17 +309,23 @@ class TestNewsPortlets(FunctionalTestCase):
     def test_portlet_filters_old_news(self, browser):
         news_folder = create(Builder('news folder').titled(u'News Folder'))
 
-        old = datetime.today()-timedelta(days=10)
-        older = datetime.today()-timedelta(days=50)
+        old = datetime.now() - timedelta(days=10)
+        older = datetime.now() - timedelta(days=50)
 
-        create(Builder('news').titled(u'Hello World 1').within(news_folder)
-               .having(effective=old, news_date=old))
-        create(Builder('news').titled(u'Hello World 2').within(news_folder)
-               .having(effective=older, news_date=older))
+        create(Builder('news')
+               .titled(u'Hello World 1')
+               .within(news_folder)
+               .having(news_date=old))
+
+        create(Builder('news')
+               .titled(u'Hello World 2')
+               .within(news_folder)
+               .having(news_date=older))
 
         portlet_config = {
             'Title': 'A News Portlet',
             'Maximum age (days)': u'20',
+            'Limit to current context': False,
         }
         self._add_portlet(browser, **portlet_config)
         self.assertEquals(1, len(browser.css('li.portletItem')))

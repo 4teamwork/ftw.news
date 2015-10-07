@@ -19,10 +19,10 @@ class TestNewsDetail(FunctionalTestCase):
         news_folder = create(Builder('news folder').titled(u'A News Folder'))
 
         news_date = datetime(2000, 12, 31, 13, 0, 0)
-        news = create(Builder('news').titled(u'News Entry 1')
+        news = create(Builder('news')
+                      .titled(u'News Entry 1')
                       .within(news_folder)
-                      .having(effective=news_date, news_date=news_date)
-                      )
+                      .having(news_date=news_date))
 
         browser.login().visit(news)
         self.assertEqual(

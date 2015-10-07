@@ -73,7 +73,7 @@ class NewsListingBlockView(BaseBlock):
 
         if self.context.maximum_age > 0:
             date = DateTime() - self.context.maximum_age
-            query['effective'] = {'query': date, 'range': 'min'}
+            query['start'] = {'query': date, 'range': 'min'}
 
         query['sort_on'] = 'start'
         query['sort_order'] = 'descending'

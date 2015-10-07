@@ -20,17 +20,11 @@ class TestNewsListing(FunctionalTestCase):
         self.news_folder = create(Builder('news folder')
                                   .titled(u'A News Folder'))
 
-        yesterday = datetime.today() - timedelta(days=1)
-        self.news1 = create(Builder('news').titled(u'News Entry 1')
+        yesterday = datetime.now() - timedelta(days=1)
+        self.news1 = create(Builder('news')
+                            .titled(u'News Entry 1')
                             .within(self.news_folder)
-                            .having(effective=yesterday, news_date=yesterday)
-                            )
-
-        tomorrow = datetime.today() + timedelta(days=1)
-        self.news2 = create(Builder('news').titled(u'News Entry 2')
-                            .within(self.news_folder)
-                            .having(effective=tomorrow, news_date=tomorrow)
-                            )
+                            .having(news_date=yesterday))
 
         set_allow_anonymous_view_about(False)
 
@@ -86,18 +80,6 @@ class TestNewsListing(FunctionalTestCase):
             browser.css('.newsListing .documentAuthor').first.text,
             'Anonymous user should see author if '
             'allowAnonymousViewAbout is True.')
-
-    @browsing
-    def test_inactive_news_is_visible_for_contributor(self, browser):
-        browser.login(self.contributor)
-        browser.visit(self.news_folder, view='@@news_listing')
-        self.assertEqual(2, len(browser.css('div.tileItem')))
-
-    @browsing
-    def test_inactive_news_is_not_visible_for_regular_users(self, browser):
-        browser.login(self.member)
-        browser.visit(self.news_folder, view='@@news_listing')
-        self.assertEqual(1, len(browser.css('div.tileItem')))
 
     @browsing
     def test_news_listing_inside_contentpage(self, browser):

@@ -26,6 +26,14 @@ class TestContentTypes(FunctionalTestCase):
         self.assertEqual(news_folder_title,
                          browser.css('h1.documentFirstHeading').first.text)
 
+    def test_news_folder_is_unordered_folder(self):
+        news_folder = create(Builder('news folder'))
+        news = create(Builder('news')
+                      .titled(u'News Entry')
+                      .within(news_folder))
+
+        self.assertEqual(None, news_folder.getObjectPosition(news.getId()))
+
     @browsing
     def test_add_news_item(self, browser):
         news_folder = create(Builder('news folder'))

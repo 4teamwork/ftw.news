@@ -14,3 +14,8 @@ alsoProvides(INewsFolderSchema, IFormFieldProvider)
 
 class NewsFolder(Container):
     implements(INewsFolder)
+
+    # Because a newsfolder will have a lot of content,
+    # we use an unordered container to increase the
+    # performace.
+    _ordering = u'unordered'

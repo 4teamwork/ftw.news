@@ -97,6 +97,11 @@ class NewsListing(BrowserView):
 
 class NewsListingRss(NewsListing):
 
+    max_items = 200
+
+    def get_items(self):
+        return super(NewsListingRss, self).get_items()[:self.max_items]
+
     def get_channel_link_tag(self):
         """
         Returns a string containing a link tag.

@@ -14,28 +14,52 @@ class TestNewsRssListing(FunctionalTestCase):
         super(TestNewsRssListing, self).setUp()
         self.grant('Manager')
 
-        self.news_folder = create(Builder('news folder')
-                                  .titled(u'A News Folder'))
+    def test_limit_search_results(self):
+        news_folder = create(Builder('news folder'))
+        create(Builder('news').titled(u'News Entry')
+               .within(news_folder)
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
 
-        self.news = create(Builder('news').titled(u'News Entry')
-                           .within(self.news_folder)
-                           .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
+        create(Builder('news').titled(u'News Entry')
+               .within(news_folder)
+               .having(news_date=datetime(2002, 12, 31, 15, 0, 0)))
+
+        view = news_folder.unrestrictedTraverse('news_listing_rss')
+        view.max_items = 200
+
+        self.assertEqual(2, len(view.get_items()))
+
+        view.max_items = 1
+
+        self.assertEqual(1, len(view.get_items()))
 
     @browsing
     def test_news_listing_rss_items(self, browser):
-        browser.login().visit(self.news_folder, view='news_listing_rss')
+        news_folder = create(Builder('news folder'))
 
-        rdf = '<rdf:li rdf:resource="{0}"/>'.format(self.news.absolute_url())
+        news = create(Builder('news').titled(u'News Entry')
+                      .within(news_folder)
+                      .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
+
+        browser.login().visit(news_folder, view='news_listing_rss')
+
+        rdf = '<rdf:li rdf:resource="{0}"/>'.format(news.absolute_url())
         self.assertIn(rdf, browser.contents,
                       'Did not found the rdf tag for the news')
 
-        link = '<link>{0}</link>'.format(self.news.absolute_url())
+        link = '<link>{0}</link>'.format(news.absolute_url())
         self.assertIn(link, browser.contents,
                       'Did not found the link tag for the news')
 
     @browsing
     def test_news_item_contains_pubdate(self, browser):
-        browser.login().visit(self.news_folder, view='news_listing_rss')
+        news_folder = create(Builder('news folder'))
+
+        news = create(Builder('news').titled(u'News Entry')
+                      .within(news_folder)
+                      .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
+
+        browser.login().visit(news_folder, view='news_listing_rss')
 
         # Use HTML parser so that we have no XML namespaces.
         browser.parse_as_html()
@@ -45,6 +69,6 @@ class TestNewsRssListing(FunctionalTestCase):
             # %e has a leading space on single numbers - that's why the tests
             # were failing between the 1st and the 9th every month :-)
             # %-e Removes the leading space - only works on unix machines.
-            self.news.news_date.strftime('%a, %-e %b %Y %H:%M:%S %z').strip(),
+            news.news_date.strftime('%a, %-e %b %Y %H:%M:%S %z').strip(),
             browser.css('rdf item pubDate').first.text
         )

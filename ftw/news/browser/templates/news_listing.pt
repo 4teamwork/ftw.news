@@ -3,7 +3,7 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       metal:use-macro="context/main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="ftw.news">
 
     <metal:block metal:fill-slot="head_slot">
         <link rel="alternate" type="application/rss+xml" title="RSS"
@@ -22,55 +22,55 @@
         </metal:comment>
     </metal:description>
 
-    <metal:main fill-slot="content-core">
+    <metal:main fill-slot="content-core" tal:define="batch view/batch">
 
-        <div i18n:domain="ftw.news"
-             class="newsListing"
-             tal:define="batch view/batch;">
+        <p tal:condition="not:batch"
+           i18n:translate="news_listing_no_content_text">No content available</p>
 
-            <p tal:condition="not:batch"
-               i18n:translate="news_listing_no_content_text">No content available</p>
+
+        <ul class="newsListing">
 
             <tal:batch repeat="lazy_item batch">
-            <div class="tileItem"
-                tal:define="item python:view.get_item_dict(lazy_item)">
+                <li class="tileItem"
+                    tal:define="item python:view.get_item_dict(lazy_item)">
 
-                <div tal:condition="item/image_tag"
-                     tal:content="structure item/image_tag"
-                     class="image">
-                </div>
+                    <div tal:condition="item/image_tag"
+                         tal:content="structure item/image_tag"
+                         class="image">
+                    </div>
 
-                <div class="tileHeadline">
-                    <a class="summary url"
-                       tal:attributes="href item/url"
-                       tal:content="item/title"></a>
-                </div>
+                    <div class="tileHeadline">
+                        <a class="summary url"
+                           tal:attributes="href item/url"
+                           tal:content="item/title"></a>
+                    </div>
 
-                <div class="documentByLine">
-                    <span class="dtstart" tal:content="item/news_date" />
-                    <tal:author condition="item/author">
-                        <span class="documentAuthor"
-                              i18n:translate="news_listing_author_label">
-                            by
-                            <span tal:content="item/author" i18n:name="author" />
-                        </span>
-                    </tal:author>
-                </div>
+                    <div class="documentByLine">
+                        <span class="dtstart" tal:content="item/news_date" />
+                        <tal:author condition="item/author">
+                            <span class="documentAuthor"
+                                  i18n:translate="news_listing_author_label">
+                                by
+                                <span tal:content="item/author" i18n:name="author" />
+                            </span>
+                        </tal:author>
+                    </div>
 
-                <p class="tileBody" tal:condition="item/description">
-                    <span class="description" tal:content="item/description" />
-                </p>
+                    <p class="tileBody" tal:condition="item/description">
+                        <span class="description" tal:content="item/description" />
+                    </p>
 
-                <p class="tileFooter" tal:condition="item/url">
-                    <a tal:attributes="href item/url"
-                       i18n:translate="news_listing_read_more_label">Read More&hellip;</a>
-                </p>
+                    <p class="tileFooter" tal:condition="item/url">
+                        <a tal:attributes="href item/url"
+                           i18n:translate="news_listing_read_more_label">Read More&hellip;</a>
+                    </p>
 
-                <div class="visualClear"><!-- --></div>
-            </div>
+                    <div class="visualClear"><!-- --></div>
+                </li>
             </tal:batch>
-            <div metal:use-macro="context/batch_macros/macros/navigation" />
-        </div>
+        </ul>
+
+        <div metal:use-macro="context/batch_macros/macros/navigation" />
 
     </metal:main>
 </html>

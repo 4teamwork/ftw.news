@@ -5,6 +5,9 @@ Changelog
 1.0.1 (unreleased)
 ------------------
 
+- Implement news portlet styles.
+  [mathias.leimgruber]
+
 - Implement news listing styles.
   [mathias.leimgruber]
 

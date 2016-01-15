@@ -51,3 +51,33 @@
   display: block;
 }
 /* @end archive portlet */
+
+
+/* @group news portlet */
+
+.portlet.newsTemplate ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.portlet.newsTemplate ul .portletItem {
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #b7b5b4;
+}
+
+.portlet.newsTemplate ul .newsText .portletItemDate {
+  font-weight: bold;
+}
+
+.portlet.newsTemplate ul .newsText .portletItemTitle {
+  font-size: 18px;
+}
+
+.portlet.newsTemplate ul .newsText .image img {
+  width: 100%;
+  height: auto;
+}
+
+/* @end group news portlet*/

@@ -59,3 +59,30 @@
     }
   }
 }
+
+.portlet.newsTemplate {
+  ul {
+    @include ul(plain);
+    .portletItem {
+      padding-bottom: 1em;
+      margin-bottom: 1em;
+      border-bottom: 1px solid $gray-light;
+    }
+
+    .newsText {
+
+      .portletItemDate {
+        font-weight: bold;
+      }
+
+      .portletItemTitle {
+        font-size: $font-size-large;
+      }
+
+      .image img{
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}

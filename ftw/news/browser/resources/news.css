@@ -1,7 +1,22 @@
 /* @group news listing */
-.newsListing div.image {
-  float: left;
-  margin-right: 1em;
+.newsListing {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.newsListing .image {
+  float: right;
+  margin-left: 1em;
+}
+
+.newsListing .tileItem {
+  border-bottom: 1px solid #b7b5b4;
+  margin-bottom: 1em;
+}
+
+.newsListing .tileItem .tileHeadline {
+  font-size: 24px;
 }
 /* @end news listing */
 
@@ -36,5 +51,3 @@
   display: block;
 }
 /* @end archive portlet */
-
-

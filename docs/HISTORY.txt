@@ -5,6 +5,9 @@ Changelog
 1.0.1 (unreleased)
 ------------------
 
+- Implement news listing styles.
+  [mathias.leimgruber]
+
 - Convert newslisting into a html list for the sake of accessibility.
   [mathias.leimgruber]
 

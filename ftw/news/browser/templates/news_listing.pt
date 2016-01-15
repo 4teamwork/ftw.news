@@ -34,11 +34,6 @@
                 <li class="tileItem"
                     tal:define="item python:view.get_item_dict(lazy_item)">
 
-                    <div tal:condition="item/image_tag"
-                         tal:content="structure item/image_tag"
-                         class="image">
-                    </div>
-
                     <div class="tileHeadline">
                         <a class="summary url"
                            tal:attributes="href item/url"
@@ -54,6 +49,11 @@
                                 <span tal:content="item/author" i18n:name="author" />
                             </span>
                         </tal:author>
+                    </div>
+
+                    <div tal:condition="item/image_tag"
+                         tal:content="structure item/image_tag"
+                         class="image">
                     </div>
 
                     <p class="tileBody" tal:condition="item/description">

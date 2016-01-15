@@ -19,7 +19,7 @@
                 <tal:loop tal:repeat="item items">
                     <li class="portletItem"
                         tal:define="oddrow repeat/item/odd;
-                                    lastrow repeat/item/last"
+                                    lastrow repeat/item/end"
                         tal:attributes="class python:'%s%s' % (
                                         lastrow and 'lastItem ' or '',
                                         oddrow and 'portletItem even' or 'portletItem odd')">

@@ -42,7 +42,7 @@
   }
 }
 
-.newsListing {
+.newsListing, .ftw-news-newslistingblock .newsListing {
   @include ul(plain);
 
   .image {
@@ -50,11 +50,11 @@
     margin-left: 1em;
   }
 
-  .tileItem {
+  .tileItem, {
     border-bottom: 1px solid $gray-light;
     margin-bottom: 1em;
 
-    .tileHeadline {
+    .tileHeadline, .newsHeadline {
       font-size: $font-size-h3;
     }
   }

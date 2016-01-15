@@ -5,6 +5,9 @@ Changelog
 1.0.1 (unreleased)
 ------------------
 
+- Implement newslistingblock listing styles + Convert to html list. This has now the same styles as the regular newslisting.
+  [mathias.leimgruber]
+
 - Implement news portlet styles.
   [mathias.leimgruber]
 

@@ -113,7 +113,7 @@ class TestNewsArchivePortlets(FunctionalTestCase):
         self._add_portlet(browser, news_folder)
 
         browser.find('January (2)').click()
-        self.assertEqual(2, len(browser.css('div.tileItem')))
+        self.assertEqual(2, len(browser.css('li.tileItem')))
 
     @browsing
     def test_month_with_umlaut(self, browser):
@@ -128,4 +128,4 @@ class TestNewsArchivePortlets(FunctionalTestCase):
         self._add_portlet(browser, news_folder)
 
         browser.find(u'M\xe4rz (1)').click()
-        self.assertEqual(1, len(browser.css('div.tileItem')))
+        self.assertEqual(1, len(browser.css('li.tileItem')))

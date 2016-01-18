@@ -143,7 +143,7 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
                        .titled('News listing block')
                        .having(show_lead_image=True))
 
-        lead_image_css_selector = '.newsListing .newsItem .image img'
+        lead_image_css_selector = '.newsListing .tileItem .image img'
 
         browser.login().visit(page)
         self.assertEqual(
@@ -166,7 +166,7 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
 
         browser.login(self.member).open(self.page)
         self.assertEqual('Dec 31, 2000 03:00 PM by test_user_1_',
-                         browser.css('.newsItem .documentByLine').first.text,
+                         browser.css('.tileItem .documentByLine').first.text,
                          'Authenticated member should see author if '
                          'allowAnonymousViewAbout is False.')
 
@@ -178,7 +178,7 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
 
         browser.login(self.member).open(self.page)
         self.assertEqual('Dec 31, 2000 03:00 PM by test_user_1_',
-                         browser.css('.newsItem .documentByLine').first.text,
+                         browser.css('.tileItem .documentByLine').first.text,
                          'Authenticated member should see author.')
 
     @browsing
@@ -189,7 +189,7 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
 
         browser.logout().open(self.page)
         self.assertEqual('Dec 31, 2000 03:00 PM',
-                         browser.css('.newsItem .documentByLine').first.text,
+                         browser.css('.tileItem .documentByLine').first.text,
                          'Anonymous user should not see author if '
                          'allowAnonymousViewAbout is False.')
 
@@ -201,6 +201,6 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
 
         browser.logout().open(self.page)
         self.assertEqual('Dec 31, 2000 03:00 PM by test_user_1_',
-                         browser.css('.newsItem .documentByLine').first.text,
+                         browser.css('.tileItem .documentByLine').first.text,
                          'Anonymous user should see author if '
                          'allowAnonymousViewAbout is True.')

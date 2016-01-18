@@ -1,41 +1,88 @@
 @include portal-type-font-awesome-icon(ftw-news-news, newspaper-o);
+
 @include portal-type-font-awesome-icon(ftw-news-newsfolder, newspaper-o);
+
 @include portal-type-font-awesome-icon(ftw-news-newslistingblock, newspaper-o);
 
 .portletArchiveListing {
   .highlight a {
     font-weight: bold;
   }
+
   li.year {
     cursor: pointer;
   }
+
   li {
     display: block;
     margin-bottom: 2px;
   }
+
   ul.months {
     display: none;
     margin-bottom: 10px;
     margin-top: 5px;
   }
+
   li.month {
     padding-left: 2em;
   }
+
   li.year span.yearnumber:before {
     content: '►';
     padding-right: 5px;
   }
+
   li.year.expanded span.yearnumber:before {
     content: '▼';
   }
+
   ul.years ul.expanded {
     display: block;
   }
 }
 
-.newsListing {
-  div.image {
-    float: left;
-    margin-right: 1em;
+.newsListing, .ftw-news-newslistingblock .newsListing {
+  @include ul(plain);
+
+  .image {
+    float: right;
+    margin-left: 1em;
+  }
+
+  .tileItem, {
+    border-bottom: 1px solid $gray-light;
+    margin-bottom: 1em;
+
+    .tileHeadline, .newsHeadline {
+      font-size: $font-size-h3;
+    }
+  }
+}
+
+.portlet.newsTemplate {
+  ul {
+    @include ul(plain);
+    .portletItem {
+      padding-bottom: 1em;
+      margin-bottom: 1em;
+      border-bottom: 1px solid $gray-light;
+    }
+
+    .newsText {
+
+      .portletItemDate {
+        font-weight: bold;
+      }
+
+      .portletItemTitle {
+        font-size: $font-size-large;
+      }
+
+      .image img{
+        width: 100%;
+        height: auto;
+      }
+    }
   }
 }

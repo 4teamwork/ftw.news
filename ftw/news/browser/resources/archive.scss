@@ -1,0 +1,26 @@
+.portletArchiveListing {
+  ul {
+    @include list();
+  }
+
+  .year {
+    .yearnumber {
+      @extend .fa-icon;
+      @extend .fa-chevron-down;
+    }
+
+    &.collapsed {
+      .yearnumber {
+        @extend .fa-icon;
+        @extend .fa-chevron-right;
+      }
+      .months {
+        display: none;
+      }
+    }
+  }
+
+  .months a {
+    padding-left: $padding-horizontal * 2;
+  }
+}

@@ -60,11 +60,6 @@
                         <span class="description" tal:content="item/description" />
                     </p>
 
-                    <p class="tileFooter" tal:condition="item/url">
-                        <a tal:attributes="href item/url"
-                           i18n:translate="news_listing_read_more_label">Read More&hellip;</a>
-                    </p>
-
                     <div class="visualClear"><!-- --></div>
                 </li>
             </tal:batch>

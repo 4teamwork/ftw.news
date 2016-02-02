@@ -7,6 +7,7 @@
 
     <theme:resources profile="ftw.news:default" slot="addon">
         <theme:scss file="browser/resources/news.scss" />
+        <theme:scss file="browser/resources/archive.scss" />
     </theme:resources>
 
 </configure>

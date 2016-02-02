@@ -253,7 +253,7 @@ class TestNewsPortlets(FunctionalTestCase):
                .having(description=description))
 
         self._add_portlet(browser, **{'Title': 'A News Portlet'})
-        self.assertIn('This description must be longer than 50 ... Read more',
+        self.assertIn('This description must be longer than 50 ...',
                       browser.css('li.portletItem').first.text)
 
     @browsing

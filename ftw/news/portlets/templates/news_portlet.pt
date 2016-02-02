@@ -25,10 +25,12 @@
                                         oddrow and 'portletItem even' or 'portletItem odd')">
 
                         <div class="newsText">
+                            <a class="portletItemTitle"
+                                 tal:content="item/title"
+                                 tal:attributes="href item/url"/>
+
                             <div class="portletItemDate"
                                  tal:content="item/news_date" />
-
-                            <div class="portletItemTitle" tal:content="item/title" />
 
                             <div tal:condition="item/image_tag"
                                  tal:content="structure item/image_tag"
@@ -40,10 +42,6 @@
                                 <div tal:content="item/description" />
                             </div>
                         </div>
-
-                        <a class="portletItemMore"
-                           tal:attributes="href item/url;"
-                           i18n:translate="label_readmore">Read more</a>
 
                         <div class="visualClear"><!-- --></div>
                     </li>
@@ -61,8 +59,6 @@
                            i18n:attributes="title more_news_link_label"
                            tal:attributes="href more_news_url"
                            i18n:translate="more_news_link_label">More News</a>
-
-                        <br tal:condition="python: more_news_url and show_rss_link"/>
 
                         <a class="RssLink"
                            title="Subscribe to the RSS feed"

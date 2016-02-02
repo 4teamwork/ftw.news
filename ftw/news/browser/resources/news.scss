@@ -1,88 +1,74 @@
 @include portal-type-font-awesome-icon(ftw-news-news, newspaper-o);
-
 @include portal-type-font-awesome-icon(ftw-news-newsfolder, newspaper-o);
-
 @include portal-type-font-awesome-icon(ftw-news-newslistingblock, newspaper-o);
 
-.portletArchiveListing {
-  .highlight a {
-    font-weight: bold;
-  }
-
-  li.year {
-    cursor: pointer;
-  }
-
-  li {
-    display: block;
-    margin-bottom: 2px;
-  }
-
-  ul.months {
-    display: none;
-    margin-bottom: 10px;
-    margin-top: 5px;
-  }
-
-  li.month {
-    padding-left: 2em;
-  }
-
-  li.year span.yearnumber:before {
-    content: '►';
-    padding-right: 5px;
-  }
-
-  li.year.expanded span.yearnumber:before {
-    content: '▼';
-  }
-
-  ul.years ul.expanded {
-    display: block;
-  }
+.portletItemDate {
+  @extend .fa-icon;
+  @extend .fa-clock-o;
+  color: $color-text-light;
+  font-size: $font-size-small;
+  margin-bottom: $margin-heading-vertical;
 }
 
-.newsListing, .ftw-news-newslistingblock .newsListing {
-  @include ul(plain);
-
-  .image {
-    float: right;
-    margin-left: 1em;
-  }
-
-  .tileItem, {
-    border-bottom: 1px solid $gray-light;
-    margin-bottom: 1em;
-
-    .tileHeadline, .newsHeadline {
-      font-size: $font-size-h3;
-    }
-  }
+.portletItemTitle {
+  font-size: $font-size-h3;
 }
 
-.portlet.newsTemplate {
+.newsTemplate {
   ul {
-    @include ul(plain);
-    .portletItem {
-      padding-bottom: 1em;
-      margin-bottom: 1em;
-      border-bottom: 1px solid $gray-light;
+    @include list();
+    > li > a {
+      padding: 0;
     }
+  }
+  .image {
+    margin-bottom: $margin-heading-vertical;
+  }
+}
 
-    .newsText {
+.newsMoreLink {
+  @extend .fa-icon;
+  @extend .fa-chevron-right;
+  margin-bottom: $margin-paragraph-vertical;
+}
 
-      .portletItemDate {
-        font-weight: bold;
-      }
+.RssLink {
+  @extend .fa-icon;
+  @extend .fa-chevron-right;
+}
 
-      .portletItemTitle {
-        font-size: $font-size-large;
-      }
-
-      .image img{
-        width: 100%;
-        height: auto;
+.newsListing {
+  @include list();
+  .image {
+    @include screen-small() {
+      float: left;
+      margin-right: $margin-horizontal * 2;
+      margin-bottom: 0;
+      img {
+        max-width: 400px;
       }
     }
+    margin-bottom: $margin-paragraph-vertical;
+    img {
+      vertical-align: middle;
+    }
+  }
+
+  .tileHeadline {
+    font-size: $font-size-h3;
+  }
+
+  .documentByLine {
+    @extend .fa-icon;
+    @extend .fa-clock-o;
+    font-size: $font-size-small;
+    margin-bottom: 0;
+    margin-bottom: $margin-heading-vertical;
+  }
+
+  .tileItem {
+    margin-bottom: $margin-vertical * 2;
+    padding-bottom: $padding-vertical * 2;
+    border-bottom: 1px solid $color-gray-dark;
   }
 }

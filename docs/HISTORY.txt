@@ -5,6 +5,11 @@ Changelog
 1.0.1 (unreleased)
 ------------------
 
+- Apply styling based on new ftw.theming variables set.
+  - Remove `read more` link becuase the link of the heading has the same target
+    so the `read more` link is obsolete.
+  [Kevin Bieri]
+
 - Implement newslistingblock listing styles + Convert to html list. This has now the same styles as the regular newslisting.
   [mathias.leimgruber]
 

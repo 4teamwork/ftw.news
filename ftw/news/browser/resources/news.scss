@@ -3,8 +3,6 @@
 @include portal-type-font-awesome-icon(ftw-news-newslistingblock, newspaper-o);
 
 .portletItemDate {
-  @extend .fa-icon;
-  @extend .fa-clock-o;
   color: $color-text-light;
   font-size: $font-size-small;
   margin-bottom: $margin-heading-vertical;
@@ -59,8 +57,6 @@
   }
 
   .documentByLine {
-    @extend .fa-icon;
-    @extend .fa-clock-o;
     font-size: $font-size-small;
     margin-bottom: 0;
     margin-bottom: $margin-heading-vertical;

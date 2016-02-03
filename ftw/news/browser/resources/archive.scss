@@ -6,21 +6,24 @@
   .year {
     .yearnumber {
       @extend .fa-icon;
-      @extend .fa-chevron-down;
+      @extend .fa-chevron-right;
     }
 
-    &.collapsed {
+    &.expanded {
       .yearnumber {
         @extend .fa-icon;
-        @extend .fa-chevron-right;
+        @extend .fa-chevron-down;
       }
       .months {
-        display: none;
+        display: block;
       }
     }
   }
 
-  .months a {
-    padding-left: $padding-horizontal * 2;
+  .months {
+    display: none;
+    a {
+      padding-left: $padding-horizontal * 2;
+    }
   }
 }

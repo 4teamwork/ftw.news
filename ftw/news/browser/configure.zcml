@@ -22,7 +22,6 @@
         class=".news_listing.NewsListingRss"
         template="./templates/news_listing_rss.pt"
         permission="zope2.View"
-        allowed_attributes="news_result get_news"
         />
 
     <browser:page

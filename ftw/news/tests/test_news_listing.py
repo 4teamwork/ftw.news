@@ -5,6 +5,7 @@ from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
 from ftw.news.tests import FunctionalTestCase
 from ftw.news.tests import utils
 from ftw.news.tests.utils import set_allow_anonymous_view_about
+from ftw.news.utils import get_creator
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import plone
 
@@ -136,3 +137,13 @@ class TestNewsListing(FunctionalTestCase):
             'Textblock with image',
             browser.css('.newsListing .tileItem img').first.attrib['title']
         )
+
+    def test_get_creator_method_does_not_fail_if_user_is_inexistent(self):
+        userid = 'inexisting'
+
+        news = create(Builder('news')
+                      .titled(u'News Entry 1')
+                      .within(self.news_folder)
+                      .having(news_date=datetime.now()))
+        news.Creator = userid
+        self.assertEquals(userid, get_creator(news))

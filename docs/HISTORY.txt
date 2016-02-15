@@ -5,6 +5,9 @@ Changelog
 1.0.1 (unreleased)
 ------------------
 
+- get_creator should no fail if the user no longer exists.
+  [mathias.leimgruber]
+
 - Eliminate declaration warning for nonexistent methods.
   [jone]
 

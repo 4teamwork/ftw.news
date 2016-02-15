@@ -5,7 +5,11 @@ Changelog
 1.0.1 (unreleased)
 ------------------
 
-- Eliminate declaration warning for nonexistent methods. [jone]
+- Eliminate declaration warning for nonexistent methods.
+  [jone]
+
+- Do not show ftw.news.News in navigation by default.
+  [elioschmutz]
 
 - Apply styling based on new ftw.theming variables set.
   - Remove `read more` link becuase the link of the heading has the same target

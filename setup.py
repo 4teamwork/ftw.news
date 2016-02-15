@@ -54,6 +54,7 @@ setup(
         'plone.api',
         'plone.dexterity',
         'plone.directives.form',
+        'ftw.upgrade',
         'setuptools',
     ],
 

@@ -3,14 +3,7 @@
 
     <object name="navtree_properties" meta_type="Plone Property Sheet">
         <property name="metaTypesNotToList" type="lines" purge="False">
-            <element value="ftw.news.NewsListingBlock"/>
             <element value="ftw.news.News"/>
-        </property>
-    </object>
-
-    <object name="site_properties" meta_type="Plone Property Sheet">
-        <property name="types_not_searched" type="lines" purge="False">
-            <element value="ftw.news.NewsListingBlock"/>
         </property>
     </object>
 

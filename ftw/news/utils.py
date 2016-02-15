@@ -12,6 +12,8 @@ def get_creator(item):
     creator = getattr(item, 'Creator', '')
     username = creator() if callable(creator) else creator
     user = api.user.get(username=username)
+    if user is None:
+        return creator
     fullname = user.getProperty('fullname')
     return fullname or user.id
 

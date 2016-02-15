@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.0.1 (unreleased)
+------------------
+
+- get_creator should no fail if the user no longer exists.
+  [mathias.leimgruber]
 
 1.0.0 (2015-12-04)
 ------------------

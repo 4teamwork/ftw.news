@@ -50,6 +50,6 @@ class TestContentTypes(FunctionalTestCase):
         browser.login().open(news)
         self.assertIn(
             now.strftime('%b %d, %Y %I:'),
-            browser.css('.newsDate').first.text
+            browser.css('.news-date').first.text
         )
 

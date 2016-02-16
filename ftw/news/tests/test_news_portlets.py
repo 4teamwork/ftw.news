@@ -45,8 +45,8 @@ class TestNewsPortlets(FunctionalTestCase):
         create(Builder('news').titled(u'Hello World').within(news_folder))
         self._add_portlet(browser, page, **{'Title': 'A News Portlet'})
 
-        self.assertEqual(1, len(browser.css('li.portletItem')))
-        self.assertIn('Hello World', browser.css('li.portletItem').first.text)
+        self.assertEqual(1, len(browser.css('.news-item')))
+        self.assertIn('Hello World', browser.css('.news-item').first.text)
 
     @browsing
     def test_add_portlet_on_plone_root(self, browser):
@@ -60,8 +60,8 @@ class TestNewsPortlets(FunctionalTestCase):
         create(Builder('news').titled(u'Hello World').within(news_folder))
         self._add_portlet(browser, self.portal, **{'Title': 'A News Portlet'})
 
-        self.assertEqual(1, len(browser.css('li.portletItem')))
-        self.assertIn('Hello World', browser.css('li.portletItem').first.text)
+        self.assertEqual(1, len(browser.css('.news-item')))
+        self.assertIn('Hello World', browser.css('.news-item').first.text)
 
     @browsing
     def test_portlet_add_form_cancel_button(self, browser):
@@ -185,7 +185,7 @@ class TestNewsPortlets(FunctionalTestCase):
         }
         self._add_portlet(browser, page2, **portlet_config)
 
-        self.assertEqual(2, len(browser.css('li.portletItem')))
+        self.assertEqual(2, len(browser.css('.news-item')))
 
     @browsing
     def test_portlet_filters_current_context(self, browser):
@@ -210,9 +210,9 @@ class TestNewsPortlets(FunctionalTestCase):
         }
         self._add_portlet(browser, page2, **portlet_config)
 
-        self.assertEqual(1, len(browser.css('li.portletItem')))
+        self.assertEqual(1, len(browser.css('.news-item')))
         self.assertIn('Hello World 2',
-                      browser.css('li.portletItem').first.text)
+                      browser.css('.news-item .title').first.text)
 
     @browsing
     def test_portlet_filters_by_path(self, browser):
@@ -238,9 +238,9 @@ class TestNewsPortlets(FunctionalTestCase):
         }
         self._add_portlet(browser, self.portal, **portlet_config)
 
-        self.assertEqual(1, len(browser.css('li.portletItem')))
+        self.assertEqual(1, len(browser.css('.news-item')))
         self.assertIn('Hello World 2',
-                      browser.css('li.portletItem').first.text)
+                      browser.css('.news-item .title').first.text)
 
     @browsing
     def test_portlet_crops_description(self, browser):
@@ -254,7 +254,7 @@ class TestNewsPortlets(FunctionalTestCase):
 
         self._add_portlet(browser, **{'Title': 'A News Portlet'})
         self.assertIn('This description must be longer than 50 ...',
-                      browser.css('li.portletItem').first.text)
+                      browser.css('.news-item .description').first.text)
 
     @browsing
     def test_portlet_does_not_render_description(self, browser):
@@ -269,7 +269,7 @@ class TestNewsPortlets(FunctionalTestCase):
         }
         self._add_portlet(browser, **portlet_config)
         self.assertIn('This description',
-                      browser.css('li.portletItem').first.text)
+                      browser.css('.news-item .description').first.text)
 
         # Tell the portlet to not render the description anymore.
         browser.visit(self.portal, view='manage-portlets')
@@ -279,7 +279,7 @@ class TestNewsPortlets(FunctionalTestCase):
         # Make sure the description is not rendered.
         browser.visit(self.portal)
         self.assertNotIn('This description',
-                         browser.css('li.portletItem').first.text)
+                         browser.css('.news-item').first.text)
 
     @browsing
     def test_portlet_filters_by_subject(self, browser):
@@ -301,9 +301,9 @@ class TestNewsPortlets(FunctionalTestCase):
         }
         self._add_portlet(browser, **portlet_config)
 
-        self.assertEqual(1, len(browser.css('li.portletItem')))
+        self.assertEqual(1, len(browser.css('.news-item .title')))
         self.assertIn('Hello World 2',
-                      browser.css('li.portletItem').first.text)
+                      browser.css('.news-item').first.text)
 
     @browsing
     def test_portlet_filters_old_news(self, browser):
@@ -328,7 +328,7 @@ class TestNewsPortlets(FunctionalTestCase):
             'Limit to current context': False,
         }
         self._add_portlet(browser, **portlet_config)
-        self.assertEquals(1, len(browser.css('li.portletItem')))
+        self.assertEquals(1, len(browser.css('.news-item')))
 
     @browsing
     def test_portlet_renders_more_link_when_enabled(self, browser):
@@ -454,9 +454,9 @@ class TestNewsPortlets(FunctionalTestCase):
         }
         self._add_portlet(browser, self.portal, **portlet_config)
 
-        self.assertEqual(1, len(browser.css('li.portletItem')))
+        self.assertEqual(1, len(browser.css('.news-item')))
         self.assertIn('Hello World 1',
-                      browser.css('li.portletItem').first.text)
+                      browser.css('.news-item .title').first.text)
 
     @browsing
     def test_news_portlet_listing_shows_more_items(self, browser):
@@ -475,11 +475,10 @@ class TestNewsPortlets(FunctionalTestCase):
         self._add_portlet(browser, page, **{'Title': 'A News Portlet',
                                             'Quantity': u'1',
                                             'Link to more news': True})
-
         browser.find('More News').click()
         self.assertEqual(
             ['Hello Again', 'Hello World'],
-            browser.css('.newsListing .tileItem .tileHeadline').text
+            browser.css('.news-listing .title').text
         )
 
     @browsing
@@ -508,7 +507,7 @@ class TestNewsPortlets(FunctionalTestCase):
                              'Quantity': u'1',
                              'Show lead image': True})
 
-        lead_image_css_selector = 'li.portletItem img'
+        lead_image_css_selector = '.news-item img'
 
         browser.login().visit(page)
         self.assertEqual(
@@ -545,7 +544,7 @@ class TestNewsPortlets(FunctionalTestCase):
 
         self.assertEqual(
             [],
-            browser.css('dl.portlet.newsTemplate li.portletFooter'),
+            browser.css('.news-portlet footer'),
             'A portlet footer has been found. But there should not be footer.'
         )
 
@@ -557,5 +556,5 @@ class TestNewsPortlets(FunctionalTestCase):
         browser.open(page)
         self.assertEqual(
             'Subscribe to the RSS feed',
-            browser.css('dl.portlet.newsTemplate li.portletFooter').first.text
+            browser.css('.news-rss').first.text
         )

@@ -28,39 +28,31 @@
            i18n:translate="news_listing_no_content_text">No content available</p>
 
 
-        <ul class="newsListing">
-
+        <ul class="news-listing news-row">
             <tal:batch repeat="lazy_item batch">
-                <li class="tileItem"
-                    tal:define="item python:view.get_item_dict(lazy_item)">
+                <li tal:define="item python:view.get_item_dict(lazy_item)">
+                    <a class="news-item" tal:attributes="href item/url">
 
-                    <div class="tileHeadline">
-                        <a class="summary url"
-                           tal:attributes="href item/url"
-                           tal:content="item/title"></a>
-                    </div>
+                      <div tal:condition="item/image_tag"
+                           tal:content="structure item/image_tag"
+                           class="image">
+                      </div>
 
-                    <div class="documentByLine">
-                        <span class="dtstart" tal:content="item/news_date" />
-                        <tal:author condition="item/author">
-                            <span class="documentAuthor"
-                                  i18n:translate="news_listing_author_label">
-                                by
-                                <span tal:content="item/author" i18n:name="author" />
-                            </span>
-                        </tal:author>
-                    </div>
-
-                    <div tal:condition="item/image_tag"
-                         tal:content="structure item/image_tag"
-                         class="image">
-                    </div>
-
-                    <p class="tileBody" tal:condition="item/description">
-                        <span class="description" tal:content="item/description" />
-                    </p>
-
-                    <div class="visualClear"><!-- --></div>
+                      <div class="body">
+                          <span class="byline">
+                              <span class="dtstart" tal:content="item/news_date" />
+                              <tal:author condition="item/author">
+                                  <span class="author"
+                                        i18n:translate="news_listing_author_label">
+                                      by
+                                      <span tal:content="item/author" i18n:name="author" />
+                                  </span>
+                              </tal:author>
+                          </span>
+                          <h3 class="title" tal:content="item/title" />
+                          <span class="description" tal:content="item/description" tal:condition="item/description"/>
+                      </div>
+                    </a>
                 </li>
             </tal:batch>
         </ul>

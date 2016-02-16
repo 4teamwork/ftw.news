@@ -27,5 +27,5 @@ class TestNewsDetail(FunctionalTestCase):
         browser.login().visit(news)
         self.assertEqual(
             'Dec 31, 2000 01:00 PM',
-            browser.css('p.newsDate').first.text
+            browser.css('.news-date').first.text
         )

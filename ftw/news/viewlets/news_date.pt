@@ -3,6 +3,6 @@
       tal:omit-tag="python: 1"
       i18n:domain="ftw.news">
 
-    <p class="newsDate" tal:condition="view/news_date" tal:content="view/news_date" />
+    <span class="news-date" tal:condition="view/news_date" tal:content="view/news_date" />
 
 </html>

@@ -2,69 +2,89 @@
 @include portal-type-font-awesome-icon(ftw-news-newsfolder, newspaper-o);
 @include portal-type-font-awesome-icon(ftw-news-newslistingblock, newspaper-o);
 
-.portletItemDate {
-  color: $color-text-light;
-  font-size: $font-size-small;
-  margin-bottom: $margin-heading-vertical;
-}
+$leadimage-width: $scale-preview-width;
 
-.portletItemTitle {
-  font-size: $font-size-h3;
-}
-
-.newsTemplate {
-  ul {
-    @include list();
-    > li > a {
-      padding: 0;
-    }
-  }
-  .image {
-    margin-bottom: $margin-heading-vertical;
-  }
-}
-
-.newsMoreLink {
-  @extend .fa-icon;
-  @extend .fa-chevron-right;
-  margin-bottom: $margin-paragraph-vertical;
-}
-
-.RssLink {
-  @extend .fa-icon;
-  @extend .fa-chevron-right;
-}
-
-.newsListing {
+.news-row {
   @include list();
-  .image {
-    @include screen-small() {
-      float: left;
-      margin-right: $margin-horizontal * 2;
-      margin-bottom: 0;
-      img {
-        max-width: 400px;
+
+  .news-item {
+    @include no-link();
+    @include clearfix();
+    padding: 0;
+    margin-bottom: $margin-vertical * 2;
+
+    &:hover {
+      background-color: $color-gray-light;
+    }
+
+    .image {
+      @include screen-small() {
+        float: left;
+        > img {
+          max-width: $leadimage-width;
+        }
+      }
+      > img {
+        vertical-align: middle;
       }
     }
-    margin-bottom: $margin-paragraph-vertical;
-    img {
-      vertical-align: middle;
+
+    .body {
+      padding: $padding-vertical $padding-horizontal;
+      @include screen-small() {
+        padding-left: em($leadimage-width) + $padding-horizontal;
+      }
+
+      .news-more {
+        display: inline;
+        &:before {
+          min-width: 0;
+        }
+      }
+    }
+
+    .byline {
+      display: block;
+      font-size: $font-size-small;
+      color: $color-text-light;
+    }
+
+    .title {
+      font-size: $font-size-h3;
+      display: block;
     }
   }
+}
 
-  .tileHeadline {
-    font-size: $font-size-h3;
-  }
+.news-more {
+  @extend .fa-icon;
+  @extend .fa-caret-right;
+  display: block;
+}
 
-  .documentByLine {
-    font-size: $font-size-small;
-    margin-bottom: 0;
-    margin-bottom: $margin-heading-vertical;
-  }
+.news-rss {
+  @extend .fa-icon;
+  @extend .fa-rss;
+  display: block;
+}
 
-  .tileItem {
-    margin-bottom: $margin-vertical * 2;
-    padding-bottom: $padding-vertical * 2;
-    border-bottom: 1px solid $color-gray-dark;
+.news-date {
+  font-size: $font-size-small;
+  color: $color-text-light;
+}
+
+.news-portlet {
+  .news-item {
+    .image {
+      float: none;
+      > img {
+        max-width: 100%;
+      }
+    }
+    .body {
+      padding: 0;
+      padding-top: $padding-vertical;
+    }
   }
 }
+

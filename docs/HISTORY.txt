@@ -5,6 +5,9 @@ Changelog
 1.0.1 (unreleased)
 ------------------
 
+- Rework styling based on ftw.theming
+  [Kevin Bieri]
+
 - get_creator should no fail if the user no longer exists.
   [mathias.leimgruber]
 

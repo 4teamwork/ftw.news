@@ -50,7 +50,7 @@ class TestNewsListing(FunctionalTestCase):
         browser.visit(self.news_folder, view='@@news_listing')
         self.assertEqual(
             'by test_user_1_',
-            browser.css('.newsListing .documentAuthor').first.text,
+            browser.css('.news-item .author').first.text,
             'Authenticated member should see author if '
             'allowAnonymousViewAbout is False.')
 
@@ -61,14 +61,14 @@ class TestNewsListing(FunctionalTestCase):
         browser.visit(self.news_folder, view='@@news_listing')
         self.assertEqual(
             'by test_user_1_',
-            browser.css('.newsListing .documentAuthor').first.text,
+            browser.css('.author').first.text,
             'Authenticated member should see author.')
 
     @browsing
     def test_anonymous_cannot_see_author_when_aava_disabled(self, browser):
         set_allow_anonymous_view_about(False)
         browser.logout().visit(self.news_folder, view='@@news_listing')
-        self.assertEquals([], browser.css('.newsListing .documentAuthor'),
+        self.assertEquals([], browser.css('.news-item .author'),
                           'Anonymous user should not see author if '
                           'allowAnonymousViewAbout is False.')
 
@@ -78,7 +78,7 @@ class TestNewsListing(FunctionalTestCase):
         browser.logout().visit(self.news_folder, view='@@news_listing')
         self.assertEqual(
             'by test_user_1_',
-            browser.css('.newsListing .documentAuthor').first.text,
+            browser.css('.author').first.text,
             'Anonymous user should see author if '
             'allowAnonymousViewAbout is True.')
 
@@ -135,7 +135,7 @@ class TestNewsListing(FunctionalTestCase):
         browser.login().visit(self.news_folder, view='news_listing')
         self.assertEqual(
             'Textblock with image',
-            browser.css('.newsListing .tileItem img').first.attrib['title']
+            browser.css('.news-item img').first.attrib['title']
         )
 
     def test_get_creator_method_does_not_fail_if_user_is_inexistent(self):

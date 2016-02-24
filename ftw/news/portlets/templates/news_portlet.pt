@@ -7,7 +7,7 @@
         tal:define="items view/get_items;">
 
         <header>
-            <h3 tal:content="view/data/news_listing_config_title"></h3>
+            <h2 tal:content="view/data/news_listing_config_title"></h2>
         </header>
         <ul class="news-row">
             <li class="portletItem noRecentNews"

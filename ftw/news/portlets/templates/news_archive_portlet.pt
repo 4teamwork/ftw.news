@@ -3,33 +3,41 @@
       tal:omit-tag="python: 1"
       i18n:domain="ftw.news">
 
-    <dl class="portlet portletArchiveListing">
+    <section class="archive-portlet">
 
-        <dt class="portletHeader">
-            <span i18n:translate="">
-                Archive
-            </span>
-        </dt>
+        <header>
+            <h2 i18n:translate="">Archive</h2>
+        </header>
 
-        <dd class="portletItem">
-            <ul class="years">
-                <li tal:repeat="year view/get_items"
-                    tal:attributes="class year/class">
+        <ul class="years">
+            <li tal:repeat="year view/get_items">
 
-                    <span class="yearnumber"
-                          tal:content="year/year_and_count" />
+                <a href="#"
+                   tal:attributes="class year/class;
+                                   aria-controls string:year_${year/title}"
+                   aria-haspopup="true">
+                   <span class="title" tal:content="year/title"></span>
+                   <span class="count"
+                         tal:content="year/count"
+                         tal:condition="year/count"></span>
+                </a>
 
-                    <ul tal:attributes="class year/months_expanded">
-                        <li tal:repeat="month year/months"
-                            tal:attributes="class month/class">
-                            <a tal:attributes="href month/url;
-                                               title month/title"
-                               tal:content="month/month_and_count"
-                               i18n:translate=""/>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </dd>
-    </dl>
+                <ul tal:attributes="class year/months_expanded;
+                                    id string:year_${year/title}"
+                    aria-hidden="true">
+                    <li tal:repeat="month year/months">
+                        <a tal:attributes="href month/url;
+                                           title month/title;
+                                           class month/class"
+                           i18n:translate="">
+                           <span class="title" tal:content="month/title"></span>
+                           <span class="count"
+                                 tal:content="month/count"
+                                 tal:condition="month/count"></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
 </html>

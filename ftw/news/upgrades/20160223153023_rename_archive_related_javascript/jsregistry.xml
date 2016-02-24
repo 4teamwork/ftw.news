@@ -10,4 +10,6 @@
                 id="++resource++ftw.news.resources/archive.js"
                 inline="False"/>
 
+    <javascript id="++resource++ftw.news.resources/collapse_archive.js" remove="True" />
+
 </object>

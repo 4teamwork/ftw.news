@@ -175,16 +175,16 @@ class Renderer(base.Renderer):
             view_name='news_listing')()
 
         items = [{
-            'year_and_count': '{0} ({1})'.format(year['title'],
-                                                 year['number']),
+            'title': year['title'],
+            'count': year['number'],
             'class': 'year expanded' if year['mark'] else 'year',
             'months_expanded': 'months expanded' if year['mark'] else 'months',
             'months': [{
                 'title': month['title'],
                 'url': month['url'],
                 'class': 'month highlight' if month['mark'] else 'month',
-                'month_and_count': '{0} ({1})'.format(month['title'],
-                                                      month['number']),
+                'month': month['title'],
+                'count': month['number'],
             } for month in year['months']],
         } for year in summary]
         return items

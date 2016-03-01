@@ -1,29 +1,35 @@
-.portletArchiveListing {
+.archive-portlet {
   ul {
-    @include list();
+    @include list-tree($indentation: $line-height-base);
   }
 
   .year {
-    .yearnumber {
-      @extend .fa-icon;
-      @extend .fa-chevron-right;
-    }
+    @extend .fa-icon;
+    @extend .fa-angle-right;
 
     &.expanded {
-      .yearnumber {
-        @extend .fa-icon;
-        @extend .fa-chevron-down;
-      }
-      .months {
+      @extend .fa-icon;
+      @extend .fa-angle-down;
+
+      ~ .months {
         display: block;
       }
+    }
+
+    .count {
+      @include label-round();
     }
   }
 
   .months {
     display: none;
-    a {
-      padding-left: $padding-horizontal * 2;
+    .count {
+      &:before {
+        content: "(";
+      }
+      &:after {
+        content: ")";
+      }
     }
   }
 }

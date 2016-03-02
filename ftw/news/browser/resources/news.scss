@@ -90,14 +90,17 @@ $leadimage-max-width: 200px !default;
 .news-portlet {
   .news-item {
     .image {
-      float: none;
-      > img {
-        max-width: 100%;
+      @include screen-medium() {
+        float: none;
+        > img {
+          max-width: 100%;
+        }
       }
     }
-    .body {
-      padding: 0;
-      padding-top: $padding-vertical;
+    .body.show-image {
+      @include screen-medium() {
+        padding-left: 0;
+      }
     }
   }
 }

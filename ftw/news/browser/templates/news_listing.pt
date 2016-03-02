@@ -33,12 +33,11 @@
                 <li tal:define="item python:view.get_item_dict(lazy_item)">
                     <a class="news-item" tal:attributes="href item/url">
 
-                      <div tal:condition="item/image_tag"
-                           tal:content="structure item/image_tag"
-                           class="image">
+                      <div tal:attributes="class python:'image' if item['image_tag'] else 'no-image image'">
+                        <img tal:condition="item/image_tag" tal:replace="structure item/image_tag" />
                       </div>
 
-                      <div class="body">
+                      <div class="body show-image">
                           <span class="byline">
                               <span class="dtstart" tal:content="item/news_date" />
                               <tal:author condition="item/author">

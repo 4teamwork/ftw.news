@@ -4,6 +4,8 @@
 
 $leadimage-width: $scale-preview-width;
 
+$leadimage-max-width: 200px !default;
+
 .news-row {
   @include list();
 
@@ -21,11 +23,19 @@ $leadimage-width: $scale-preview-width;
       @include screen-small() {
         float: left;
         > img {
-          max-width: $leadimage-width;
+          max-width: $leadimage-max-width;
         }
       }
+
+      min-width: $leadimage-max-width;
+      min-height: $leadimage-max-width;
+
       > img {
         vertical-align: middle;
+      }
+
+      &.no-image {
+        background: url("#{$portal-url}/++resource++ftw.news.resources/newspaper.svg") center / 50% no-repeat;
       }
     }
 
@@ -34,7 +44,7 @@ $leadimage-width: $scale-preview-width;
 
       &.show-image {
         @include screen-small() {
-          padding-left: em($leadimage-width) + $padding-horizontal;
+          padding-left: em($leadimage-max-width) + $padding-horizontal;
         }
       }
 

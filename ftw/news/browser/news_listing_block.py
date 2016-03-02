@@ -39,7 +39,9 @@ class NewsListingBlockView(BaseBlock):
             'more_news_link_url': more_news_link_url,
             'more_news_link_label': more_news_link_label,
             'rss_link_url': rss_link_url or '',
+            'show_lead_image': self.context.show_lead_image,
         }
+
         return info
 
     def get_news(self):

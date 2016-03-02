@@ -19,7 +19,7 @@
                      tal:content="structure item/image_tag"
                      class="image">
                 </div>
-                <div class="body">
+                <div tal:attributes="class python:'body show-image' if block_info['show_lead_image'] else 'body'">
                     <a class="title" tal:attributes="href item/url">
                         <h3 class="title" tal:content="item/title" />
                     </a>

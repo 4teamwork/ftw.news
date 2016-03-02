@@ -31,8 +31,11 @@ $leadimage-width: $scale-preview-width;
 
     .body {
       padding: $padding-vertical $padding-horizontal;
-      @include screen-small() {
-        padding-left: em($leadimage-width) + $padding-horizontal;
+
+      &.show-image {
+        @include screen-small() {
+          padding-left: em($leadimage-width) + $padding-horizontal;
+        }
       }
 
       .news-more {

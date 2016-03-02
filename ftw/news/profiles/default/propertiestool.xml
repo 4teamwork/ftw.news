@@ -14,4 +14,10 @@
         </property>
     </object>
 
+    <object name="imaging_properties" meta_type="Plone Property Sheet">
+        <property name="allowed_sizes" type="lines" purge="False">
+            <element value="news_listing_image 480:480"/>
+        </property>
+    </object>
+
 </object>

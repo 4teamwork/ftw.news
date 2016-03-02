@@ -97,7 +97,7 @@ class NewsListingBlockView(BaseBlock):
 
         image_tag = ''
         if INewsListingBaseSchema(self.context).show_lead_image:
-            image_tag = obj.restrictedTraverse('@@leadimage')
+            image_tag = obj.restrictedTraverse('@@leadimage')('news_listing_image')
 
         item = {
             'title': brain.Title,

@@ -2,7 +2,8 @@
 @include portal-type-font-awesome-icon(ftw-news-newsfolder, newspaper-o);
 @include portal-type-font-awesome-icon(ftw-news-newslistingblock, newspaper-o);
 
-$leadimage-width: $scale-preview-width;
+$leadimage-width: $scale-news-listing-image-width;
+$leadimage-height: $scale-news-listing-image-height;
 
 $leadimage-max-width: 200px !default;
 

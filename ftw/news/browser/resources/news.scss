@@ -9,12 +9,17 @@ $leadimage-max-width: 200px !default;
 
 .news-row {
   @include list();
+  margin-bottom: $margin-vertical;
+
+  > li:last-child .news-item {
+    margin-bottom: 0;
+  }
 
   .news-item {
     @include no-link();
     @include clearfix();
     padding: 0;
-    margin-bottom: $margin-vertical * 2;
+    margin-bottom: $margin-vertical;
 
     &:hover {
       background-color: $color-gray-light;
@@ -32,6 +37,7 @@ $leadimage-max-width: 200px !default;
       min-height: $leadimage-max-width;
 
       > img {
+        margin-bottom: 0;
         vertical-align: middle;
       }
 

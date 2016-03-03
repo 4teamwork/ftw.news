@@ -21,14 +21,10 @@
                              tal:content="structure item/image_tag"
                              class="image">
                         </div>
-                        <div class="body">
-                          <div class="title"
-                               tal:content="item/title" />
-                          <div class="byline"
-                               tal:content="item/news_date" />
-                          <div class="description"
-                               tal:condition="item/description"
-                               tal:content="item/description" />
+                        <div tal:attributes="class python:'body show-image' if view.data.show_lead_image else 'body'">
+                          <span class="byline" tal:content="item/news_date" />
+                          <h3 class="title" tal:content="item/title" />
+                          <span class="description" tal:content="item/description" tal:condition="item/description"/>
                         </div>
                     </a>
                 </li>

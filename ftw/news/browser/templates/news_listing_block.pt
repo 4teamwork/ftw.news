@@ -15,11 +15,11 @@
 
         <ul class="news-row">
             <li class="news-item" tal:repeat="item news">
-                <div tal:condition="item/image_tag"
-                     tal:content="structure item/image_tag"
-                     class="image">
+                <div tal:attributes="class python:'image' if item['image_tag'] else 'no-image image'"
+                     tal:condition="block_info/show_lead_image">
+                  <img tal:condition="item/image_tag" tal:replace="structure item/image_tag" />
                 </div>
-                <div class="body">
+                <div tal:attributes="class python:'body show-image' if block_info['show_lead_image'] else 'body'">
                     <a class="title" tal:attributes="href item/url">
                         <h3 class="title" tal:content="item/title" />
                     </a>

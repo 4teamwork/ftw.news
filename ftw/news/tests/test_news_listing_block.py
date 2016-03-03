@@ -204,3 +204,63 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
                          browser.css('.news-item .byline').first.text,
                          'Anonymous user should see author if '
                          'allowAnonymousViewAbout is True.')
+
+    @browsing
+    def test_has_image_class_is_set_on_show_lead_image(self, browser):
+        page = create(Builder('sl content page').titled(u'A page'))
+        news_folder = create(Builder('news folder')
+                             .titled(u'News Folder')
+                             .within(page))
+        news_with_image = create(Builder('news')
+                                 .titled(u'News with image')
+                                 .within(news_folder))
+
+        textblock_with_image = create(Builder('sl textblock')
+                                      .titled(u'Textblock with image')
+                                      .within(news_with_image)
+                                      .with_dummy_image())
+
+        utils.create_page_state(news_with_image, textblock_with_image)
+
+        block = create(Builder('news listing block')
+                       .within(page)
+                       .titled('News listing block')
+                       .having(show_lead_image=True))
+
+        browser.login().visit(page)
+
+        self.assertEqual(
+            ['body show-image'],
+            map(lambda news_item: news_item.attrib['class'],
+                browser.css('.news-item .body'))
+        )
+
+    @browsing
+    def test_has_image_class_is_not_set_on_show_lead_image(self, browser):
+        page = create(Builder('sl content page').titled(u'A page'))
+        news_folder = create(Builder('news folder')
+                             .titled(u'News Folder')
+                             .within(page))
+        news_with_image = create(Builder('news')
+                                 .titled(u'News with image')
+                                 .within(news_folder))
+
+        textblock_with_image = create(Builder('sl textblock')
+                                      .titled(u'Textblock with image')
+                                      .within(news_with_image)
+                                      .with_dummy_image())
+
+        utils.create_page_state(news_with_image, textblock_with_image)
+
+        block = create(Builder('news listing block')
+                       .within(page)
+                       .titled('News listing block')
+                       .having(show_lead_image=False))
+
+        browser.login().visit(page)
+
+        self.assertEqual(
+            ['body'],
+            map(lambda news_item: news_item.attrib['class'],
+                browser.css('.news-item .body'))
+        )

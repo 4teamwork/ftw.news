@@ -70,7 +70,7 @@ class NewsListing(BrowserView):
             'url': brain.getURL(),
             'author': utils.get_creator(obj) if utils.can_view_about() else '',
             'news_date': self.format_date(brain),
-            'image_tag': obj.restrictedTraverse('@@leadimage')(),
+            'image_tag': obj.restrictedTraverse('@@leadimage')('news_listing_image'),
         }
         return item
 

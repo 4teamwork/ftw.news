@@ -5,7 +5,9 @@ Changelog
 1.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Define individual scale for news listing block.
+  Define default image for news listing block.
+  [Kevin Bieri]
 
 
 1.1.0 (2016-03-03)

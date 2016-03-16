@@ -47,7 +47,7 @@ $leadimage-max-width: 200px !default;
     }
 
     .body {
-      padding: $padding-vertical $padding-horizontal;
+      padding: $padding-vertical 0;
 
       &.show-image {
         @include screen-small() {

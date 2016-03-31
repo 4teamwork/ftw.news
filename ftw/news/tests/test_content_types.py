@@ -1,10 +1,11 @@
-from datetime import datetime
+import datetime
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
 from ftw.news.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
+from ftw.testing import freeze
 
 
 class TestContentTypes(FunctionalTestCase):
@@ -42,14 +43,13 @@ class TestContentTypes(FunctionalTestCase):
     def test_default_news_date(self, browser):
         news_folder = create(Builder('news folder'))
 
-        now = datetime.now()
-        news = create(Builder('news')
-                      .titled(u'News Entry')
-                      .within(news_folder))
+        with freeze(datetime.datetime(2001, 5, 7, 11, 13, 17)):
+            news = create(Builder('news')
+                          .titled(u'News Entry')
+                          .within(news_folder))
 
         browser.login().open(news)
-        self.assertIn(
-            now.strftime('%b %d, %Y %I:'),
+        self.assertEqual(
+            'May 07, 2001 11:13 AM',
             browser.css('.news-date').first.text
         )
-

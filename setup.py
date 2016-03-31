@@ -7,7 +7,7 @@ maintainer = 'Mathias Leimgruber'
 tests_require = [
     'ftw.builder',
     'ftw.testbrowser',
-    'ftw.testing',
+    'ftw.testing>=1.11.0',
     'plone.app.testing',
     'plone.testing',
 ]

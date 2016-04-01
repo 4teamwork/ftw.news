@@ -15,31 +15,27 @@
 
         <ul class="news-row">
             <li class="news-item" tal:repeat="item news">
-                <div tal:attributes="class python:'image' if item['image_tag'] else 'no-image image'"
-                     tal:condition="block_info/show_lead_image">
-                  <img tal:condition="item/image_tag" tal:replace="structure item/image_tag" />
-                </div>
-                <div tal:attributes="class python:'body show-image' if block_info['show_lead_image'] else 'body'">
-                    <a class="title" tal:attributes="href item/url">
+                <a class="news-item" tal:attributes="href item/url">
+                    <div tal:attributes="class python:'image' if item['image_tag'] else 'no-image image'"
+                         tal:condition="block_info/show_lead_image">
+                        <img tal:condition="item/image_tag" tal:replace="structure item/image_tag" />
+                    </div>
+                    <div tal:attributes="class python:'body show-image' if block_info['show_lead_image'] else 'body'">
+                        <span class="byline">
+                            <span tal:condition="item/news_date"
+                                  tal:content="item/news_date"/>
+                            <tal:author condition="item/author">
+                                <span i18n:translate="news_listing_author_label">
+                                    by
+                                    <span tal:content="item/author"
+                                          i18n:name="author">Author</span>
+                                </span>
+                            </tal:author>
+                        </span>
                         <h3 class="title" tal:content="item/title" />
-                    </a>
-                    <span class="byline">
-                        <span tal:condition="item/news_date"
-                              tal:content="item/news_date"/>
-                        <tal:author condition="item/author">
-                            <span i18n:translate="news_listing_author_label">
-                                by
-                                <span tal:content="item/author"
-                                      i18n:name="author">Author</span>
-                            </span>
-                        </tal:author>
-                    </span>
-                    <span class="description" tal:content="item/description">Description</span>
-                    <a class="news-more"
-                       tal:attributes="href item/url"
-                       tal:condition="item/url"
-                       i18n:translate="">Read more</a>
-                </div>
+                        <span class="description" tal:content="item/description">Description</span>
+                    </div>
+                </a>
             </li>
 
         </ul>

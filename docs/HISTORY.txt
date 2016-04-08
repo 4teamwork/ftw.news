@@ -5,6 +5,9 @@ Changelog
 1.1.2 (unreleased)
 ------------------
 
+- Fix the link in the RSS feed (link to parent instead of the feed itself).
+  [mbaechtold]
+
 - The news listing block renders news items the same way as the news portlet
   and the news listing view.
   [mbaechtold]

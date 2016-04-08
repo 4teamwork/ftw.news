@@ -109,7 +109,7 @@ class NewsListingRss(NewsListing):
         This is needed because TAL complains about empty HTML tags which
         cannot use "tal:content" when building the translation messages.
         """
-        return '<link>{0}</link>'.format(self.link)
+        return '<link>{0}</link>'.format(self.context.absolute_url())
 
     def get_item_dict(self, brain):
         return {

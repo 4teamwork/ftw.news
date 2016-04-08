@@ -34,6 +34,18 @@ class TestNewsRssListing(FunctionalTestCase):
         self.assertEqual(1, len(view.get_items()))
 
     @browsing
+    def test_channel_link(self, browser):
+        news_folder = create(Builder('news folder'))
+
+        browser.login().visit(news_folder, view='news_listing_rss')
+
+        self.assertIn(
+            '<link>{0}</link>'.format(news_folder.absolute_url()),
+            browser.contents,
+            'Did not found the link tag of the channel'
+        )
+
+    @browsing
     def test_news_listing_rss_items(self, browser):
         news_folder = create(Builder('news folder'))
 

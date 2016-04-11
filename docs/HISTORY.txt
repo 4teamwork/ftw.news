@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.2 (unreleased)
+1.1.2 (2016-04-11)
 ------------------
 
 - Fix the link in the RSS feed (link to parent instead of the feed itself).

@@ -4,7 +4,10 @@
 Introduction
 ============
 
-ftw.news provides dexterity content types for news articles.
+ftw.news provides dexterity content types for news articles and an integration
+for ftw.simplelayout (news listing block). An optional feature can be installed
+allowing the news listing block on the Plone Site to render specially marked
+news items only.
 
 Compatibility
 -------------
@@ -26,6 +29,11 @@ Installation
     eggs +=
         ...
         ftw.news
+
+- Install the "default" GenericSetup profile.
+
+- Optionally (and additionally to the "default" GenericSetup profile) you may
+  install the "show-on-homepage" GenericSetup profile.
 
 
 Usage

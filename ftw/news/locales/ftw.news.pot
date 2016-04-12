@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-04-12 11:52+0000\n"
+"POT-Creation-Date: 2016-04-12 11:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,6 +30,18 @@ msgstr ""
 msgid "Display the contents of a news folder."
 msgstr ""
 
+#: ./ftw/news/configure.zcml:34
+msgid "Installs a feature allowing to mark news to show on homepage."
+msgstr ""
+
+#: ./ftw/news/behaviors/configure.zcml:15
+msgid "Mark news items to show up on the homepage"
+msgstr ""
+
+#: ./ftw/news/behaviors/configure.zcml:22
+msgid "Mark news listing block to render news on homepage"
+msgstr ""
+
 #: ./ftw/news/profiles/default/types/ftw.news.News.xml
 msgid "News"
 msgstr ""
@@ -40,6 +52,14 @@ msgstr ""
 
 #: ./ftw/news/browser/configure.zcml:48
 msgid "News listing"
+msgstr ""
+
+#: ./ftw/news/behaviors/configure.zcml:22
+msgid "News listing block on homepage"
+msgstr ""
+
+#: ./ftw/news/behaviors/configure.zcml:15
+msgid "News on homepage"
 msgstr ""
 
 #: ./ftw/news/profiles/default/types/ftw.news.NewsListingBlock.xml
@@ -67,7 +87,16 @@ msgstr ""
 msgid "description_more_news_link_label"
 msgstr ""
 
-#: ./ftw/news/configure.zcml:25
+#. Default: "If active, this news item may be shown on the homepage."
+#: ./ftw/news/behaviors/show_on_homepage/news.py:18
+msgid "description_show_on_homepage"
+msgstr ""
+
+#: ./ftw/news/configure.zcml:34
+msgid "ftw.news (show on homepage feature)"
+msgstr ""
+
+#: ./ftw/news/configure.zcml:26
 msgid "ftw.news default"
 msgstr ""
 
@@ -81,8 +110,16 @@ msgstr ""
 msgid "label_more_news_link_label"
 msgstr ""
 
+#. Default: "Show on home page"
+#: ./ftw/news/behaviors/show_on_homepage/news.py:17
+msgid "label_show_on_homepage"
+msgstr ""
+
+msgid "mark news items to show up on home page"
+msgstr ""
+
 #. Default: "More News"
-#: ./ftw/news/browser/news_listing_block.py:32
+#: ./ftw/news/browser/news_listing_block.py:34
 #: ./ftw/news/browser/templates/news_listing_block.pt:46
 #: ./ftw/news/portlets/templates/news_portlet.pt:37
 msgid "more_news_link_label"
@@ -152,6 +189,16 @@ msgstr ""
 #. Default: "Maximum age (days)"
 #: ./ftw/news/contents/common.py:86
 msgid "news_listing_config_maximum_age_label"
+msgstr ""
+
+#. Default: "Only news items which have been marked to be shown on the homepage will be displayed."
+#: ./ftw/news/behaviors/show_on_homepage/news_listing_block.py:13
+msgid "news_listing_config_news_on_homepage_description"
+msgstr ""
+
+#. Default: "News on homepage"
+#: ./ftw/news/behaviors/show_on_homepage/news_listing_block.py:11
+msgid "news_listing_config_news_on_homepage_label"
 msgstr ""
 
 #. Default: "The number of news entries to be shown at most. Enter 0 for no limitation."

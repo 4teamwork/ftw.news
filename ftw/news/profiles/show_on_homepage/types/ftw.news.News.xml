@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<object name="ftw.news.News">
+
+    <property name="behaviors" purge="False">
+        <element value="ftw.news.behaviors.show_on_homepage.news.IShowOnHomepageSchema" />
+    </property>
+
+</object>

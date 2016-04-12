@@ -17,4 +17,9 @@
         title="ftw.news: Add NewsListingBlock"
         />
 
+    <permission
+        id="ftw.news.ShowNewsOnHomepage"
+        title="ftw.news: Mark news items to show up on home page"
+        />
+
 </configure>

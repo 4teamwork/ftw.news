@@ -16,3 +16,6 @@ msgstr ""
 
 msgid "News listing"
 msgstr ""
+
+msgid "mark news items to show up on home page"
+msgstr ""

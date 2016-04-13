@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-08-24 08:23+0000\n"
+"POT-Creation-Date: 2016-04-12 11:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,12 +14,32 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
+#: ./ftw/news/portlets/templates/news_archive_portlet.pt:34
+msgid "<span class=\"title\">${DYNAMIC_CONTENT}</span> <span class=\"count\">${DYNAMIC_CONTENT}</span>"
+msgstr ""
+
 #: ./ftw/news/profiles/default/types/ftw.news.NewsFolder.xml
 msgid "A container for news items."
 msgstr ""
 
-#: ./ftw/news/portlets/templates/news_archive_portlet.pt:10
+#: ./ftw/news/portlets/templates/news_archive_portlet.pt:9
 msgid "Archive"
+msgstr ""
+
+#: ./ftw/news/browser/configure.zcml:48
+msgid "Display the contents of a news folder."
+msgstr ""
+
+#: ./ftw/news/configure.zcml:34
+msgid "Installs a feature allowing to mark news to show on homepage."
+msgstr ""
+
+#: ./ftw/news/behaviors/configure.zcml:15
+msgid "Mark news items to show up on the homepage"
+msgstr ""
+
+#: ./ftw/news/behaviors/configure.zcml:22
+msgid "Mark news listing block to render news on homepage"
 msgstr ""
 
 #: ./ftw/news/profiles/default/types/ftw.news.News.xml
@@ -30,22 +50,31 @@ msgstr ""
 msgid "News Folder"
 msgstr ""
 
+#: ./ftw/news/browser/configure.zcml:48
 msgid "News listing"
+msgstr ""
+
+#: ./ftw/news/behaviors/configure.zcml:22
+msgid "News listing block on homepage"
+msgstr ""
+
+#: ./ftw/news/behaviors/configure.zcml:15
+msgid "News on homepage"
 msgstr ""
 
 #: ./ftw/news/profiles/default/types/ftw.news.NewsListingBlock.xml
 msgid "NewsListingBlock"
 msgstr ""
 
-#: ./ftw/news/browser/templates/news_listing_block.pt:21
+#: ./ftw/news/browser/templates/news_listing_block.pt:13
 msgid "No content available"
 msgstr ""
 
-#: ./ftw/news/browser/templates/news_listing_block.pt:51
-msgid "Read more"
+#: ./ftw/news/browser/templates/news_listing.pt:9
+msgid "RSS"
 msgstr ""
 
-#: ./ftw/news/browser/templates/news_listing_block.pt:13
+#: ./ftw/news/browser/templates/news_listing_block.pt:52
 msgid "Subscribe to the RSS feed"
 msgstr ""
 
@@ -58,8 +87,21 @@ msgstr ""
 msgid "description_more_news_link_label"
 msgstr ""
 
+#. Default: "If active, this news item may be shown on the homepage."
+#: ./ftw/news/behaviors/show_on_homepage/news.py:18
+msgid "description_show_on_homepage"
+msgstr ""
+
+#: ./ftw/news/configure.zcml:34
+msgid "ftw.news (show on homepage feature)"
+msgstr ""
+
+#: ./ftw/news/configure.zcml:26
+msgid "ftw.news default"
+msgstr ""
+
 #. Default: "${title} - News Feed"
-#: ./ftw/news/browser/news_listing.py:94
+#: ./ftw/news/browser/news_listing.py:90
 msgid "label_feed_desc"
 msgstr ""
 
@@ -68,31 +110,34 @@ msgstr ""
 msgid "label_more_news_link_label"
 msgstr ""
 
-#. Default: "Read more"
-#: ./ftw/news/portlets/templates/news_portlet.pt:44
-msgid "label_readmore"
+#. Default: "Show on home page"
+#: ./ftw/news/behaviors/show_on_homepage/news.py:17
+msgid "label_show_on_homepage"
+msgstr ""
+
+msgid "mark news items to show up on home page"
 msgstr ""
 
 #. Default: "More News"
-#: ./ftw/news/browser/news_listing_block.py:32
-#: ./ftw/news/browser/templates/news_listing_block.pt:61
-#: ./ftw/news/portlets/templates/news_portlet.pt:56
+#: ./ftw/news/browser/news_listing_block.py:34
+#: ./ftw/news/browser/templates/news_listing_block.pt:46
+#: ./ftw/news/portlets/templates/news_portlet.pt:37
 msgid "more_news_link_label"
 msgstr ""
 
 #. Default: "News will be sorted by this date"
-#: ./ftw/news/contents/news.py:18
+#: ./ftw/news/contents/news.py:22
 msgid "news_date_description"
 msgstr ""
 
 #. Default: "Date"
-#: ./ftw/news/contents/news.py:17
+#: ./ftw/news/contents/news.py:21
 msgid "news_date_label"
 msgstr ""
 
 #. Default: "by ${author}"
-#: ./ftw/news/browser/templates/news_listing.pt:61
-#: ./ftw/news/browser/templates/news_listing_block.pt:41
+#: ./ftw/news/browser/templates/news_listing.pt:47
+#: ./ftw/news/browser/templates/news_listing_block.pt:30
 msgid "news_listing_author_label"
 msgstr ""
 
@@ -102,102 +147,112 @@ msgid "news_listing_block_show_title_label"
 msgstr ""
 
 #. Default: "You can not filter by path and current context at the same time."
-#: ./ftw/news/contents/common.py:125
+#: ./ftw/news/contents/common.py:127
 msgid "news_listing_config_current_context_and_path_error"
 msgstr ""
 
 #. Default: "The maximum length of the news item's description. Longer descriptions will be cropped. Enter 0 for no limitation."
-#: ./ftw/news/contents/common.py:76
+#: ./ftw/news/contents/common.py:78
 msgid "news_listing_config_description_length_description"
 msgstr ""
 
 #. Default: "Length of the description"
-#: ./ftw/news/contents/common.py:74
+#: ./ftw/news/contents/common.py:76
 msgid "news_listing_config_description_length_label"
 msgstr ""
 
 #. Default: "Only show news items from the current context."
-#: ./ftw/news/contents/common.py:41
+#: ./ftw/news/contents/common.py:42
 msgid "news_listing_config_filter_current_context_description"
 msgstr ""
 
 #. Default: "Limit to current context"
-#: ./ftw/news/contents/common.py:39
+#: ./ftw/news/contents/common.py:40
 msgid "news_listing_config_filter_current_context_label"
 msgstr ""
 
 #. Default: "Only show news items from a specific path."
-#: ./ftw/news/contents/common.py:26
+#: ./ftw/news/contents/common.py:27
 msgid "news_listing_config_filter_path_description"
 msgstr ""
 
 #. Default: "Limit to path"
-#: ./ftw/news/contents/common.py:24
+#: ./ftw/news/contents/common.py:25
 msgid "news_listing_config_filter_path_label"
 msgstr ""
 
 #. Default: "Only news younger than this value will be rendered. Enter 0 for no limitation."
-#: ./ftw/news/contents/common.py:86
+#: ./ftw/news/contents/common.py:88
 msgid "news_listing_config_maximum_age_description"
 msgstr ""
 
 #. Default: "Maximum age (days)"
-#: ./ftw/news/contents/common.py:84
+#: ./ftw/news/contents/common.py:86
 msgid "news_listing_config_maximum_age_label"
 msgstr ""
 
+#. Default: "Only news items which have been marked to be shown on the homepage will be displayed."
+#: ./ftw/news/behaviors/show_on_homepage/news_listing_block.py:13
+msgid "news_listing_config_news_on_homepage_description"
+msgstr ""
+
+#. Default: "News on homepage"
+#: ./ftw/news/behaviors/show_on_homepage/news_listing_block.py:11
+msgid "news_listing_config_news_on_homepage_label"
+msgstr ""
+
 #. Default: "The number of news entries to be shown at most. Enter 0 for no limitation."
-#: ./ftw/news/contents/common.py:49
+#: ./ftw/news/contents/common.py:50
 msgid "news_listing_config_quantity_description"
 msgstr ""
 
 #. Default: "Quantity"
-#: ./ftw/news/contents/common.py:48
+#: ./ftw/news/contents/common.py:49
 msgid "news_listing_config_quantity_label"
 msgstr ""
 
 #. Default: "Show the description of the news item"
-#: ./ftw/news/contents/common.py:68
+#: ./ftw/news/contents/common.py:70
 msgid "news_listing_config_show_description_label"
 msgstr ""
 
 #. Default: "Renders a lead image (taken from the item's first text block having an image.)"
-#: ./ftw/news/contents/common.py:114
+#: ./ftw/news/contents/common.py:116
 msgid "news_listing_config_show_lead_image_description"
 msgstr ""
 
 #. Default: "Show lead image"
-#: ./ftw/news/contents/common.py:112
+#: ./ftw/news/contents/common.py:114
 msgid "news_listing_config_show_lead_image_label"
 msgstr ""
 
 #. Default: "Render a link to a page which renders more news (only if there is at least one news item."
-#: ./ftw/news/contents/common.py:96
+#: ./ftw/news/contents/common.py:98
 msgid "news_listing_config_show_more_news_link_description"
 msgstr ""
 
 #. Default: "Link to more news"
-#: ./ftw/news/contents/common.py:94
+#: ./ftw/news/contents/common.py:96
 msgid "news_listing_config_show_more_news_link_label"
 msgstr ""
 
 #. Default: "Render a link to the RSS feed of the news."
-#: ./ftw/news/contents/common.py:106
+#: ./ftw/news/contents/common.py:108
 msgid "news_listing_config_show_rss_link_description"
 msgstr ""
 
 #. Default: "Link to RSS feed"
-#: ./ftw/news/contents/common.py:104
+#: ./ftw/news/contents/common.py:106
 msgid "news_listing_config_show_rss_link_label"
 msgstr ""
 
 #. Default: "Only news with the selected subjects will be shown."
-#: ./ftw/news/contents/common.py:60
+#: ./ftw/news/contents/common.py:61
 msgid "news_listing_config_subjects_description"
 msgstr ""
 
 #. Default: "Filter by subject"
-#: ./ftw/news/contents/common.py:58
+#: ./ftw/news/contents/common.py:59
 msgid "news_listing_config_subjects_label"
 msgstr ""
 
@@ -207,13 +262,8 @@ msgid "news_listing_config_title_label"
 msgstr ""
 
 #. Default: "No content available"
-#: ./ftw/news/browser/templates/news_listing.pt:39
+#: ./ftw/news/browser/templates/news_listing.pt:27
 msgid "news_listing_no_content_text"
-msgstr ""
-
-#. Default: "Read More…"
-#: ./ftw/news/browser/templates/news_listing.pt:71
-msgid "news_listing_read_more_label"
 msgstr ""
 
 #. Default: "This portlet displays news items"
@@ -237,33 +287,32 @@ msgid "news_portlet_always_render_portlet_label"
 msgstr ""
 
 #. Default: "Cancel"
-#: ./ftw/news/portlets/news_portlet.py:250
+#: ./ftw/news/portlets/news_portlet.py:255
 msgid "news_portlet_edit_form_cancel_label"
 msgstr ""
 
 #. Default: "This portlet displays news items"
-#: ./ftw/news/portlets/news_portlet.py:212
+#: ./ftw/news/portlets/news_portlet.py:217
 msgid "news_portlet_edit_form_description"
 msgstr ""
 
 #. Default: "Edit News Portlet"
-#: ./ftw/news/portlets/news_portlet.py:211
+#: ./ftw/news/portlets/news_portlet.py:216
 msgid "news_portlet_edit_form_label"
 msgstr ""
 
 #. Default: "Save"
-#: ./ftw/news/portlets/news_portlet.py:233
+#: ./ftw/news/portlets/news_portlet.py:238
 msgid "news_portlet_edit_form_save_label"
 msgstr ""
 
 #. Default: "No recent news available."
-#: ./ftw/news/portlets/templates/news_portlet.pt:15
+#: ./ftw/news/portlets/templates/news_portlet.pt:13
 msgid "no_recent_news_label"
 msgstr ""
 
 #. Default: "Subscribe to the RSS feed"
-#: ./ftw/news/portlets/templates/news_portlet.pt:64
+#: ./ftw/news/portlets/templates/news_portlet.pt:43
 msgid "rss_link_title"
 msgstr ""
-
 

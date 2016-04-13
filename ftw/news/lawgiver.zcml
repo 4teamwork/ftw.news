@@ -16,4 +16,9 @@
         permissions="ftw.news: Add NewsListingBlock"
         />
 
+    <lawgiver:map_permissions
+        action_group="mark news items to show up on home page"
+        permissions="ftw.news: Mark news items to show up on home page"
+        />
+
 </configure>

@@ -6,6 +6,7 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="ftw.news">
 
+    <include package=".behaviors" />
     <include package=".browser" />
     <include package=".portlets" />
     <include package=".viewlets" />
@@ -21,6 +22,14 @@
         title="ftw.news default"
         directory="profiles/default"
         description=""
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <genericsetup:registerProfile
+        name="show-on-homepage"
+        title="ftw.news (show on homepage feature)"
+        directory="profiles/show_on_homepage"
+        description="Installs a feature allowing to mark news to show on homepage."
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 

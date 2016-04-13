@@ -5,7 +5,10 @@ Changelog
 1.1.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Adds a profile which installs an additional feature allowing to
+  mark news item to be shown on the homepage (if the news listing block
+  is configured to do so).
+  [mbaechtold]
 
 
 1.1.2 (2016-04-11)

@@ -7,6 +7,7 @@ from ftw.news.tests import utils
 from ftw.news.tests.utils import set_allow_anonymous_view_about
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
+from plone.app.testing import applyProfile
 
 
 class TestNewsListingBlockContentType(FunctionalTestCase):
@@ -263,4 +264,35 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
             ['body'],
             map(lambda news_item: news_item.attrib['class'],
                 browser.css('.news-item .body'))
+        )
+
+    @browsing
+    def test_news_listing_block_on_homepage(self, browser):
+        applyProfile(self.portal, 'ftw.news:show-on-homepage')
+
+        newsfolder = create(Builder('news folder'))
+
+        create(Builder('news')
+               .within(newsfolder)
+               .titled(u'News On Homepage')
+               .having(show_on_homepage=True)
+               .having(news_date=datetime(2011, 1, 2, 15, 0, 0)))
+
+        create(Builder('news')
+               .within(newsfolder)
+               .having(show_on_homepage=False)
+               .titled(u'News Not On Homepage')
+               .having(news_date=datetime(2011, 1, 2, 15, 0, 0)))
+
+        create(Builder('news listing block')
+               .within(self.portal)
+               .having(news_on_homepage=True))
+
+        browser.login()
+        browser.visit(self.portal, view='simplelayout-view')
+        self.assertEqual(
+            ['News On Homepage'],
+            browser.css('.sl-block-content li.news-item .title').text,
+            "The news listing block on the Plone Site must only render "
+            "news items having been marked to be shown on the homepage."
         )

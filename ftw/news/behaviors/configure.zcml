@@ -1,0 +1,24 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="ftw.news">
+
+    <include package="plone.behavior" file="meta.zcml" />
+
+    <plone:behavior
+        title="News on homepage"
+        description="Mark news items to show up on the homepage"
+        provides=".show_on_homepage.news.IShowOnHomepageSchema"
+        factory=".show_on_homepage.news.ShowOnHomepage"
+        marker=".show_on_homepage.news.IShowOnHomepageBehaviorMarker"
+        for="ftw.news.interfaces.INews"
+        />
+
+    <plone:behavior
+        title="News listing block on homepage"
+        description="Mark news listing block to render news on homepage"
+        provides=".show_on_homepage.news_listing_block.INewsOnHomepage"
+        for="ftw.news.interfaces.INewsListingBlock"
+        />
+
+</configure>

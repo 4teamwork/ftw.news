@@ -1,9 +1,11 @@
 from Acquisition._Acquisition import aq_inner, aq_parent
 from DateTime.DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.news import _
 from ftw.news import utils
+from ftw.news.behaviors.show_on_homepage.news import IShowOnHomepage
 from ftw.news.contents.common import INewsListingBaseSchema
 from ftw.simplelayout.browser.blocks.base import BaseBlock
 from zope.i18n import translate
@@ -58,10 +60,12 @@ class NewsListingBlockView(BaseBlock):
     def get_query(self):
         url_tool = getToolByName(self.context, 'portal_url')
         portal_path = url_tool.getPortalPath()
-        query = {'object_provides': ['ftw.news.interfaces.INews']}
+        query = {'object_provides': {
+            'query': ['ftw.news.interfaces.INews'],
+        }}
+        parent = aq_parent(aq_inner((self.context)))
 
         if self.context.current_context:
-            parent = aq_parent(aq_inner((self.context)))
             path = '/'.join(parent.getPhysicalPath())
             query['path'] = {'query': path}
         elif self.context.filter_by_path:
@@ -76,6 +80,13 @@ class NewsListingBlockView(BaseBlock):
         if self.context.maximum_age > 0:
             date = DateTime() - self.context.maximum_age
             query['start'] = {'query': date, 'range': 'min'}
+
+        news_on_homepage = getattr(self.context, 'news_on_homepage', False)
+        if news_on_homepage and IPloneSiteRoot.providedBy(parent):
+            query['object_provides']['operator'] = 'and'
+            query['object_provides']['query'].append(
+                IShowOnHomepage.__identifier__
+            )
 
         query['sort_on'] = 'start'
         query['sort_order'] = 'descending'

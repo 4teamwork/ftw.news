@@ -1,4 +1,6 @@
-from datetime import timedelta, datetime
+from DateTime import DateTime
+from datetime import datetime
+from datetime import timedelta
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
@@ -147,3 +149,51 @@ class TestNewsListing(FunctionalTestCase):
                       .having(news_date=datetime.now()))
         news.Creator = userid
         self.assertEquals(userid, get_creator(news))
+
+class TestNewsListingFormat(FunctionalTestCase):
+
+    def setUp(self):
+        super(TestNewsListingFormat, self).setUp()
+        self.grant('Manager')
+
+        self.news_folder = create(Builder('news folder'))
+
+    @browsing
+    def test_show_full_creation_date_if_hour_and_minute_are_set(self, browser):
+        create(Builder('news')
+            .within(self.news_folder)
+            .having(news_date=DateTime('2015/03/13 16:15')))
+
+        browser.login().open(self.news_folder)
+
+        self.assertEquals('Mar 13, 2015 04:15 PM', browser.css('.dtstart').first.text)
+
+    @browsing
+    def test_show_full_creation_date_if_minute_is_not_set(self, browser):
+        create(Builder('news')
+            .within(self.news_folder)
+            .having(news_date=DateTime('2015/03/13 16:00')))
+
+        browser.login().open(self.news_folder)
+
+        self.assertEquals('Mar 13, 2015 04:00 PM', browser.css('.dtstart').first.text)
+
+    @browsing
+    def test_show_full_creation_date_if_hour_is_not_set(self, browser):
+        create(Builder('news')
+            .within(self.news_folder)
+            .having(news_date=DateTime('2015/03/13 00:15')))
+
+        browser.login().open(self.news_folder)
+
+        self.assertEquals('Mar 13, 2015 12:15 AM', browser.css('.dtstart').first.text)
+
+    @browsing
+    def test_show_no_time_if_minute_and_hour_are_not_set(self, browser):
+        create(Builder('news')
+            .within(self.news_folder)
+            .having(news_date=DateTime('2015/03/13 00:00')))
+
+        browser.login().open(self.news_folder)
+
+        self.assertEquals('Mar 13, 2015', browser.css('.dtstart').first.text)

@@ -1,21 +1,23 @@
-from Acquisition import aq_parent, aq_inner
+from Acquisition import aq_inner
+from Acquisition import aq_parent
+from DateTime import DateTime
+from ftw.news import _
+from ftw.news import utils
+from ftw.news.interfaces import INewsFolder
+from ftw.news.interfaces import INewsListingView
+from plone.portlets.interfaces import IPortletAssignmentMapping
+from plone.portlets.interfaces import IPortletManager
+from plone.portlets.interfaces import IPortletRenderer
 from Products.CMFCore.permissions import AccessInactivePortalContent
 from Products.CMFCore.utils import _checkPermission
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFPlone.PloneBatch import Batch
 from Products.Five.browser import BrowserView
-from ftw.news import _
-from ftw.news import utils
-from ftw.news.interfaces import INewsListingView, INewsFolder
-from plone.portlets.interfaces import IPortletAssignmentMapping
-from plone.portlets.interfaces import IPortletManager
-from plone.portlets.interfaces import IPortletRenderer
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component import queryMultiAdapter
 from zope.interface import implements
-import DateTime
 
 
 class NewsListing(BrowserView):
@@ -41,10 +43,10 @@ class NewsListing(BrowserView):
         datestring = self.request.get('archive')
         if datestring:
             try:
-                start = DateTime.DateTime(datestring)
+                start = DateTime(datestring)
             except DateTime.interfaces.SyntaxError:
                 raise
-            end = DateTime.DateTime('{0}/{1}/{2}'.format(
+            end = DateTime('{0}/{1}/{2}'.format(
                 start.year() + start.month() / 12,
                 start.month() % 12 + 1,
                 1)
@@ -92,7 +94,8 @@ class NewsListing(BrowserView):
                  mapping={'title': self.context.Title().decode('utf-8')})
 
     def format_date(self, brain):
-        return self.context.toLocalizedTime(brain.start, long_format=True)
+        show_long_format = DateTime(brain.start).hour() or DateTime(brain.start).minute()
+        return self.context.toLocalizedTime(brain.start, long_format=show_long_format)
 
 
 class NewsListingRss(NewsListing):

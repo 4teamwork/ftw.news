@@ -70,7 +70,8 @@ $leadimage-max-width: 200px !default;
     }
 
     .title {
-      font-size: $font-size-h3;
+      font-size: 1rem;
+      font-weight: bold;
       display: block;
     }
   }

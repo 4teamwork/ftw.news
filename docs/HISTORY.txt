@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.3 (unreleased)
+1.1.3 (2016-04-20)
 ------------------
 
 - Adjusts the date and time displayed for each news item in a news folder.

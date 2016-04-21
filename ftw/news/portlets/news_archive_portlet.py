@@ -23,12 +23,14 @@ def zLocalizedTime(request, time, long_format=False):
 
 class ArchiveSummary(object):
 
-    def __init__(self, context, request, interfaces, date_field, view_name):
+    def __init__(self, context, request, interfaces, date_field, view_name,
+                 view):
         self.context = context
         self.request = request
         self.interfaces = interfaces
         self.date_field = date_field
         self.view_name = view_name
+        self.view = view
         self.selected_year = None
         self.selected_month = None
 
@@ -85,19 +87,7 @@ class ArchiveSummary(object):
         return catalog(**self._get_query())
 
     def _get_query(self):
-        query = {}
-        if base_hasattr(self.context, 'getTranslations'):
-            roots = self.context.getTranslations(
-                review_state=False).values()
-            root_path = ['/'.join(br.getPhysicalPath()) for br in roots]
-            query['Language'] = 'all'
-        else:
-            root_path = '/'.join(self.context.getPhysicalPath())
-
-        query['path'] = root_path
-        query['object_provides'] = self.interfaces
-
-        return query
+        return self.view.get_query()
 
     def _count_entries(self, entries):
         """Return a summary map like:
@@ -172,7 +162,8 @@ class Renderer(base.Renderer):
             request=self.request,
             interfaces=['ftw.news.interfaces.INews'],
             date_field='start',
-            view_name='news_listing')()
+            view_name='news_listing',
+            view=self.view)()
 
         items = [{
             'title': year['title'],

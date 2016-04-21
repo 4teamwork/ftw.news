@@ -5,7 +5,8 @@ Changelog
 1.1.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Call news_listing view on NewsListingBlock and optain query from block for news listing.
+  [mathias.leimgruber]
 
 
 1.1.3 (2016-04-20)

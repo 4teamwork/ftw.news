@@ -23,13 +23,11 @@ def zLocalizedTime(request, time, long_format=False):
 
 class ArchiveSummary(object):
 
-    def __init__(self, context, request, interfaces, date_field, view_name,
-                 view):
+    def __init__(self, context, request, interfaces, date_field, view):
         self.context = context
         self.request = request
         self.interfaces = interfaces
         self.date_field = date_field
-        self.view_name = view_name
         self.view = view
         self.selected_year = None
         self.selected_month = None
@@ -77,14 +75,26 @@ class ArchiveSummary(object):
             self.selected_month = selected_archive.split('/')[1]
 
     def _get_archive_url(self, date):
-        return '%s/%s?archive=%s' % (
-            self.context.absolute_url(),
-            self.view_name,
-            date)
+        url = '{url}/{view}?archive={date}'.format(
+            url=self.context.absolute_url(),
+            view=self.view.__name__,
+            date=date)
+
+        portlet = self.request.get('portlet', None)
+        manager = self.request.get('manager', None)
+        if portlet:
+            url += '&portlet={0}'.format(portlet)
+        if manager:
+            url += '&manager={0}'.format(manager)
+
+        return url
 
     def _get_archive_entries(self):
         catalog = getToolByName(self.context, 'portal_catalog')
-        return catalog(**self._get_query())
+        query = self._get_query()
+        if 'start' in query:
+            del query['start']
+        return catalog(**query)
 
     def _get_query(self):
         return self.view.get_query()
@@ -162,7 +172,6 @@ class Renderer(base.Renderer):
             request=self.request,
             interfaces=['ftw.news.interfaces.INews'],
             date_field='start',
-            view_name='news_listing',
             view=self.view)()
 
         items = [{

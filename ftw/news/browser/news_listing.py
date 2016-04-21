@@ -202,3 +202,9 @@ class NewsListingOfNewsListingBlock(NewsListing):
             block_query['start'] = view_query['start']
 
         return block_query
+
+
+class NewsListingRssOfNewsListingBlock(NewsListingOfNewsListingBlock,
+                                       NewsListingRss):
+    pass
+

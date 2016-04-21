@@ -60,7 +60,8 @@ class NewsListing(BrowserView):
 
     def get_items(self):
         catalog = getToolByName(self.context, 'portal_catalog')
-        show_inactive = _checkPermission(AccessInactivePortalContent, self.context)
+        show_inactive = _checkPermission(AccessInactivePortalContent,
+                                         self.context)
         return catalog(self.get_query(), show_inactive=show_inactive)
 
     def get_item_dict(self, brain):
@@ -72,7 +73,8 @@ class NewsListing(BrowserView):
             'url': brain.getURL(),
             'author': utils.get_creator(obj) if utils.can_view_about() else '',
             'news_date': self.format_date(brain),
-            'image_tag': obj.restrictedTraverse('@@leadimage')('news_listing_image'),
+            'image_tag': obj.restrictedTraverse('@@leadimage')(
+                'news_listing_image'),
         }
         return item
 
@@ -95,7 +97,8 @@ class NewsListing(BrowserView):
 
     def format_date(self, brain):
         show_long_format = DateTime(brain.start).hour() or DateTime(brain.start).minute()
-        return self.context.toLocalizedTime(brain.start, long_format=show_long_format)
+        return self.context.toLocalizedTime(brain.start,
+                                            long_format=show_long_format)
 
 
 class NewsListingRss(NewsListing):
@@ -183,3 +186,25 @@ class NewsListingPortlet(NewsListing):
         if portlet:
             return portlet.data.news_listing_config_title
         return super(NewsListingPortlet, self).title
+
+
+class NewsListingOfNewsListingBlock(NewsListing):
+
+    def get_query(self):
+        block_view = self.context.restrictedTraverse('@@block_view')
+        block_query = block_view.get_query()
+        view_query = super(NewsListingOfNewsListingBlock, self).get_query()
+
+        if 'start' in block_query:
+            del block_query['start']
+
+        if 'start' in view_query:
+            block_query['start'] = view_query['start']
+
+        return block_query
+
+
+class NewsListingRssOfNewsListingBlock(NewsListingOfNewsListingBlock,
+                                       NewsListingRss):
+    pass
+

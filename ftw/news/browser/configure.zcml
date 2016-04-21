@@ -17,6 +17,22 @@
         />
 
     <browser:page
+        for="ftw.news.interfaces.INewsListingBlock"
+        name="news_listing"
+        class=".news_listing.NewsListingOfNewsListingBlock"
+        template="./templates/news_listing.pt"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        for="ftw.news.interfaces.INewsListingBlock"
+        name="news_listing_rss"
+        class=".news_listing.NewsListingRssOfNewsListingBlock"
+        template="./templates/news_listing_rss.pt"
+        permission="zope2.View"
+        />
+
+    <browser:page
         for="*"
         name="news_listing_rss"
         class=".news_listing.NewsListingRss"

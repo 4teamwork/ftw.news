@@ -5,6 +5,10 @@ Changelog
 1.1.4 (unreleased)
 ------------------
 
+- Adjusts the formatting of the date and time displayed on the page of a news item.
+  Time doesn't show up if it is set to 00:00.
+  [raphael-s]
+
 - Call news_listing view on NewsListingBlock and optain query from block for news listing.
   [mathias.leimgruber]
 

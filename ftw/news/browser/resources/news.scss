@@ -27,7 +27,7 @@ $leadimage-max-width: 200px !default;
 
     .image {
       @include screen-small() {
-        float: left;
+        float: right;
         > img {
           max-width: $leadimage-max-width;
         }
@@ -42,16 +42,18 @@ $leadimage-max-width: 200px !default;
       }
 
       &.no-image {
-        background: url("#{$portal-url}/++resource++ftw.news.resources/newspaper.svg") center / 50% no-repeat;
+        display: none;
+
+        & +.body {
+          padding-right: 0;
+        }
       }
     }
 
     .body {
-      padding: $padding-vertical 0;
-
       &.show-image {
         @include screen-small() {
-          padding-left: em($leadimage-max-width) + $padding-horizontal;
+          padding-right: em($leadimage-max-width) + $padding-horizontal;
         }
       }
 

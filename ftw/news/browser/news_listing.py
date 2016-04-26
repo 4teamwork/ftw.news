@@ -187,7 +187,8 @@ class NewsListingPortlet(NewsListing):
                 portlet_query['start'] = view_query['start']
             return portlet_query
 
-        return {}
+        # Fallback to default listing view behavior
+        return super(NewsListingPortlet, self).get_query()
 
     def title(self):
         if self.portlet:

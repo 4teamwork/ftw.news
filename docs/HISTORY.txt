@@ -9,6 +9,12 @@ Changelog
   Time doesn't show up if it is set to 00:00.
   [raphael-s]
 
+- Archive portlet now respects the config of NewsListingBlock or NewsListing Portlet.
+  [mathias.leimgruber]
+
+- Use the query provided by the view for the archive portlet.
+  [mathias.leimgruber]
+
 - Call news_listing view on NewsListingBlock and optain query from block for news listing.
   [mathias.leimgruber]
 
@@ -19,7 +25,7 @@ Changelog
 - Adjusts the date and time displayed for each news item in a news folder.
   Doesnt show time if there is no time set.
   [raphael-s]
-  
+
 - Adds a profile which installs an additional feature allowing to
   mark news item to be shown on the homepage (if the news listing block
   is configured to do so).

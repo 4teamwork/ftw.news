@@ -130,6 +130,10 @@ class NewsListingRss(NewsListing):
 
 class NewsListingPortlet(NewsListing):
 
+    def __init__(self, context, request):
+        super(NewsListingPortlet, self).__init__(context, request)
+        self.portlet = self.get_portlet()
+
     def get_portlet(self):
         manager_name = self.request.form.get('manager', None)
         name = self.request.form.get('portlet', None)
@@ -174,17 +178,21 @@ class NewsListingPortlet(NewsListing):
 
         return managers_and_assignments
 
-    def get_items(self):
-        portlet = self.get_portlet()
-        if portlet:
-            return portlet.get_news(all_news=True)
+    def get_query(self):
+        if self.portlet:
+            portlet_query = self.portlet.get_query(all_news=True)
+            view_query = super(NewsListingPortlet, self).get_query()
 
-        return []
+            if 'start' in view_query:
+                portlet_query['start'] = view_query['start']
+            return portlet_query
+
+        # Fallback to default listing view behavior
+        return super(NewsListingPortlet, self).get_query()
 
     def title(self):
-        portlet = self.get_portlet()
-        if portlet:
-            return portlet.data.news_listing_config_title
+        if self.portlet:
+            return self.portlet.data.news_listing_config_title
         return super(NewsListingPortlet, self).title
 
 

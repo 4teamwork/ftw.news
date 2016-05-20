@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.4 (unreleased)
+1.1.4 (2016-05-20)
 ------------------
 
 - Adjusts the formatting of the date and time displayed on the page of a news item.

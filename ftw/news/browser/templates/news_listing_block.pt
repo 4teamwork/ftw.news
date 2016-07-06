@@ -43,16 +43,19 @@
         <tal:footer tal:define="more_news_link_url block_info/more_news_link_url;
                                 more_news_link_label block_info/more_news_link_label;
                                 rss_url block_info/rss_link_url">
-            <a class="news-more"
-               tal:condition="more_news_link_url"
-               title="More News"
-               i18n:attributes="title more_news_link_label"
-               tal:attributes="href more_news_link_url"
-               tal:content="more_news_link_label"/>
-            <a class="news-rss"
-               tal:condition="rss_url"
-               tal:attributes="href rss_url"
-               i18n:translate="">Subscribe to the RSS feed</a>
+            <div class="news-footer"
+                 tal:condition="python: more_news_link_url or rss_url">
+                    <a class="news-more"
+                       tal:condition="more_news_link_url"
+                       title="More News"
+                       i18n:attributes="title more_news_link_label"
+                       tal:attributes="href more_news_link_url"
+                       tal:content="more_news_link_label"/>
+                    <a class="news-rss"
+                       tal:condition="rss_url"
+                       tal:attributes="href rss_url"
+                       i18n:translate="">Subscribe to the RSS feed</a>
+               </div>
         </tal:footer>
 
     </tal:news>

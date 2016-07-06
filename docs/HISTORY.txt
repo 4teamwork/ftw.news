@@ -5,7 +5,9 @@ Changelog
 1.1.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add a wrapper class to the news footer action on the news listing block.
+  The news listing portlte allready has one. This makes styling the actions more easier.
+  [mathias.leimgruber]
 
 
 1.1.4 (2016-05-20)

@@ -78,6 +78,22 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
                          browser.find('More News').text)
 
     @browsing
+    def test_news_listing_block_link_to_more_news_links_to_view_on_parent(self, browser):
+        page = create(Builder('sl content page').titled(u'A page'))
+
+        create(Builder('news listing block')
+               .within(page)
+               .titled(u'News listing block')
+               .having(show_more_news_link=True))
+
+        browser.login().visit(page)
+        browser.find('More News').click()
+
+        self.assertEqual(
+            '{}/news_listing'.format(page.absolute_url()),
+            browser.url)
+
+    @browsing
     def test_news_listing_block_more_news_link_custom_label(self, browser):
         page = create(Builder('sl content page').titled(u'A page'))
 

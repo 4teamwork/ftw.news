@@ -5,7 +5,12 @@ Changelog
 1.1.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix link "Link to more news".
+  If you click on the link it will open the view "news_listing" on the context
+  to list all news in the given path. The view should be called on the contentpage (parent)
+  instead the block itself. Otherwise the url will be wired and the attributes are not set
+  correctly on the view.
+  [elioschmutz]
 
 
 1.1.5 (2016-07-07)

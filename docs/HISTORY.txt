@@ -2,10 +2,12 @@ Changelog
 =========
 
 
-1.1.6 (unreleased)
+1.2.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Enable IExcludeFromNavigation behavior for news folders. [jone]
+
+- Enable IPublication behavior for news. [jone]
 
 
 1.1.5 (2016-07-07)

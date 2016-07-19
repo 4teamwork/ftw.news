@@ -5,6 +5,8 @@ Changelog
 1.1.6 (unreleased)
 ------------------
 
+- Enable IExcludeFromNavigation behavior for news folders. [jone]
+
 - Enable IPublication behavior for news. [jone]
 
 

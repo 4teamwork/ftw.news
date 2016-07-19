@@ -19,7 +19,7 @@
 
     <genericsetup:registerProfile
         name="default"
-        title="ftw.news default"
+        title="ftw.news"
         directory="profiles/default"
         description=""
         provides="Products.GenericSetup.interfaces.EXTENSION"

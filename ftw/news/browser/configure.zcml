@@ -63,4 +63,12 @@
         action="news_listing"
         />
 
+    <browser:page
+        for="*"
+        name="mopage.news.xml"
+        class=".mopage.MopageNews"
+        template="templates/mopage_news.pt"
+        permission="zope2.View"
+        />
+
 </configure>

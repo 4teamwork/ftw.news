@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<import xmlns:tal="http://xml.zope.org/namespaces/tal"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="ftw.news"
+        tal:define="attrs view/import_node_attributes"
+        tal:attributes="export_time attrs/export_time;
+                        partner attrs/partner;
+                        partnerid attrs/partnerid;
+                        passwort attrs/passwort;
+                        importid attrs/importid;
+                        vaterobjekt attrs/vaterobjekt">
+
+    <item tal:repeat="item view/items"
+          tal:attributes="datumvon item/news_date;
+                          datumbis item/expires;
+                          mutationsdatum item/modified_date"
+          status="1"
+          suchbar="1">
+        <id tal:content="item/uid" />
+        <url_web tal:content="item/url" />
+        <titel tal:content="item/title" />
+        <textlead tal:content="item/textlead" />
+        <url_bild tal:content="item/image_url" tal:condition="item/image_url" />
+        <textmobile tal:define="context nocall:item/obj;
+                                html simplelayout:default">
+            <tal:TEXT replace="structure python:view.html_to_text(html)" />
+        </textmobile>
+        <rubrik tal:repeat="subject item/subjects"
+                tal:content="subject" />
+    </item>
+
+</import>

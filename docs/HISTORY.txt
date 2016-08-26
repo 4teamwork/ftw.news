@@ -5,6 +5,8 @@ Changelog
 1.2.0 (unreleased)
 ------------------
 
+- Implement "mopage.news.xml" API browser view. [jone]
+
 - Enable IExcludeFromNavigation behavior for news folders. [jone]
 
 - Enable IPublication behavior for news. [jone]

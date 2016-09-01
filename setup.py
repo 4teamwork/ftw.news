@@ -12,11 +12,22 @@ tests_require = [
     'path.py',
     'plone.app.testing',
     'plone.testing',
+    'ftw.news[mopage_publisher_receiver]',
 ]
 
 extras_require = {
     'tests': tests_require,
     'test': tests_require,
+
+    # The mopage_publisher_receiver should be installed on a ftw.publisher
+    # receiver installation in order to enable the mopage trigger function.
+    # It should *NOT* be installed on ftw.pubsliher.sender site, since
+    # the trigger will then be triggered too early.
+    'mopage_publisher_receiver': [
+        'collective.taskqueue',
+        'ftw.publisher.receiver',
+        'requests',
+    ],
 }
 
 setup(
@@ -51,6 +62,7 @@ setup(
 
     install_requires=[
         'Plone',
+        'ftw.autofeature',
         'ftw.datepicker',
         'ftw.simplelayout [contenttypes]',
         'plone.api',

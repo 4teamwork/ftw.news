@@ -21,4 +21,9 @@
         permissions="ftw.news: Mark news items to show up on home page"
         />
 
+    <lawgiver:map_permissions
+        action_group="manage content settings"
+        permissions="ftw.news: Configure mopage trigger"
+        />
+
 </configure>

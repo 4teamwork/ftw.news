@@ -20,5 +20,10 @@
             <role name="Contributor"/>
         </permission>
 
+        <permission name="ftw.news: Configure mopage trigger" acquire="False">
+            <role name="Manager"/>
+            <role name="Site Administrator"/>
+        </permission>
+
     </permissions>
 </rolemap>

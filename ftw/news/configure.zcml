@@ -1,10 +1,14 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:autofeature="http://namespaces.zope.org/autofeature"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:upgrade-step="http://namespaces.zope.org/ftw.upgrade"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="ftw.news">
+
+    <include package="ftw.autofeature" file="meta.zcml" />
+    <autofeature:extras />
 
     <include package=".behaviors" />
     <include package=".browser" />

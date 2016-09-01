@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-09-01 19:02+0000\n"
+"POT-Creation-Date: 2016-09-01 19:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,16 +30,24 @@ msgstr ""
 msgid "Display the contents of a news folder."
 msgstr ""
 
-#: ./ftw/news/configure.zcml:34
+#: ./ftw/news/configure.zcml:38
 msgid "Installs a feature allowing to mark news to show on homepage."
 msgstr ""
 
-#: ./ftw/news/behaviors/configure.zcml:15
+#: ./ftw/news/behaviors/configure.zcml:17
 msgid "Mark news items to show up on the homepage"
 msgstr ""
 
-#: ./ftw/news/behaviors/configure.zcml:22
+#: ./ftw/news/behaviors/configure.zcml:24
 msgid "Mark news listing block to render news on homepage"
+msgstr ""
+
+#: ./ftw/news/behaviors/mopage.py:23
+msgid "Mopage"
+msgstr ""
+
+#: ./ftw/news/behaviors/configure.zcml:33
+msgid "Mopage trigger configuration"
 msgstr ""
 
 #: ./ftw/news/profiles/default/types/ftw.news.News.xml
@@ -54,11 +62,11 @@ msgstr ""
 msgid "News listing"
 msgstr ""
 
-#: ./ftw/news/behaviors/configure.zcml:22
+#: ./ftw/news/behaviors/configure.zcml:24
 msgid "News listing block on homepage"
 msgstr ""
 
-#: ./ftw/news/behaviors/configure.zcml:15
+#: ./ftw/news/behaviors/configure.zcml:17
 msgid "News on homepage"
 msgstr ""
 
@@ -68,6 +76,10 @@ msgstr ""
 
 #: ./ftw/news/browser/templates/news_listing_block.pt:13
 msgid "No content available"
+msgstr ""
+
+#: ./ftw/news/behaviors/configure.zcml:33
+msgid "Provides fields for configuring a mopage trigger (ftw.publisher)."
 msgstr ""
 
 #: ./ftw/news/browser/templates/news_listing.pt:9
@@ -82,6 +94,16 @@ msgstr ""
 msgid "The news listing block renders a configurable list of news entries."
 msgstr ""
 
+#. Default: "The mopage data endpoint URL points to the \"mopage.news.xml\" view somewhere on the public visible  Plone page. It must also contain the params \"partnerid\" and \"importid\". Example: https://mypage.ch/news/mopage.news.xml?partnerid=3&importid=6"
+#: ./ftw/news/behaviors/mopage.py:58
+msgid "description_mopage_data_endpoint_url"
+msgstr ""
+
+#. Default: "Contains the mopage URL to the trigger endpoint. This is only the base URL, it does not contain the endpoint URL from which the mopage server retrieves the news. Example: https://un:pw@xml.mopage.ch/infoservice/xml.php"
+#: ./ftw/news/behaviors/mopage.py:42
+msgid "description_mopage_trigger_url"
+msgstr ""
+
 #. Default: "This custom label will not be translated."
 #: ./ftw/news/contents/news_listing_block.py:22
 msgid "description_more_news_link_label"
@@ -92,17 +114,27 @@ msgstr ""
 msgid "description_show_on_homepage"
 msgstr ""
 
-#: ./ftw/news/configure.zcml:26
+#: ./ftw/news/configure.zcml:30
 msgid "ftw.news"
 msgstr ""
 
-#: ./ftw/news/configure.zcml:34
+#: ./ftw/news/configure.zcml:38
 msgid "ftw.news (show on homepage feature)"
 msgstr ""
 
 #. Default: "${title} - News Feed"
 #: ./ftw/news/browser/news_listing.py:94
 msgid "label_feed_desc"
+msgstr ""
+
+#. Default: "Mopage data endpoint URL (Plone)"
+#: ./ftw/news/behaviors/mopage.py:56
+msgid "label_mopage_data_endpoint_url"
+msgstr ""
+
+#. Default: "Mopage trigger URL"
+#: ./ftw/news/behaviors/mopage.py:40
+msgid "label_mopage_trigger_url"
 msgstr ""
 
 #. Default: "Label for the \"more news\" link"
@@ -113,6 +145,11 @@ msgstr ""
 #. Default: "Show on home page"
 #: ./ftw/news/behaviors/show_on_homepage/news.py:17
 msgid "label_show_on_homepage"
+msgstr ""
+
+#. Default: "Mopage trigger enabled"
+#: ./ftw/news/behaviors/mopage.py:31
+msgid "label_trigger_enabled"
 msgstr ""
 
 msgid "mark news items to show up on home page"

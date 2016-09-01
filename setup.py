@@ -8,6 +8,7 @@ tests_require = [
     'ftw.builder',
     'ftw.testbrowser',
     'ftw.testing>=1.11.0',
+    'path.py',
     'plone.app.testing',
     'plone.testing',
 ]

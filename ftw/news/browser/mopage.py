@@ -110,6 +110,8 @@ class MopageNews(BrowserView):
         if textlead:
             textlead = u'<![CDATA[{}]]>'.format(textlead)
 
+        subjects = getattr(ICategorization(obj, None), 'subjects', ())
+
         return {'title': crop(100, brain.Title),
                 'news_date': self.normalize_date(brain.start),
                 'expires': self.normalize_date(brain.expires),
@@ -118,8 +120,7 @@ class MopageNews(BrowserView):
                 'url': brain.getURL(),
                 'textlead': textlead,
                 'image_url': image_url,
-                'subjects': map(lambda subject: crop(100, subject),
-                                ICategorization(obj).subjects),
+                'subjects': map(lambda subject: crop(100, subject), subjects),
                 'obj': obj}
 
     def normalize_date(self, date):

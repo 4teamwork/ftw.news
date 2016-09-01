@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-04-12 11:56+0000\n"
+"POT-Creation-Date: 2016-09-01 19:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgstr "Ein Behälter für News-Einträge"
 msgid "Archive"
 msgstr "Archiv"
 
-#: ./ftw/news/browser/configure.zcml:48
+#: ./ftw/news/browser/configure.zcml:64
 msgid "Display the contents of a news folder."
 msgstr ""
 
@@ -50,7 +50,7 @@ msgstr "News-Eintrag"
 msgid "News Folder"
 msgstr "News-Verzeichnis"
 
-#: ./ftw/news/browser/configure.zcml:48
+#: ./ftw/news/browser/configure.zcml:64
 msgid "News listing"
 msgstr "News-Auflistung"
 
@@ -74,7 +74,7 @@ msgstr "Kein Inhalt verfügbar"
 msgid "RSS"
 msgstr ""
 
-#: ./ftw/news/browser/templates/news_listing_block.pt:52
+#: ./ftw/news/browser/templates/news_listing_block.pt:54
 msgid "Subscribe to the RSS feed"
 msgstr "RSS abonnieren"
 
@@ -92,16 +92,16 @@ msgstr "Dieses Label wird nicht übersetzt."
 msgid "description_show_on_homepage"
 msgstr "Ermöglicht die Anzeige dieses Eintrages auf der Startseite."
 
+#: ./ftw/news/configure.zcml:26
+msgid "ftw.news"
+msgstr ""
+
 #: ./ftw/news/configure.zcml:34
 msgid "ftw.news (show on homepage feature)"
 msgstr ""
 
-#: ./ftw/news/configure.zcml:26
-msgid "ftw.news default"
-msgstr ""
-
 #. Default: "${title} - News Feed"
-#: ./ftw/news/browser/news_listing.py:90
+#: ./ftw/news/browser/news_listing.py:94
 msgid "label_feed_desc"
 msgstr "${title} - News Feed"
 
@@ -119,8 +119,8 @@ msgid "mark news items to show up on home page"
 msgstr "News-Einträge für Anzeige auf Startseite markieren"
 
 #. Default: "More News"
-#: ./ftw/news/browser/news_listing_block.py:34
-#: ./ftw/news/browser/templates/news_listing_block.pt:46
+#: ./ftw/news/browser/news_listing_block.py:33
+#: ./ftw/news/browser/templates/news_listing_block.pt:48
 #: ./ftw/news/portlets/templates/news_portlet.pt:37
 msgid "more_news_link_label"
 msgstr "Weitere Einträge"

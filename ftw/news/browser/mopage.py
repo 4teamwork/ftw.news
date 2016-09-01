@@ -53,6 +53,7 @@ class MopageNews(BrowserView):
 
     def __call__(self):
         self.request.RESPONSE.setHeader('Cache-Control', 'no-store')
+        self.request.RESPONSE.setHeader('Content-Type', 'text/xml;charset=utf-8')
         return super(MopageNews, self).__call__()
 
     def import_node_attributes(self):

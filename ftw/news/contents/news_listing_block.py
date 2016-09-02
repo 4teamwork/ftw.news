@@ -32,3 +32,6 @@ alsoProvides(INewsListingBlockSchema, IFormFieldProvider)
 
 class NewsListingBlock(Container):
     implements(INewsListingBlock)
+
+    def Title(self):
+        return self.news_listing_config_title

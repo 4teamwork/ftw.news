@@ -7,6 +7,7 @@ from ftw.news.tests import utils
 from ftw.news.tests.utils import set_allow_anonymous_view_about
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
+from ftw.testbrowser.pages import plone
 from plone.app.testing import applyProfile
 
 
@@ -296,3 +297,31 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
             "The news listing block on the Plone Site must only render "
             "news items having been marked to be shown on the homepage."
         )
+
+    @browsing
+    def test_first_heading_of_news_listing_on_news_listing_block_within_root(self, browser):
+        """
+        This test makes sure that the first heading is correct when the
+        view "@@news_listing" is called on a news listing block which has
+        been added on the subsite view of the Plone site (root).
+        """
+        block = create(Builder('news listing block')
+                       .titled(u'Awesome News'))
+
+        browser.login().visit(block, view='@@news_listing')
+        self.assertEquals(u'Awesome News', plone.first_heading())
+
+    @browsing
+    def test_first_heading_of_news_listing_on_news_listing_block_within_subsite(self, browser):
+        """
+        This test makes sure that the first heading is correct when the
+        view "@@news_listing" is called on a news listing block which has
+        been added on the subsite view of a subsite.
+        """
+        subsite = create(Builder('subsite').titled(u'My Subsite'))
+        block = create(Builder('news listing block')
+                       .titled(u'Awesome News')
+                       .within(subsite))
+
+        browser.login().visit(block, view='@@news_listing')
+        self.assertEquals(u'Awesome News', plone.first_heading())

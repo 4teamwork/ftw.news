@@ -6,6 +6,7 @@ maintainer = 'Mathias Leimgruber'
 
 tests_require = [
     'ftw.builder',
+    'ftw.subsite',
     'ftw.testbrowser',
     'ftw.testing>=1.11.0',
     'path.py',

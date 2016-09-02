@@ -1,6 +1,7 @@
 from ftw.builder import builder_registry
 from ftw.builder.dexterity import DexterityBuilder
 from ftw.simplelayout.tests import builders
+from ftw.subsite.tests import builders
 
 
 class NewsFolderBuilder(DexterityBuilder):
@@ -19,9 +20,7 @@ class NewsListingBlockBuilder(DexterityBuilder):
     portal_type = 'ftw.news.NewsListingBlock'
 
     def titled(self, title):
-        self.arguments['title'] = self.arguments['news_listing_config_title'] \
-            = title
+        self.arguments['news_listing_config_title'] = title
         return self
-
 
 builder_registry.register('news listing block', NewsListingBlockBuilder)

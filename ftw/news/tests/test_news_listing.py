@@ -85,29 +85,27 @@ class TestNewsListing(FunctionalTestCase):
             'allowAnonymousViewAbout is True.')
 
     @browsing
-    def test_news_listing_inside_contentpage(self, browser):
-        page = create(Builder('sl content page').titled(u'Content page'))
-        news_folder = create(Builder(u'news folder')
-                             .titled(u'A News Folder')
-                             .within(page))
-
+    def test_first_heading_of_news_listing_on_contentpage(self, browser):
+        """
+        This test makes sure that the first heading is correct when the
+        view "@@news_listing" is called on a content page.
+        "News" will be appended to the title of the content page.
+        """
+        page = create(Builder('sl content page')
+                      .titled(u'Content page'))
         browser.login().visit(page, view='@@news_listing')
-        self.assertEquals('Content page - News', plone.first_heading())
-
-        browser.visit(news_folder)
-        self.assertEquals(u'A News Folder', plone.first_heading())
+        self.assertEquals(u'Content page - News', plone.first_heading())
 
     @browsing
-    def test_news_listing_title(self, browser):
+    def test_first_heading_of_news_listing_on_news_folder(self, browser):
         """
-        This test makes sure that the news listing view renders the
-        title of the portlet, not the generic title.
+        This test makes sure that the first heading is correct when the
+        view "@@news_listing" is called on a news folder.
         """
-        browser.login().visit(self.news_folder, view='news_listing')
-        self.assertEquals(
-            ['A News Folder'],
-            browser.css('h1.documentFirstHeading').text
-        )
+        news_folder = create(Builder(u'news folder')
+                             .titled(u'A News Folder'))
+        browser.visit(news_folder)
+        self.assertEquals(u'A News Folder', plone.first_heading())
 
     @browsing
     def test_news_listing_no_description(self, browser):
@@ -149,6 +147,7 @@ class TestNewsListing(FunctionalTestCase):
                       .having(news_date=datetime.now()))
         news.Creator = userid
         self.assertEquals(userid, get_creator(news))
+
 
 class TestNewsListingFormat(FunctionalTestCase):
 

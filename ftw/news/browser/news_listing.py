@@ -3,8 +3,8 @@ from Acquisition import aq_parent
 from DateTime import DateTime
 from ftw.news import _
 from ftw.news import utils
-from ftw.news.interfaces import INewsFolder
 from ftw.news.interfaces import INewsListingView
+from ftw.simplelayout.contenttypes.contents.interfaces import IContentPage
 from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.portlets.interfaces import IPortletManager
 from plone.portlets.interfaces import IPortletRenderer
@@ -81,9 +81,12 @@ class NewsListing(BrowserView):
     @property
     def title(self):
         title = self.context.Title()
-        if INewsFolder.providedBy(self.context):
-            return title
-        return self.context.Title() + ' - News'
+
+        appendix = 'News'
+        if IContentPage.providedBy(self.context) and title != appendix:
+            return title + ' - ' + appendix
+
+        return title
 
     @property
     def link(self):

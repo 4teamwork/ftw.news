@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.0 (unreleased)
+1.2.0 (2016-09-07)
 ------------------
 
 - Fix plone first heading of news listing view on various portal

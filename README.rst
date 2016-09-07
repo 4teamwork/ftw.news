@@ -14,9 +14,6 @@ Compatibility
 
 Plone 4.3.x
 
-.. image:: https://jenkins.4teamwork.ch/job/ftw.news-master-test-plone-4.3.x.cfg/badge/icon
-   :target: https://jenkins.4teamwork.ch/job/ftw.news-master-test-plone-4.3.x.cfg
-
 
 Installation
 ============

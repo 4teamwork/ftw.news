@@ -24,10 +24,10 @@ class TestMopageExport(FunctionalTestCase, XMLDiffTestCase):
         with freeze(datetime(2010, 3, 14, 20, 18)):
             news1 = create(
                 Builder('news')
-                .titled(u'Usain Bolt at the Olympics')
+                .titled(u'Usain Bolt at the \xd6lympics')
                 .within(news_folder)
                 .having(news_date=datetime(2010, 3, 15, 12, 00),
-                        description=u'Usain Bolt wins the Olympic gold in'
+                        description=u'Usain Bolt wins the \xd6lympic gold in'
                         u' three events.\n\nThe third is for a 100-metre relay.',
                         subjects=('Homepage', 'Sports')))
 

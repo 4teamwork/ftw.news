@@ -44,7 +44,8 @@ def crop(length, text):
     text = text.decode('utf-8')
     if len(text) > length:
         text = text[:length - 5] + ' ...'
-    return text.encode('utf-8')
+
+    return text
 
 
 class MopageNews(BrowserView):

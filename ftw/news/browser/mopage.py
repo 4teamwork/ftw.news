@@ -54,12 +54,14 @@ class MopageNews(BrowserView):
 
     def __call__(self):
         self.request.RESPONSE.setHeader('Cache-Control', 'no-store')
-        self.request.RESPONSE.setHeader('Content-Type', 'text/xml;charset=utf-8')
+        self.request.RESPONSE.setHeader('Content-Type',
+                                        'text/xml;charset=utf-8')
         return super(MopageNews, self).__call__()
 
     def import_node_attributes(self):
         attrs = {'export_time': self.normalize_date(DateTime())}
-        for name in ('partner', 'partnerid', 'passwort', 'importid', 'vaterobjekt'):
+        for name in ('partner', 'partnerid', 'passwort', 'importid',
+                     'vaterobjekt'):
             attrs[name] = self.request.form.get(name, None)
         return attrs
 
@@ -81,10 +83,11 @@ class MopageNews(BrowserView):
         links = []
         if page > 1:
             links.append(self.build_pagination_link('first', page=1))
-            links.append(self.build_pagination_link('prev', page=page-1))
+            links.append(self.build_pagination_link('prev', page=page - 1))
 
         if len(brains) > last:
-            links.append(self.build_pagination_link('next', page=int(page+1)))
+            links.append(self.build_pagination_link('next',
+                                                    page=int(page + 1)))
             links.append(self.build_pagination_link(
                 'last', page=int(math.ceil(len(brains) / float(per_page)))))
 

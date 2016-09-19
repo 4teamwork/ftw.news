@@ -51,7 +51,8 @@ class IPublisherMopageTrigger(Schema):
     )
 
     read_permission(mopage_data_endpoint_url='ftw.news.ConfigureMopageTrigger')
-    write_permission(mopage_data_endpoint_url='ftw.news.ConfigureMopageTrigger')
+    write_permission(
+        mopage_data_endpoint_url='ftw.news.ConfigureMopageTrigger')
     mopage_data_endpoint_url = schema.URI(
         title=_(u'label_mopage_data_endpoint_url',
                 default=u'Mopage data endpoint URL (Plone)'),

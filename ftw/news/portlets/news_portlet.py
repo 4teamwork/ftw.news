@@ -191,7 +191,7 @@ class Renderer(base.Renderer):
             'url': brain.getURL(),
             'news_date': self.format_date(brain),
             'author': utils.get_creator(obj) if utils.can_view_about() else '',
-            'image_tag':  image_tag,
+            'image_tag': image_tag,
         }
         return item
 

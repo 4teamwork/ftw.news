@@ -22,11 +22,13 @@ class NewsListingBlockView(BaseBlock):
 
         rss_link_url = ''
         if self.context.show_rss_link:
-            rss_link_url = '/'.join([self.context.absolute_url(), 'news_listing_rss'])
+            rss_link_url = '/'.join([self.context.absolute_url(),
+                                     'news_listing_rss'])
 
         more_news_link_url = ''
         if self.context.show_more_news_link:
-            more_news_link_url = '/'.join([self.context.absolute_url(), 'news_listing'])
+            more_news_link_url = '/'.join([self.context.absolute_url(),
+                                           'news_listing'])
 
         more_news_link_label = (
             self.context.more_news_link_label or
@@ -107,7 +109,8 @@ class NewsListingBlockView(BaseBlock):
 
         image_tag = ''
         if INewsListingBaseSchema(self.context).show_lead_image:
-            image_tag = obj.restrictedTraverse('@@leadimage')('news_listing_image')
+            image_tag = obj.restrictedTraverse('@@leadimage')(
+                'news_listing_image')
 
         item = {
             'title': brain.Title,

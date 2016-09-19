@@ -5,7 +5,6 @@ from plone.memoize.view import memoize
 from plone.portlets.interfaces import IPortletDataProvider
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.i18nl10n import monthname_msgid
-from Products.CMFPlone.utils import base_hasattr
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.i18n import translate
 from zope.interface import implements

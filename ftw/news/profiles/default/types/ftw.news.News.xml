@@ -4,7 +4,6 @@
         xmlns:i18n="http://xml.zope.org/namespaces/i18n"
         i18n:domain="ftw.news" >
 
-    <!-- Basic metadata -->
     <property name="title" i18n:translate="">News</property>
     <property name="description" i18n:translate=""></property>
     <property name="icon_expr"></property>
@@ -19,16 +18,10 @@
         <element value="ftw.simplelayout.GalleryBlock" />
     </property>
 
-    <!-- schema interface -->
     <property name="schema">ftw.news.contents.news.INewsSchema</property>
-
-    <!-- class used for content items -->
     <property name="klass">ftw.news.contents.news.News</property>
-
-    <!-- add permission -->
     <property name="add_permission">ftw.news.AddNews</property>
 
-    <!-- enabled behaviors -->
     <property name="behaviors">
         <element value="ftw.simplelayout.interfaces.ISimplelayout" />
         <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
@@ -39,20 +32,17 @@
         <element value="plone.app.dexterity.behaviors.metadata.IPublication" />
     </property>
 
-    <!-- View information -->
     <property name="default_view">@@simplelayout-view</property>
     <property name="default_view_fallback">False</property>
     <property name="view_methods">
         <element value="@@simplelayout-view"/>
     </property>
 
-    <!-- Method aliases -->
     <alias from="(Default)" to="(dynamic view)"/>
     <alias from="edit" to="@@edit"/>
     <alias from="sharing" to="@@sharing"/>
     <alias from="view" to="(selected layout)"/>
 
-    <!-- Actions -->
     <action
         action_id="view"
         title="View"

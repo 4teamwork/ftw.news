@@ -39,6 +39,20 @@ Usage
 Create a news folder then start adding news items into the folder.
 
 
+News listing and archive portlet
+--------------------------------
+
+By default, news folders support simplelayout and a news listing block is
+added to the news folder when the folder is created.
+There is also a news archive portlet, which works with the ``news_listing``
+view, but it does only appear on the news folder when the news folder default
+layout is switched to ``news_listing`` or on views such as the archive view
+of the news listing block.
+The portlet does not appear on the simplalyout view (standard view) of news
+folders because they may have no or many news listing blocks, which would then
+be confusing.
+
+
 Mopage Support
 --------------
 

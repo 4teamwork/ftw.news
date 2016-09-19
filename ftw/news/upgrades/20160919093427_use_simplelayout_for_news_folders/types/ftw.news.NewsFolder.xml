@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<object name="ftw.news.NewsFolder"
+        meta_type="Dexterity FTI"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="ftw.news">
+
+    <property name="allowed_content_types" purge="False">
+        <element value="ftw.news.NewsListingBlock" />
+        <element value="ftw.simplelayout.FileListingBlock" />
+        <element value="ftw.simplelayout.GalleryBlock" />
+        <element value="ftw.simplelayout.MapBlock" />
+        <element value="ftw.simplelayout.TextBlock" />
+        <element value="ftw.simplelayout.VideoBlock" />
+    </property>
+
+    <property name="behaviors" purge="False">
+        <element value="ftw.simplelayout.interfaces.ISimplelayout" />
+    </property>
+
+    <property name="immediate_view">simplelayout-view</property>
+    <property name="default_view">simplelayout-view</property>
+    <property name="view_methods">
+        <element value="simplelayout-view"/>
+        <element value="news_listing"/>
+    </property>
+
+</object>

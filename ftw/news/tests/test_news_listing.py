@@ -21,7 +21,8 @@ class TestNewsListing(FunctionalTestCase):
         self.grant('Manager')
 
         self.news_folder = create(Builder('news folder')
-                                  .titled(u'A News Folder'))
+                                  .titled(u'A News Folder')
+                                  .with_property('layout', 'news_listing'))
 
         yesterday = datetime.now() - timedelta(days=1)
         self.news1 = create(Builder('news')
@@ -103,7 +104,8 @@ class TestNewsListing(FunctionalTestCase):
         view "@@news_listing" is called on a news folder.
         """
         news_folder = create(Builder(u'news folder')
-                             .titled(u'A News Folder'))
+                             .titled(u'A News Folder')
+                             .with_property('layout', 'news_listing'))
         browser.visit(news_folder)
         self.assertEquals(u'A News Folder', plone.first_heading())
 
@@ -155,13 +157,14 @@ class TestNewsListingFormat(FunctionalTestCase):
         super(TestNewsListingFormat, self).setUp()
         self.grant('Manager')
 
-        self.news_folder = create(Builder('news folder'))
+        self.news_folder = create(Builder('news folder')
+                                  .with_property('layout', 'news_listing'))
 
     @browsing
     def test_show_full_creation_date_if_hour_and_minute_are_set(self, browser):
         create(Builder('news')
-            .within(self.news_folder)
-            .having(news_date=DateTime('2015/03/13 16:15')))
+               .within(self.news_folder)
+               .having(news_date=DateTime('2015/03/13 16:15')))
 
         browser.login().open(self.news_folder)
 
@@ -170,8 +173,8 @@ class TestNewsListingFormat(FunctionalTestCase):
     @browsing
     def test_show_full_creation_date_if_minute_is_not_set(self, browser):
         create(Builder('news')
-            .within(self.news_folder)
-            .having(news_date=DateTime('2015/03/13 16:00')))
+               .within(self.news_folder)
+               .having(news_date=DateTime('2015/03/13 16:00')))
 
         browser.login().open(self.news_folder)
 
@@ -180,8 +183,8 @@ class TestNewsListingFormat(FunctionalTestCase):
     @browsing
     def test_show_full_creation_date_if_hour_is_not_set(self, browser):
         create(Builder('news')
-            .within(self.news_folder)
-            .having(news_date=DateTime('2015/03/13 00:15')))
+               .within(self.news_folder)
+               .having(news_date=DateTime('2015/03/13 00:15')))
 
         browser.login().open(self.news_folder)
 
@@ -190,8 +193,8 @@ class TestNewsListingFormat(FunctionalTestCase):
     @browsing
     def test_show_no_time_if_minute_and_hour_are_not_set(self, browser):
         create(Builder('news')
-            .within(self.news_folder)
-            .having(news_date=DateTime('2015/03/13 00:00')))
+               .within(self.news_folder)
+               .having(news_date=DateTime('2015/03/13 00:00')))
 
         browser.login().open(self.news_folder)
 

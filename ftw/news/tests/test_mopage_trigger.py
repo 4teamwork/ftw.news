@@ -77,6 +77,7 @@ class TestMopageTrigger(FunctionalTestCase):
                           params)
 
     def test_trigger_notified_when_news_created(self):
+        self.grant('Manager')
         trigger_url = self.portal.portal_url() + '/mopage-stub'
         endpoint_url = (self.portal.portal_url() + '/news-folder/mopage.news.xml' +
                         '?partnerid=213&importid=456')
@@ -99,6 +100,7 @@ class TestMopageTrigger(FunctionalTestCase):
             get_stub_log(self.portal))
 
     def test_trigger_notified_when_news_updated(self):
+        self.grant('Manager')
         trigger_url = self.portal.portal_url() + '/mopage-stub'
         endpoint_url = (self.portal.portal_url() + '/news-folder/mopage.news.xml' +
                         '?partnerid=999&importid=888')

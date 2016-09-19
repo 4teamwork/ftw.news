@@ -224,7 +224,7 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
 
         utils.create_page_state(news_with_image, textblock_with_image)
 
-        block = create(Builder('news listing block')
+        create(Builder('news listing block')
                        .within(page)
                        .titled('News listing block')
                        .having(show_lead_image=True))
@@ -254,7 +254,7 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
 
         utils.create_page_state(news_with_image, textblock_with_image)
 
-        block = create(Builder('news listing block')
+        create(Builder('news listing block')
                        .within(page)
                        .titled('News listing block')
                        .having(show_lead_image=False))

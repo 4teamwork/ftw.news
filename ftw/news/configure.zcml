@@ -47,6 +47,12 @@
         name="ftw.news.vocabulary.subjects"
         />
 
+    <subscriber
+        for="ftw.news.interfaces.INewsFolder
+             zope.lifecycleevent.interfaces.IObjectAddedEvent"
+        handler="ftw.news.contents.news_folder.create_news_listing_block"
+        />
+
     <adapter factory=".indexer.news_start_date" name="start"/>
 
 </configure>

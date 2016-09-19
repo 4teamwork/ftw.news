@@ -2,7 +2,7 @@
 <import export_time="2011-01-02 03:04:00">
 
     <item status="1" suchbar="1" mutationsdatum="2010-05-17 16:34:00" datumvon="2010-05-18 12:00:00" datumbis="2020-01-01 00:00:00">
-        <id>uid00000000000000000000000000004</id>
+        <id>uid00000000000000000000000000005</id>
         <url_web>http://nohost/plone/news-folder/largest-aircraft-in-the-world</url_web>
         <titel>Largest Aircraft in the World</titel>
         <textlead></textlead>
@@ -12,7 +12,7 @@
         </textmobile>
     </item>
     <item status="1" suchbar="1" mutationsdatum="2010-03-14 20:18:00" datumvon="2010-03-15 12:00:00">
-        <id>uid00000000000000000000000000002</id>
+        <id>uid00000000000000000000000000003</id>
         <url_web>http://nohost/plone/news-folder/usain-bolt-at-the-olympics</url_web>
         <titel>Usain Bolt at the Ölympics</titel>
         <textlead>&lt;![CDATA[Usain Bolt wins the Ölympic gold in three events.

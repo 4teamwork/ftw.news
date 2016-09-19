@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-09-01 19:33+0000\n"
+"POT-Creation-Date: 2016-09-19 12:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,7 +95,7 @@ msgid "The news listing block renders a configurable list of news entries."
 msgstr "Der Newsauflistungsblock zeigt eine konfigurierbare Liste von Nachrichten-Meldungen an."
 
 #. Default: "The mopage data endpoint URL points to the \"mopage.news.xml\" view somewhere on the public visible  Plone page. It must also contain the params \"partnerid\" and \"importid\". Example: https://mypage.ch/news/mopage.news.xml?partnerid=3&importid=6"
-#: ./ftw/news/behaviors/mopage.py:58
+#: ./ftw/news/behaviors/mopage.py:59
 msgid "description_mopage_data_endpoint_url"
 msgstr "Die Mopage Endpoint-URL zeigt auf die \"mopage.news.xml\"-Ansicht eines News-Ordners auf Plone. Die URL muss die Parameter \"partnerid\" und \"importid\" enthalten. Die URL muss vollständig sein und auf die öffentliche Seite zeigen. Beispiel: https://mypage.ch/news/mopage.news.xml?partnerid=3&importid=6"
 
@@ -123,12 +123,12 @@ msgid "ftw.news (show on homepage feature)"
 msgstr ""
 
 #. Default: "${title} - News Feed"
-#: ./ftw/news/browser/news_listing.py:94
+#: ./ftw/news/browser/news_listing.py:97
 msgid "label_feed_desc"
 msgstr "${title} - News Feed"
 
 #. Default: "Mopage data endpoint URL (Plone)"
-#: ./ftw/news/behaviors/mopage.py:56
+#: ./ftw/news/behaviors/mopage.py:57
 msgid "label_mopage_data_endpoint_url"
 msgstr "Mopage: URL zu Daten-Endpoint"
 
@@ -156,7 +156,7 @@ msgid "mark news items to show up on home page"
 msgstr "News-Einträge für Anzeige auf Startseite markieren"
 
 #. Default: "More News"
-#: ./ftw/news/browser/news_listing_block.py:33
+#: ./ftw/news/browser/news_listing_block.py:35
 #: ./ftw/news/browser/templates/news_listing_block.pt:48
 #: ./ftw/news/portlets/templates/news_portlet.pt:37
 msgid "more_news_link_label"
@@ -352,3 +352,8 @@ msgstr "Keine Einträge vorhanden."
 #: ./ftw/news/portlets/templates/news_portlet.pt:43
 msgid "rss_link_title"
 msgstr "RSS abonnieren"
+
+#. Default: "News"
+#: ./ftw/news/contents/news_folder.py:33
+msgid "title_default_newslisting_block"
+msgstr "News"

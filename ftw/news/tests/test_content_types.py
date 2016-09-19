@@ -28,6 +28,17 @@ class TestContentTypes(FunctionalTestCase):
                          browser.css('h1.documentFirstHeading').first.text)
 
     @browsing
+    def test_news_folder_has_empty_listing_block(self, browser):
+        self.grant('Manager')
+        folder = create(Builder('news folder'))
+        browser.login().visit(folder)
+        self.assertEqual(
+            ['No content available\n\nMore News'],
+            browser.css('.sl-layout .ftw-news-newslistingblock').text
+        )
+        self.assertEqual(['news'], folder.objectIds())
+
+    @browsing
     def test_add_news_item(self, browser):
         news_folder = create(Builder('news folder'))
 

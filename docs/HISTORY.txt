@@ -5,6 +5,8 @@ Changelog
 1.3.2 (unreleased)
 ------------------
 
+- Mopage endpoint: remove web_url-tag as it is ambiguous. [jone]
+
 - Improve mopage body by using simple HTML. [jone]
 
 - Use simplelayout by default for news folders. [jone]

@@ -23,7 +23,7 @@
         <url_bild tal:content="item/image_url" tal:condition="item/image_url" />
         <textmobile tal:define="context nocall:item/obj;
                                 html simplelayout:default">
-            <tal:TEXT replace="structure python:view.html_to_text(html)" />
+            <tal:TEXT replace="structure python:view.cleanup_body_html(html)" />
         </textmobile>
         <rubrik tal:repeat="subject item/subjects"
                 tal:content="subject" />

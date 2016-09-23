@@ -137,7 +137,13 @@ class MopageNews(BrowserView):
 
         return date.strftime('%Y-%m-%d %H:%M:%S')
 
-    def html_to_text(self, html):
+    def cleanup_body_html(self, html):
+        """We have HTML with simplelayout structure, but this is too noisy
+        for the import.
+        We therefore convert the HTML to text and back to HTML.
+        We also need to make sure that the result is less than 10000 long.
+        """
+
         doc = lxml.html.fromstring(html)
         map(remove_node, doc.xpath(
             '//*[contains(concat(" ", normalize-space(@class), " "), '
@@ -145,12 +151,25 @@ class MopageNews(BrowserView):
         html = lxml.etree.tostring(doc, pretty_print=True)
 
         portal_transforms = getToolByName(self.context, 'portal_transforms')
-        data = portal_transforms.convertTo('text/x-web-intelligent',
-                                           html,
-                                           mimetype='text/html')
-        text = data.getData().strip()
-        text = crop(10000, text)
-        return u'<![CDATA[' + text + u']]>'
+        text = portal_transforms.convertToData(
+            'text/x-web-intelligent',
+            html,
+            mimetype='text/html').strip()
+
+        # body limit is 10000.
+        # We have text here, but will convert it to HTML, so it will be larger
+        # and we need to crop more to compensate.
+        for attempt in range(100):
+            text = crop(10000 - (len(text) * 0.1), text)
+            html = portal_transforms.convertToData(
+                'text/html',
+                text,
+                mimetype='text/x-web-intelligent').strip()
+
+            if len(html) < 10000:
+                return u'<![CDATA[' + html + u']]>'
+
+        return u'<![CDATA[cropping error]]>'
 
     def get_lead_image_url(self, news):
         scale = news.restrictedTraverse('@@leadimage').get_scale()

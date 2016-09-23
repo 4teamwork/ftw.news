@@ -35,12 +35,12 @@
     <configure zcml:condition="have ftw.news:mopage_publisher_receiver">
 
         <subscriber
-            for="ftw.news.interfaces.INews
+            for="*
                  ftw.publisher.receiver.interfaces.IAfterCreatedEvent"
             handler=".mopage.trigger_mopage_refresh" />
 
         <subscriber
-            for="ftw.news.interfaces.INews
+            for="*
                  ftw.publisher.receiver.interfaces.IAfterUpdatedEvent"
             handler=".mopage.trigger_mopage_refresh" />
 

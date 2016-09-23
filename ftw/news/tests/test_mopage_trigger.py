@@ -121,3 +121,35 @@ class TestMopageTrigger(FunctionalTestCase):
         self.assertEquals(
             [{'url': endpoint_url}],
             get_stub_log(self.portal))
+
+    def test_trigger_notified_when_sl_block_is_created_in_a_news(self):
+        """When a news is published, the first page is the news, then
+        the content of the news follows in separate jobs (sl blocks,
+        recursive structures).
+        When we only trigger when the news itself is published, the content
+        will be missing.
+        Therefore we must trigger an update on any change within the news.
+        """
+        self.grant('Manager')
+        trigger_url = self.portal.portal_url() + '/mopage-stub'
+        endpoint_url = (self.portal.portal_url() + '/news-folder/mopage.news.xml' +
+                        '?partnerid=213&importid=456')
+
+        folder = create(Builder('news folder')
+                        .titled(u'News Folder')
+                        .having(mopage_enabled=True,
+                                mopage_trigger_url=trigger_url,
+                                mopage_data_endpoint_url=endpoint_url))
+
+        news = create(Builder('news').titled(u'The News').within(folder))
+        block = create(Builder('sl textblock').within(news))
+
+        self.assertEquals([], get_stub_log(self.portal))
+
+        notify(AfterCreatedEvent(block))
+        transaction.commit()
+        runAsyncTest(lambda: None)
+        transaction.begin()
+        self.assertEquals(
+            [{'url': endpoint_url}],
+            get_stub_log(self.portal))

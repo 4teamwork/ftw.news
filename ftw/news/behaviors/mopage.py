@@ -1,5 +1,6 @@
 from Acquisition import aq_chain
 from ftw.news import _
+from ftw.news.interfaces import INews
 from plone.app.dexterity.behaviors.metadata import DCFieldProperty
 from plone.app.dexterity.behaviors.metadata import MetadataBase
 from plone.autoform.directives import read_permission
@@ -105,10 +106,17 @@ class PublisherMopageTrigger(MetadataBase):
         return urlparse.urlunparse(parts)
 
 
-def trigger_mopage_refresh(news, event):
+def trigger_mopage_refresh(obj, event):
+    if not filter(None,
+                  map(lambda parent: INews(parent, None),
+                      aq_chain(obj))):
+        # We are not within a news.
+        # We only trigger when publishing a news or a child of a news.
+        return
+
     triggers = filter(None,
-                      map(lambda obj: IPublisherMopageTrigger(obj, None),
-                          aq_chain(news)))
+                      map(lambda parent: IPublisherMopageTrigger(parent, None),
+                          aq_chain(obj)))
     if not triggers or not triggers[0].is_enabled():
         return
 

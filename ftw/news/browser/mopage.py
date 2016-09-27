@@ -1,5 +1,7 @@
 from DateTime import DateTime
 from ftw.news.behaviors.mopage import IMopageModificationDate
+from htmlentitydefs import codepoint2name as cp2n
+from htmlentitydefs import name2codepoint as n2cp
 from plone.app.dexterity.behaviors.metadata import ICategorization
 from plone.uuid.interfaces import IUUID
 from Products.CMFCore.utils import getToolByName
@@ -42,11 +44,33 @@ def crop(length, text):
     if not text:
         return text
 
-    text = text.decode('utf-8')
+    if isinstance(text, str):
+        text = text.decode('utf-8')
     if len(text) > length:
         text = text[:length - 5] + ' ...'
 
     return text
+
+
+def decode_entities(text):
+    """
+    Decodes html entities and xml entities.
+    """
+    entity_re = re.compile("&(#?)(\d{1,5}|\w{1,8});")
+
+    def substitute_entity(match):
+        ent = match.group(2)
+        if match.group(1) == "#":
+            return unichr(int(ent))
+
+        else:
+            cp = n2cp.get(ent)
+            if cp:
+                return unichr(cp)
+            else:
+                return match.group()
+
+    return entity_re.subn(substitute_entity, text)[0]
 
 
 class MopageNews(BrowserView):
@@ -153,10 +177,10 @@ class MopageNews(BrowserView):
         html = lxml.etree.tostring(doc, pretty_print=True)
 
         portal_transforms = getToolByName(self.context, 'portal_transforms')
-        text = portal_transforms.convertToData(
+        text = decode_entities(portal_transforms.convertToData(
             'text/x-web-intelligent',
             html,
-            mimetype='text/html').strip()
+            mimetype='text/html').strip())
 
         # body limit is 10000.
         # We have text here, but will convert it to HTML, so it will be larger

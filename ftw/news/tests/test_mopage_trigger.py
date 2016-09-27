@@ -1,6 +1,9 @@
 from collective.taskqueue.testing import runAsyncTest
+from DateTime import DateTime
+from datetime import datetime
 from ftw.builder import Builder
 from ftw.builder import create
+from ftw.news.behaviors.mopage import IMopageModificationDate
 from ftw.news.behaviors.mopage import IPublisherMopageTrigger
 from ftw.news.testing import MOPAGE_TRIGGER_FUNCTIONAL
 from ftw.news.tests import FunctionalTestCase
@@ -9,6 +12,7 @@ from ftw.publisher.receiver.events import AfterUpdatedEvent
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 from ftw.testbrowser.pages import statusmessages
+from ftw.testing import freeze
 from persistent.list import PersistentList
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
@@ -153,3 +157,37 @@ class TestMopageTrigger(FunctionalTestCase):
         self.assertEquals(
             [{'url': endpoint_url}],
             get_stub_log(self.portal))
+
+    def test_publisher_event_updates_mopage_modified_date(self):
+        """The idea of the mopage modified date is that it tracks modifications
+        on the content, more specific blocks added by publisher.
+        This is important in order to tell the mopage system that things have
+        changed.
+        However, it is not the Plone modification date and it should be updated
+        by the publisher subscriber.
+        """
+        self.grant('Manager')
+        trigger_url = self.portal.portal_url() + '/mopage-stub'
+        endpoint_url = (self.portal.portal_url() + '/news-folder/mopage.news.xml' +
+                        '?partnerid=213&importid=456')
+        folder = create(Builder('news folder')
+                        .having(mopage_enabled=True,
+                                mopage_trigger_url=trigger_url,
+                                mopage_data_endpoint_url=endpoint_url))
+
+        with freeze(datetime(2016, 1, 1)) as clock:
+            news = create(Builder('news').within(folder))
+            block = create(Builder('sl textblock').within(news))
+            self.assertEquals(DateTime('2016/1/1'),
+                              IMopageModificationDate(news).get_date())
+
+            clock.forward(days=1)
+            notify(AfterCreatedEvent(block))
+            self.assertEquals(DateTime('2016/1/2'),
+                              IMopageModificationDate(news).get_date())
+
+            clock.forward(days=1)
+            news.setModificationDate(DateTime())
+            notify(AfterCreatedEvent(block))
+            self.assertEquals(DateTime('2016/1/3'),
+                              IMopageModificationDate(news).get_date())

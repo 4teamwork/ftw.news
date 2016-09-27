@@ -1,6 +1,8 @@
 from datetime import datetime
+from DateTime import DateTime
 from ftw.builder import Builder
 from ftw.builder import create
+from ftw.news.behaviors.mopage import IMopageModificationDate
 from ftw.news.tests import FunctionalTestCase
 from ftw.news.tests import utils
 from ftw.news.tests import XMLDiffTestCase
@@ -36,6 +38,7 @@ class TestMopageExport(FunctionalTestCase, XMLDiffTestCase):
                            .with_dummy_image()
                            .having(text=lorem))
             utils.create_page_state(news1, block)
+            IMopageModificationDate(news1).set_date(DateTime('2010/3/15'))
 
         with freeze(datetime(2010, 5, 17, 15, 34)):
             create(Builder('news')

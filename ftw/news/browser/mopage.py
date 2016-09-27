@@ -1,4 +1,5 @@
 from DateTime import DateTime
+from ftw.news.behaviors.mopage import IMopageModificationDate
 from plone.app.dexterity.behaviors.metadata import ICategorization
 from plone.uuid.interfaces import IUUID
 from Products.CMFCore.utils import getToolByName
@@ -117,10 +118,11 @@ class MopageNews(BrowserView):
 
         subjects = getattr(ICategorization(obj, None), 'subjects', ())
 
+        modified_date = IMopageModificationDate(obj).get_date()
         return {'title': crop(100, brain.Title),
                 'news_date': self.normalize_date(brain.start),
                 'expires': self.normalize_date(brain.expires),
-                'modified_date': self.normalize_date(brain.modified),
+                'modified_date': self.normalize_date(modified_date),
                 'uid': IUUID(obj),
                 'url': brain.getURL(),
                 'textlead': textlead,

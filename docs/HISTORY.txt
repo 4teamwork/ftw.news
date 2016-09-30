@@ -5,6 +5,8 @@ Changelog
 1.4.1 (unreleased)
 ------------------
 
+- Mopage endpoint: fix entity escaping. [jone]
+
 - Mopage: add custom modified date for tracking content changes. [jone]
 
 

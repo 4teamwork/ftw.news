@@ -52,6 +52,12 @@
             permission="zope2.View"
             />
 
+        <adapter
+            for="ftw.news.interfaces.INews"
+            provides="ftw.news.behaviors.mopage.IMopageModificationDate"
+            factory="ftw.news.behaviors.mopage.MopageModificationDate"
+            />
+
     </configure>
 
 </configure>

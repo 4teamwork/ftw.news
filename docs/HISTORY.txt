@@ -5,7 +5,7 @@ Changelog
 1.4.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Mopage: add custom modified date for tracking content changes. [jone]
 
 
 1.4.0 (2016-09-26)

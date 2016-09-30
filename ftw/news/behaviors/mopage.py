@@ -1,4 +1,5 @@
 from Acquisition import aq_chain
+from DateTime import DateTime
 from ftw.news import _
 from ftw.news.interfaces import INews
 from plone.app.dexterity.behaviors.metadata import DCFieldProperty
@@ -10,8 +11,10 @@ from plone.directives.form import IFormFieldProvider
 from plone.directives.form import Schema
 from Products.Five.browser import BrowserView
 from zope import schema
+from zope.annotation import IAnnotations
 from zope.component.hooks import getSite
 from zope.interface import alsoProvides
+from zope.interface import implements
 from zope.interface import Interface
 import requests
 import urllib
@@ -106,10 +109,51 @@ class PublisherMopageTrigger(MetadataBase):
         return urlparse.urlunparse(parts)
 
 
+class IMopageModificationDate(Interface):
+    """The modification date adapter stores and provides a mopage
+    specific modification date which is used for tracking content changes
+    of a news page.
+    This is important in order to tell the Mopage system that something has
+    changed.
+    """
+
+    def get_date():
+        """Return the current modification date.
+        """
+
+    def set_date(date):
+        """Set modification date to a speicifc date.
+        """
+
+    def touch():
+        """Set modification date to now.
+        """
+
+
+class MopageModificationDate(object):
+    implements(IMopageModificationDate)
+
+    annotations_key = 'ftw.news:mopage:modification_date'
+
+    def __init__(self, context):
+        self.context = context
+
+    def get_date(self):
+        date = IAnnotations(self.context).get(self.annotations_key, None)
+        return date or self.context.modified()
+
+    def set_date(self, date):
+        IAnnotations(self.context)[self.annotations_key] = DateTime(date)
+
+    def touch(self):
+        self.set_date(DateTime())
+
+
 def trigger_mopage_refresh(obj, event):
-    if not filter(None,
-                  map(lambda parent: INews(parent, None),
-                      aq_chain(obj))):
+    news_pages = filter(None,
+                        map(lambda parent: INews(parent, None),
+                            aq_chain(obj)))
+    if not news_pages:
         # We are not within a news.
         # We only trigger when publishing a news or a child of a news.
         return
@@ -119,6 +163,9 @@ def trigger_mopage_refresh(obj, event):
                           aq_chain(obj)))
     if not triggers or not triggers[0].is_enabled():
         return
+
+    for news in news_pages:
+        IMopageModificationDate(news).touch()
 
     from collective.taskqueue import taskqueue
 

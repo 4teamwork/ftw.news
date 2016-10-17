@@ -1,6 +1,5 @@
 from DateTime import DateTime
 from ftw.news.behaviors.mopage import IMopageModificationDate
-from htmlentitydefs import codepoint2name as cp2n
 from htmlentitydefs import name2codepoint as n2cp
 from plone.app.dexterity.behaviors.metadata import ICategorization
 from plone.uuid.interfaces import IUUID

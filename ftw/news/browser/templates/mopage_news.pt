@@ -18,7 +18,7 @@
           suchbar="1">
         <id tal:content="item/uid" />
         <titel tal:content="item/title" />
-        <textlead tal:content="item/textlead" />
+        <textlead tal:content="structure item/textlead" />
         <url_bild tal:content="item/image_url" tal:condition="item/image_url" />
         <textmobile tal:define="context nocall:item/obj;
                                 html simplelayout:default">

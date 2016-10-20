@@ -55,7 +55,7 @@ class TestNewsRssListing(FunctionalTestCase):
 
         browser.login().visit(news_folder, view='news_listing_rss')
 
-        rdf = '<rdf:li rdf:resource="{0}"/>'.format(news.absolute_url())
+        rdf = '<rdf:li rdf:resource="{0}"'.format(news.absolute_url())
         self.assertIn(rdf, browser.contents,
                       'Did not found the rdf tag for the news')
 

@@ -6,13 +6,14 @@ maintainer = 'Mathias Leimgruber'
 
 tests_require = [
     'ftw.builder',
+    'ftw.chameleon',
+    'ftw.news[mopage_publisher_receiver]',
     'ftw.subsite',
     'ftw.testbrowser',
     'ftw.testing>=1.11.0',
     'path.py',
     'plone.app.testing',
     'plone.testing',
-    'ftw.news[mopage_publisher_receiver]',
 ]
 
 extras_require = {

@@ -2,13 +2,13 @@
 <import xmlns:tal="http://xml.zope.org/namespaces/tal"
         xmlns:i18n="http://xml.zope.org/namespaces/i18n"
         i18n:domain="ftw.news"
-        tal:define="attrs view/import_node_attributes"
-        tal:attributes="export_time attrs/export_time;
-                        partner attrs/partner;
-                        partnerid attrs/partnerid;
-                        passwort attrs/passwort;
-                        importid attrs/importid;
-                        vaterobjekt attrs/vaterobjekt">
+        tal:define="attributes view/import_node_attributes"
+        tal:attributes="export_time attributes/export_time;
+                        partner attributes/partner;
+                        partnerid attributes/partnerid;
+                        passwort attributes/passwort;
+                        importid attributes/importid;
+                        vaterobjekt attributes/vaterobjekt">
 
     <item tal:repeat="item view/items"
           tal:attributes="datumvon item/news_date;

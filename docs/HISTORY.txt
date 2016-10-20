@@ -5,7 +5,7 @@ Changelog
 1.4.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix chameleon support for mopage export. [jone]
 
 
 1.4.2 (2016-10-18)

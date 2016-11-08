@@ -168,7 +168,7 @@ class TestNewsListingFormat(FunctionalTestCase):
 
         browser.login().open(self.news_folder)
 
-        self.assertEquals('Mar 13, 2015 04:15 PM', browser.css('.dtstart').first.text)
+        self.assertEquals('Mar 13, 2015', browser.css('.dtstart').first.text)
 
     @browsing
     def test_show_full_creation_date_if_minute_is_not_set(self, browser):
@@ -178,7 +178,7 @@ class TestNewsListingFormat(FunctionalTestCase):
 
         browser.login().open(self.news_folder)
 
-        self.assertEquals('Mar 13, 2015 04:00 PM', browser.css('.dtstart').first.text)
+        self.assertEquals('Mar 13, 2015', browser.css('.dtstart').first.text)
 
     @browsing
     def test_show_full_creation_date_if_hour_is_not_set(self, browser):
@@ -188,7 +188,7 @@ class TestNewsListingFormat(FunctionalTestCase):
 
         browser.login().open(self.news_folder)
 
-        self.assertEquals('Mar 13, 2015 12:15 AM', browser.css('.dtstart').first.text)
+        self.assertEquals('Mar 13, 2015', browser.css('.dtstart').first.text)
 
     @browsing
     def test_show_no_time_if_minute_and_hour_are_not_set(self, browser):

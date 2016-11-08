@@ -167,7 +167,7 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
         set_allow_anonymous_view_about(False)
 
         browser.login(self.member).open(self.page)
-        self.assertEqual('Dec 31, 2000 03:00 PM by test_user_1_',
+        self.assertEqual('Dec 31, 2000 by test_user_1_',
                          browser.css('.news-item .byline').first.text,
                          'Authenticated member should see author if '
                          'allowAnonymousViewAbout is False.')
@@ -179,7 +179,7 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
         set_allow_anonymous_view_about(True)
 
         browser.login(self.member).open(self.page)
-        self.assertEqual('Dec 31, 2000 03:00 PM by test_user_1_',
+        self.assertEqual('Dec 31, 2000 by test_user_1_',
                          browser.css('.news-item .byline').first.text,
                          'Authenticated member should see author.')
 
@@ -190,7 +190,7 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
         set_allow_anonymous_view_about(False)
 
         browser.logout().open(self.page)
-        self.assertEqual('Dec 31, 2000 03:00 PM',
+        self.assertEqual('Dec 31, 2000',
                          browser.css('.news-item .byline').first.text,
                          'Anonymous user should not see author if '
                          'allowAnonymousViewAbout is False.')
@@ -202,7 +202,7 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
         set_allow_anonymous_view_about(True)
 
         browser.logout().open(self.page)
-        self.assertEqual('Dec 31, 2000 03:00 PM by test_user_1_',
+        self.assertEqual('Dec 31, 2000 by test_user_1_',
                          browser.css('.news-item .byline').first.text,
                          'Anonymous user should see author if '
                          'allowAnonymousViewAbout is True.')

@@ -196,7 +196,7 @@ class Renderer(base.Renderer):
         return item
 
     def format_date(self, brain):
-        return self.context.toLocalizedTime(brain.start, long_format=True)
+        return self.context.toLocalizedTime(brain.start, long_format=False)
 
     def show_rss_link(self):
         return getattr(self.data, 'show_rss_link', False)

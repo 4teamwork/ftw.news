@@ -192,7 +192,7 @@ class MopageNews(BrowserView):
                 mimetype='text/x-web-intelligent').strip()
 
             if len(html) < 10000:
-                return u'<![CDATA[' + html + u']]>'
+                return ('<![CDATA[' + html + ']]>').decode('utf-8')
 
         return u'<![CDATA[cropping error]]>'
 

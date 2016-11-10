@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.4.4 (unreleased)
+1.4.4 (2016-11-10)
 ------------------
 
 - Fix encoding error in mopage endpoint.

@@ -94,13 +94,15 @@ class TestMopageExport(FunctionalTestCase, XMLDiffTestCase):
     @browsing
     def test_export_all_news_on_site(self, browser):
         self.grant('Manager')
-        create(Builder('news').titled(u'One').within(
-            create(Builder('news folder').titled(u'News Folder One'))))
-        create(Builder('news').titled(u'Two').within(
-            create(Builder('news folder').titled(u'News Folder Two'))))
+        with freeze(datetime(2015, 10, 1)) as clock:
+            create(Builder('news').titled(u'One').within(
+                create(Builder('news folder').titled(u'News Folder One'))))
+            clock.forward(days=1)
+            create(Builder('news').titled(u'Two').within(
+                create(Builder('news folder').titled(u'News Folder Two'))))
 
         browser.open(self.portal, view='mopage.news.xml')
-        self.assert_news_in_browser(['One', 'Two'])
+        self.assert_news_in_browser(['Two', 'One'])
 
     @browsing
     def test_title_is_cropped(self, browser):

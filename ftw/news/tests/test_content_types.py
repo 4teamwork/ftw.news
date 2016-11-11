@@ -61,6 +61,6 @@ class TestContentTypes(FunctionalTestCase):
 
         browser.login().open(news)
         self.assertEqual(
-            'May 07, 2001 11:13 AM',
+            'May 07, 2001',
             browser.css('.news-date').first.text
         )

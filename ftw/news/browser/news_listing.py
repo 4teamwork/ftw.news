@@ -99,10 +99,7 @@ class NewsListing(BrowserView):
                  mapping={'title': self.context.Title().decode('utf-8')})
 
     def format_date(self, brain):
-        show_long_format = (DateTime(brain.start).hour()
-                            or DateTime(brain.start).minute())
-        return self.context.toLocalizedTime(brain.start,
-                                            long_format=show_long_format)
+        return self.context.toLocalizedTime(brain.start, long_format=False)
 
 
 class NewsListingRss(NewsListing):

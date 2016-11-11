@@ -5,7 +5,7 @@ Changelog
 1.4.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Do not show news time. [jone]
 
 
 1.4.4 (2016-11-10)

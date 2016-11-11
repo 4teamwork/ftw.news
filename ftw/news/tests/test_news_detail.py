@@ -27,7 +27,7 @@ class TestNewsDetail(FunctionalTestCase):
 
         browser.login().visit(news)
         self.assertEqual(
-            'Dec 31, 2000 01:00 PM',
+            'Dec 31, 2000',
             browser.css('.news-date').first.text
         )
 
@@ -40,40 +40,10 @@ class TestDateTimeFormat(FunctionalTestCase):
         self.news_folder = create(Builder('news folder'))
 
     @browsing
-    def test_show_full_creation_date_if_hour_and_minute_are_set(self, browser):
+    def test_show_date_in_short_format(self, browser):
         news = create(Builder('news')
             .within(self.news_folder)
             .having(news_date=DateTime('2015/03/13 16:15')))
-
-        browser.login().open(news)
-
-        self.assertEquals('Mar 13, 2015 04:15 PM', browser.css('.news-date').first.text)
-
-    @browsing
-    def test_show_full_creation_date_if_minute_is_not_set(self, browser):
-        news = create(Builder('news')
-            .within(self.news_folder)
-            .having(news_date=DateTime('2015/03/13 16:00')))
-
-        browser.login().open(news)
-
-        self.assertEquals('Mar 13, 2015 04:00 PM', browser.css('.news-date').first.text)
-
-    @browsing
-    def test_show_full_creation_date_if_hour_is_not_set(self, browser):
-        news = create(Builder('news')
-            .within(self.news_folder)
-            .having(news_date=DateTime('2015/03/13 00:15')))
-
-        browser.login().open(news)
-
-        self.assertEquals('Mar 13, 2015 12:15 AM', browser.css('.news-date').first.text)
-
-    @browsing
-    def test_show_no_time_if_minute_and_hour_are_not_set(self, browser):
-        news = create(Builder('news')
-            .within(self.news_folder)
-            .having(news_date=DateTime('2015/03/13 00:00')))
 
         browser.login().open(news)
 

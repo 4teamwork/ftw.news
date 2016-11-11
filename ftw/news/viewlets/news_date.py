@@ -1,4 +1,3 @@
-from DateTime import DateTime
 from ftw.news.contents.news import INewsSchema
 from plone.app.layout.viewlets import ViewletBase
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -20,8 +19,4 @@ class NewsDateViewlet(ViewletBase):
 
         if not news_date:
             return ''
-
-        show_long_format = (DateTime(news_date).hour()
-                            or DateTime(news_date).minute())
-        return self.context.toLocalizedTime(news_date,
-                                            long_format=show_long_format)
+        return self.context.toLocalizedTime(news_date, long_format=False)

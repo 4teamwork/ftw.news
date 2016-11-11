@@ -3,7 +3,7 @@
       tal:omit-tag="python: 1"
       i18n:domain="ftw.news">
 
-    <section class="news-portlet"
+    <section class="portlet news-portlet"
         tal:define="items view/get_items;">
 
         <header>

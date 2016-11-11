@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.4.5 (unreleased)
+1.4.5 (2016-11-11)
 ------------------
 
 - Do not show news time. [jone]

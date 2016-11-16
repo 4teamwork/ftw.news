@@ -440,12 +440,14 @@ class TestNewsPortlets(FunctionalTestCase):
     @browsing
     def test_portlet_filters_by_quantity(self, browser):
         """
-        This test makes sure that the portlet only renders news entries
-        from the path configured in the portlet.
+        This test makes sure that the portlet only renders the news
+        limited by the quantity
         """
         news_folder = create(Builder('news folder').titled(u'News Folder'))
-        create(Builder('news').titled(u'Hello World 1').within(news_folder))
-        create(Builder('news').titled(u'Hello World 2').within(news_folder))
+        create(Builder('news').titled(u'Hello World 1').within(news_folder)
+               .having(start=datetime(2013, 12, 22)))
+        create(Builder('news').titled(u'Hello World 2').within(news_folder)
+               .having(start=datetime(2013, 12, 23)))
 
         # Create the portlet on plone root.
         portlet_config = {

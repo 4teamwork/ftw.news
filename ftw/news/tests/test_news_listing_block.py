@@ -293,7 +293,7 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
         browser.visit(self.portal, view='simplelayout-view')
         self.assertEqual(
             ['News On Homepage'],
-            browser.css('.sl-block-content li.news-item .title').text,
+            browser.css('.sl-block-content .news-item .title').text,
             "The news listing block on the Plone Site must only render "
             "news items having been marked to be shown on the homepage."
         )

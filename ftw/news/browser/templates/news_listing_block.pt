@@ -14,7 +14,7 @@
            i18n:translate="">No content available</p>
 
         <ul class="news-row">
-            <li class="news-item" tal:repeat="item news">
+            <li tal:repeat="item news">
                 <a class="news-item" tal:attributes="href item/url">
                     <div tal:attributes="class python:'image' if item['image_tag'] else 'no-image image'"
                          tal:condition="block_info/show_lead_image">

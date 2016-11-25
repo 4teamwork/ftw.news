@@ -5,6 +5,8 @@ Changelog
 1.4.6 (unreleased)
 ------------------
 
+- Mopage: fix textlead max length (from 100 to 1000). [jone]
+
 - Fix news item class identifier.
   [Kevin Bieri]
 

@@ -45,3 +45,10 @@ def crop_text(text, length):
     """
     plone_view = api.portal.get().restrictedTraverse('@@plone')
     return plone_view.cropText(text, length)
+
+
+def make_utf8(item):
+    if isinstance(item, unicode):
+        return item.encode('utf-8')
+    else:
+        return item

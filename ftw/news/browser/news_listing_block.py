@@ -1,13 +1,14 @@
 from Acquisition._Acquisition import aq_inner, aq_parent
 from DateTime.DateTime import DateTime
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.interfaces import IPloneSiteRoot
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.news import _
 from ftw.news import utils
 from ftw.news.behaviors.show_on_homepage.news import IShowOnHomepage
 from ftw.news.contents.common import INewsListingBaseSchema
+from ftw.news.utils import make_utf8
 from ftw.simplelayout.browser.blocks.base import BaseBlock
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces import IPloneSiteRoot
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.i18n import translate
 
 
@@ -75,8 +76,9 @@ class NewsListingBlockView(BaseBlock):
                 cat_path.append('/'.join([portal_path, item]))
             query['path'] = {'query': cat_path}
 
-        if self.context.subjects:
-            query['Subject'] = self.context.subjects
+        subjects = self.context.subjects
+        if subjects:
+            query['Subject'] = map(make_utf8, subjects)
 
         if self.context.maximum_age > 0:
             date = DateTime() - self.context.maximum_age

@@ -50,3 +50,18 @@ class TestNewsListingOnNewsListingBlock(FunctionalTestCase):
                                         DateTime('2014/12/31').latestTime()),
                               'range': 'minmax'},
                              news_listing_view.get_query()['start'])
+
+    def test_query_newslisting_with_subject_containing_umlauts(self):
+        newsfolder = create(Builder('news folder').within(self.page))
+        news = create(Builder('news')
+                      .within(newsfolder)
+                      .titled(u'Some News')
+                      .having(subjects=('F\xc3\xb6\xc3\xb6', 'Bar')))
+        newslistingblock = create(Builder('news listing block')
+                                  .within(self.page)
+                                  .titled(u'News listing block')
+                                  .having(subjects=(u'F\xf6\xf6', 'Bar')))
+
+        view = newslistingblock.restrictedTraverse('block_view')
+        self.assertTrue(len(view.get_news()), 'Expect one news item')
+        self.assertEquals(news.Title(), view.get_news()[0]['title'])

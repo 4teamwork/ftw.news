@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.4.6 (unreleased)
+1.4.6 (2016-12-06)
 ------------------
 
 - Fix filter for subjects containing umlauts in newslistingblock.

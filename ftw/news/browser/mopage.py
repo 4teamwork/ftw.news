@@ -135,7 +135,7 @@ class MopageNews(BrowserView):
             # sorry, not supported.
             image_url = None
 
-        textlead = crop(100, obj.Description() or '')
+        textlead = crop(1000, obj.Description() or '')
         if textlead:
             textlead = u'<![CDATA[{}]]>'.format(textlead)
 

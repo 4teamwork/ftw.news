@@ -5,6 +5,9 @@ Changelog
 1.4.6 (unreleased)
 ------------------
 
+- Fix filter for subjects containing umlauts in newslistingblock.
+  [mathias.leimgruber]
+
 - Mopage: fix textlead max length (from 100 to 1000). [jone]
 
 - Fix news item class identifier.

@@ -5,7 +5,7 @@ Changelog
 1.4.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix small RST Syntax error in readme file. [raphael-s]
 
 
 1.4.6 (2016-12-06)

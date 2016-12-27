@@ -1,8 +1,14 @@
+import transaction
 from DateTime import DateTime
+from datetime import datetime
+from datetime import timedelta
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
 from ftw.news.tests import FunctionalTestCase
+from ftw.testbrowser import browsing
+from ftw.testing import freeze
+from plone import api
 
 
 class TestNewsListingOnNewsListingBlock(FunctionalTestCase):
@@ -65,3 +71,53 @@ class TestNewsListingOnNewsListingBlock(FunctionalTestCase):
         view = newslistingblock.restrictedTraverse('block_view')
         self.assertTrue(len(view.get_news()), 'Expect one news item')
         self.assertEquals(news.Title(), view.get_news()[0]['title'])
+
+    @browsing
+    def test_block_renders_inactive_news_items(self, browser):
+        news_folder = create(Builder('news folder'))
+
+        with freeze(datetime(2010, 5, 17, 15, 34)):
+            create(Builder('news')
+                   .titled(u'Non-expired News Item')
+                   .within(news_folder)
+                   .having(news_date=datetime.now()))
+            create(Builder('news')
+                   .titled(u'Expired News Item')
+                   .within(news_folder)
+                   .having(news_date=datetime.now(),
+                           expires=datetime.now() - timedelta(days=10)))
+
+        news_listing_block = create(Builder('news listing block')
+                                    .within(news_folder)
+                                    .titled(u'News listing block'))
+
+        james_bond = create(Builder('user')
+                            .named('James', 'Bond')
+                            .with_userid('james.bond'))
+
+        # Make sure our user does not see the expired news item.
+        browser.login(james_bond)
+        browser.visit(news_listing_block, view='block_view')
+        self.assertEqual(
+            [
+                'Non-expired News Item',
+            ],
+            browser.css('.news-item .title').text
+        )
+
+        # Now grant our user the permission to add news and make sure
+        # he can see the expired news item.
+        api.user.grant_roles(
+            username=james_bond.getId(),
+            roles=['Contributor'],
+            obj=self.portal,
+        )
+        transaction.commit()
+        browser.visit(news_listing_block, view='block_view')
+        self.assertEqual(
+            [
+                'Non-expired News Item',
+                'Expired News Item',
+            ],
+            browser.css('.news-item .title').text
+        )

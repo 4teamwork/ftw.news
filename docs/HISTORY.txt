@@ -5,6 +5,9 @@ Changelog
 1.4.7 (unreleased)
 ------------------
 
+- Users having the permission to add news items will see
+  inactive news items in the news listing block. [mbaechtold]
+
 - Fix small RST Syntax error in readme file. [raphael-s]
 
 

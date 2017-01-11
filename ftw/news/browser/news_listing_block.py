@@ -6,6 +6,7 @@ from ftw.news.behaviors.show_on_homepage.news import IShowOnHomepage
 from ftw.news.contents.common import INewsListingBaseSchema
 from ftw.news.utils import make_utf8
 from ftw.simplelayout.browser.blocks.base import BaseBlock
+from plone import api
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -50,9 +51,12 @@ class NewsListingBlockView(BaseBlock):
 
     def get_news(self):
         catalog = getToolByName(self.context, 'portal_catalog')
-        brains = catalog.searchResults(
-            self.get_query()
-        )
+
+        query = self.get_query()
+        if api.user.has_permission('ftw.news: Add News', obj=api.portal.get()):
+            query['show_inactive'] = True
+
+        brains = catalog.searchResults(query)
 
         if self.context.quantity:
             brains = brains[:self.context.quantity]

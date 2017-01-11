@@ -1,4 +1,5 @@
 from DateTime import DateTime
+from ftw.news.behaviors.external_url import INewsExternalUrl
 from ftw.news.behaviors.mopage import IMopageModificationDate
 from htmlentitydefs import name2codepoint as n2cp
 from plone.app.dexterity.behaviors.metadata import ICategorization
@@ -147,7 +148,7 @@ class MopageNews(BrowserView):
                 'expires': self.normalize_date(brain.expires),
                 'modified_date': self.normalize_date(modified_date),
                 'uid': IUUID(obj),
-                'url': brain.getURL(),
+                'web_url': getattr(INewsExternalUrl(obj, None), 'external_url', ''),
                 'textlead': textlead,
                 'image_url': image_url,
                 'subjects': map(lambda subject: crop(100, subject), subjects),

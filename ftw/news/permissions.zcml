@@ -27,4 +27,9 @@
         title="ftw.news: Configure mopage trigger"
         />
 
+    <permission
+        id="ftw.news.EditNewsExternalUrl"
+        title="ftw.news: Edit news external url"
+        />
+
 </configure>

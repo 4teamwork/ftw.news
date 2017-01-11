@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.4.7 (unreleased)
+1.5.0 (2017-01-11)
 ------------------
 
 - Users having the permission to add news items will see

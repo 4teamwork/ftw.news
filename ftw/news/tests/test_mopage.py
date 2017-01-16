@@ -49,6 +49,14 @@ class TestMopageExport(FunctionalTestCase, XMLDiffTestCase):
                    .having(news_date=datetime(2010, 5, 18, 12, 00),
                            expires=datetime(2020, 1, 1)))
 
+        # listing block should not appear in endpoint
+        listingblock = create(Builder('sl listingblock')
+                              .titled('My listingblock')
+                              .having(show_title=True)
+                              .within(news1))
+
+        create(Builder('file').with_dummy_content().within(listingblock))
+
         with freeze(datetime(2011, 1, 2, 3, 4)):
             self.assert_mopage_export('01_export_news.xml', news_folder)
 

@@ -2,6 +2,8 @@ from DateTime import DateTime
 from ftw.news.behaviors.external_url import INewsExternalUrl
 from ftw.news.behaviors.mopage import IMopageModificationDate
 from ftw.simplelayout.browser.provider import SimplelayoutRenderer
+from ftw.simplelayout.contenttypes.contents.interfaces import IFileListingBlock
+from ftw.simplelayout.contenttypes.contents.interfaces import IGalleryBlock
 from ftw.simplelayout.interfaces import IPageConfiguration
 from htmlentitydefs import name2codepoint as n2cp
 from plone.app.dexterity.behaviors.metadata import ICategorization
@@ -116,6 +118,13 @@ class NewsMopageRenderer(SimplelayoutRenderer):
                 return ('<![CDATA[' + html + ']]>').decode('utf-8')
 
         return u'<![CDATA[cropping error]]>'
+
+    def _blocks(self):
+        # Exclude listing blocks and galleries.
+        blocks = super(NewsMopageRenderer, self)._blocks()
+        return {uid: block for uid, block in blocks.items()
+                if not IFileListingBlock.providedBy(block)
+                and not IGalleryBlock.providedBy(block)}
 
 
 class MopageNews(BrowserView):

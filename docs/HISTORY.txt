@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.5.1 (unreleased)
+1.6.0 (2017-01-16)
 ------------------
 
 - Add a new field on news items which can be used to define a custom external

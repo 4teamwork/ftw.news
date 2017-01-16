@@ -28,6 +28,7 @@ extras_require = {
         'collective.taskqueue',
         'ftw.publisher.receiver',
         'requests',
+        'ftw.simplelayout >= 1.15.0',
     ],
 }
 

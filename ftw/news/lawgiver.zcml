@@ -26,4 +26,9 @@
         permissions="ftw.news: Configure mopage trigger"
         />
 
+    <lawgiver:map_permissions
+        action_group="edit news external url"
+        permissions="ftw.news: Edit news external url"
+        />
+
 </configure>

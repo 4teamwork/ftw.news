@@ -12,7 +12,9 @@ from ftw.testing import freeze
 from ftw.testing import staticuid
 from path import Path
 from plone.app.textfield import RichTextValue
+from Products.CMFCore.utils import getToolByName
 import re
+import transaction
 
 
 class TestMopageExport(FunctionalTestCase, XMLDiffTestCase):
@@ -163,3 +165,23 @@ class TestMopageExport(FunctionalTestCase, XMLDiffTestCase):
                 r'^<([^>]+)>; rel="([^"]+)"', text).groups()))
 
         return dict(map(parse_link, browser.headers.get('Link').split(',')))
+
+    @browsing
+    def test_custom_external_url(self, browser):
+        portal_types = getToolByName(self.portal, 'portal_types')
+        portal_types['ftw.news.News'].behaviors += (
+            'ftw.news.behaviors.external_url.INewsExternalUrl',
+        )
+        transaction.commit()
+
+        self.grant('Manager')
+        create(Builder('news')
+               .titled(u'A news item having a custom external url')
+               .having(external_url=u'http://www.4teamwork.ch/')
+               .within(create(Builder('news folder'))))
+
+        browser.open(self.portal, view='mopage.news.xml')
+        self.assertEqual(
+            ['http://www.4teamwork.ch/'],
+            browser.css('web_url').text
+        )

@@ -32,6 +32,13 @@
         factory="ftw.news.behaviors.mopage.PublisherMopageTrigger"
         />
 
+    <plone:behavior
+        title="External URL (for mobile app)"
+        description="Provides an additional URL field for mobile apps"
+        provides=".external_url.INewsExternalUrl"
+        for="ftw.news.interfaces.INews"
+        />
+
     <configure zcml:condition="have ftw.news:mopage_publisher_receiver">
 
         <subscriber

@@ -25,5 +25,10 @@
             <role name="Site Administrator"/>
         </permission>
 
+        <permission name="ftw.news: Edit news external url" acquire="False">
+            <role name="Manager"/>
+            <role name="Site Administrator"/>
+        </permission>
+
     </permissions>
 </rolemap>

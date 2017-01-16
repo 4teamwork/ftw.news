@@ -19,6 +19,7 @@
         <id tal:content="item/uid" />
         <titel tal:content="item/title" />
         <textlead tal:content="structure item/textlead" />
+        <web_url tal:condition="item/web_url" tal:content="item/web_url" />
         <url_bild tal:content="item/image_url" tal:condition="item/image_url" />
         <textmobile tal:define="context nocall:item/obj;
                                 html simplelayout:default">

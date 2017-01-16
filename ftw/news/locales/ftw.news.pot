@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-09-19 12:57+0000\n"
+"POT-Creation-Date: 2017-01-11 08:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,6 +30,10 @@ msgstr ""
 msgid "Display the contents of a news folder."
 msgstr ""
 
+#: ./ftw/news/behaviors/configure.zcml:40
+msgid "External URL (for mobile app)"
+msgstr ""
+
 #: ./ftw/news/configure.zcml:38
 msgid "Installs a feature allowing to mark news to show on homepage."
 msgstr ""
@@ -42,7 +46,7 @@ msgstr ""
 msgid "Mark news listing block to render news on homepage"
 msgstr ""
 
-#: ./ftw/news/behaviors/mopage.py:23
+#: ./ftw/news/behaviors/mopage.py:27
 msgid "Mopage"
 msgstr ""
 
@@ -78,6 +82,10 @@ msgstr ""
 msgid "No content available"
 msgstr ""
 
+#: ./ftw/news/behaviors/configure.zcml:40
+msgid "Provides an additional URL field for mobile apps"
+msgstr ""
+
 #: ./ftw/news/behaviors/configure.zcml:33
 msgid "Provides fields for configuring a mopage trigger (ftw.publisher)."
 msgstr ""
@@ -95,12 +103,12 @@ msgid "The news listing block renders a configurable list of news entries."
 msgstr ""
 
 #. Default: "The mopage data endpoint URL points to the \"mopage.news.xml\" view somewhere on the public visible  Plone page. It must also contain the params \"partnerid\" and \"importid\". Example: https://mypage.ch/news/mopage.news.xml?partnerid=3&importid=6"
-#: ./ftw/news/behaviors/mopage.py:59
+#: ./ftw/news/behaviors/mopage.py:63
 msgid "description_mopage_data_endpoint_url"
 msgstr ""
 
 #. Default: "Contains the mopage URL to the trigger endpoint. This is only the base URL, it does not contain the endpoint URL from which the mopage server retrieves the news. Example: https://un:pw@xml.mopage.ch/infoservice/xml.php"
-#: ./ftw/news/behaviors/mopage.py:42
+#: ./ftw/news/behaviors/mopage.py:46
 msgid "description_mopage_trigger_url"
 msgstr ""
 
@@ -128,12 +136,12 @@ msgid "label_feed_desc"
 msgstr ""
 
 #. Default: "Mopage data endpoint URL (Plone)"
-#: ./ftw/news/behaviors/mopage.py:57
+#: ./ftw/news/behaviors/mopage.py:61
 msgid "label_mopage_data_endpoint_url"
 msgstr ""
 
 #. Default: "Mopage trigger URL"
-#: ./ftw/news/behaviors/mopage.py:40
+#: ./ftw/news/behaviors/mopage.py:44
 msgid "label_mopage_trigger_url"
 msgstr ""
 
@@ -142,13 +150,18 @@ msgstr ""
 msgid "label_more_news_link_label"
 msgstr ""
 
+#. Default: "External link for mobile app"
+#: ./ftw/news/behaviors/external_url.py:14
+msgid "label_news_external_url"
+msgstr ""
+
 #. Default: "Show on home page"
 #: ./ftw/news/behaviors/show_on_homepage/news.py:17
 msgid "label_show_on_homepage"
 msgstr ""
 
 #. Default: "Mopage trigger enabled"
-#: ./ftw/news/behaviors/mopage.py:31
+#: ./ftw/news/behaviors/mopage.py:35
 msgid "label_trigger_enabled"
 msgstr ""
 
@@ -156,7 +169,7 @@ msgid "mark news items to show up on home page"
 msgstr ""
 
 #. Default: "More News"
-#: ./ftw/news/browser/news_listing_block.py:35
+#: ./ftw/news/browser/news_listing_block.py:36
 #: ./ftw/news/browser/templates/news_listing_block.pt:48
 #: ./ftw/news/portlets/templates/news_portlet.pt:37
 msgid "more_news_link_label"
@@ -354,7 +367,7 @@ msgid "rss_link_title"
 msgstr ""
 
 #. Default: "News"
-#: ./ftw/news/contents/news_folder.py:33
+#: ./ftw/news/contents/news_folder.py:31
 msgid "title_default_newslisting_block"
 msgstr ""
 

@@ -1,6 +1,10 @@
 from DateTime import DateTime
 from ftw.news.behaviors.external_url import INewsExternalUrl
 from ftw.news.behaviors.mopage import IMopageModificationDate
+from ftw.simplelayout.browser.provider import SimplelayoutRenderer
+from ftw.simplelayout.contenttypes.contents.interfaces import IFileListingBlock
+from ftw.simplelayout.contenttypes.contents.interfaces import IGalleryBlock
+from ftw.simplelayout.interfaces import IPageConfiguration
 from htmlentitydefs import name2codepoint as n2cp
 from plone.app.dexterity.behaviors.metadata import ICategorization
 from plone.uuid.interfaces import IUUID
@@ -71,6 +75,56 @@ def decode_entities(text):
                 return match.group()
 
     return entity_re.subn(substitute_entity, text)[0]
+
+
+class NewsMopageRenderer(SimplelayoutRenderer):
+
+    def __init__(self, news, view):
+        page_config = IPageConfiguration(news).load()
+        super(NewsMopageRenderer, self).__init__(
+            news, page_config, 'default', view=view)
+
+    def __call__(self):
+        """We have HTML with simplelayout structure, but this is too noisy
+        for the import.
+        We therefore convert the HTML to text and back to HTML.
+        We also need to make sure that the result is less than 10000 long.
+        """
+        html = self.render_slot().strip()
+
+        doc = lxml.html.fromstring(html)
+        map(remove_node, doc.xpath(
+            '//*[contains(concat(" ", normalize-space(@class), " "), '
+            '" hiddenStructure ")]'))
+        html = lxml.etree.tostring(doc, pretty_print=True)
+
+        portal_transforms = getToolByName(self.context, 'portal_transforms')
+        text = decode_entities(portal_transforms.convertToData(
+            'text/x-web-intelligent',
+            html,
+            mimetype='text/html').strip())
+
+        # body limit is 10000.
+        # We have text here, but will convert it to HTML, so it will be larger
+        # and we need to crop more to compensate.
+        for attempt in range(100):
+            text = crop(10000 - (len(text) * 0.1), text)
+            html = portal_transforms.convertToData(
+                'text/html',
+                text,
+                mimetype='text/x-web-intelligent').strip()
+
+            if len(html) < 10000:
+                return ('<![CDATA[' + html + ']]>').decode('utf-8')
+
+        return u'<![CDATA[cropping error]]>'
+
+    def _blocks(self):
+        # Exclude listing blocks and galleries.
+        blocks = super(NewsMopageRenderer, self)._blocks()
+        return {uid: block for uid, block in blocks.items()
+                if not IFileListingBlock.providedBy(block)
+                and not IGalleryBlock.providedBy(block)}
 
 
 class MopageNews(BrowserView):
@@ -152,7 +206,8 @@ class MopageNews(BrowserView):
                 'textlead': textlead,
                 'image_url': image_url,
                 'subjects': map(lambda subject: crop(100, subject), subjects),
-                'obj': obj}
+                'obj': obj,
+                'html': NewsMopageRenderer(obj, self)()}
 
     def normalize_date(self, date):
         if not date:
@@ -162,40 +217,6 @@ class MopageNews(BrowserView):
             return None
 
         return date.strftime('%Y-%m-%d %H:%M:%S')
-
-    def cleanup_body_html(self, html):
-        """We have HTML with simplelayout structure, but this is too noisy
-        for the import.
-        We therefore convert the HTML to text and back to HTML.
-        We also need to make sure that the result is less than 10000 long.
-        """
-
-        doc = lxml.html.fromstring(html)
-        map(remove_node, doc.xpath(
-            '//*[contains(concat(" ", normalize-space(@class), " "), '
-            '" hiddenStructure ")]'))
-        html = lxml.etree.tostring(doc, pretty_print=True)
-
-        portal_transforms = getToolByName(self.context, 'portal_transforms')
-        text = decode_entities(portal_transforms.convertToData(
-            'text/x-web-intelligent',
-            html,
-            mimetype='text/html').strip())
-
-        # body limit is 10000.
-        # We have text here, but will convert it to HTML, so it will be larger
-        # and we need to crop more to compensate.
-        for attempt in range(100):
-            text = crop(10000 - (len(text) * 0.1), text)
-            html = portal_transforms.convertToData(
-                'text/html',
-                text,
-                mimetype='text/x-web-intelligent').strip()
-
-            if len(html) < 10000:
-                return ('<![CDATA[' + html + ']]>').decode('utf-8')
-
-        return u'<![CDATA[cropping error]]>'
 
     def get_lead_image_url(self, news):
         scale = news.restrictedTraverse('@@leadimage').get_scale()

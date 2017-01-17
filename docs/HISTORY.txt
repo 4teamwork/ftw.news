@@ -5,7 +5,7 @@ Changelog
 1.6.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Mopage: exclude file listings and galleries. [jone]
 
 
 1.6.0 (2017-01-16)

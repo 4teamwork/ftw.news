@@ -21,9 +21,8 @@
         <textlead tal:content="structure item/textlead" />
         <web_url tal:condition="item/web_url" tal:content="item/web_url" />
         <url_bild tal:content="item/image_url" tal:condition="item/image_url" />
-        <textmobile tal:define="context nocall:item/obj;
-                                html simplelayout:default">
-            <tal:TEXT replace="structure python:view.cleanup_body_html(html)" />
+        <textmobile>
+            <tal:TEXT content="structure item/html" />
         </textmobile>
         <rubrik tal:repeat="subject item/subjects"
                 tal:content="subject" />

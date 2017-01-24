@@ -5,7 +5,9 @@ Changelog
 1.6.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add RSS views which are backwards compatible with ftw.contentpage
+  (requires a custom browser layer for ftw.news).
+  [mbaechtold]
 
 
 1.6.1 (2017-01-17)

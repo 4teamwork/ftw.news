@@ -32,12 +32,32 @@
         permission="zope2.View"
         />
 
+    <!-- Same as above but for backward compatibility with ftw.contentpage -->
+    <browser:page
+        for="ftw.news.interfaces.INewsListingBlock"
+        name="news_rss_listing"
+        class=".news_listing.NewsListingRssOfNewsListingBlock"
+        template="./templates/news_listing_rss.pt"
+        permission="zope2.View"
+        layer="ftw.news.interfaces.IFtwNewsLayer"
+        />
+
     <browser:page
         for="*"
         name="news_listing_rss"
         class=".news_listing.NewsListingRss"
         template="./templates/news_listing_rss.pt"
         permission="zope2.View"
+        />
+
+    <!-- Same as above but for backward compatibility with ftw.contentpage -->
+    <browser:page
+        for="*"
+        name="news_rss_listing"
+        class=".news_listing.NewsListingRss"
+        template="./templates/news_listing_rss.pt"
+        permission="zope2.View"
+        layer="ftw.news.interfaces.IFtwNewsLayer"
         />
 
     <browser:page

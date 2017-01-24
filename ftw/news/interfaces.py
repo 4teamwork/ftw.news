@@ -5,6 +5,10 @@
 from zope.interface import Interface
 
 
+class IFtwNewsLayer(Interface):
+    """Request layer for ftw.news"""
+
+
 class INewsFolder(Interface):
     """Marker interface for the news folder"""
 

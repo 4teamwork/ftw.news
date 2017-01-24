@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<layers>
+
+    <layer name="ftw.news"
+           interface="ftw.news.interfaces.IFtwNewsLayer" />
+
+</layers>

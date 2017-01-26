@@ -6,31 +6,33 @@
     <section class="portlet news-portlet"
         tal:define="items view/get_items;">
 
-        <header>
+        <header class="portletHeader">
             <h2 tal:content="view/data/news_listing_config_title"></h2>
         </header>
-        <ul class="news-row">
-            <li class="portletItem noRecentNews"
-                tal:condition="not: items"
-                i18n:translate="no_recent_news_label">No recent news available.</li>
+        <section class="portletItem">
+          <ul class="news-row">
+              <li class="portletItem noRecentNews"
+                  tal:condition="not: items"
+                  i18n:translate="no_recent_news_label">No recent news available.</li>
 
-            <tal:loop tal:repeat="item items">
-                <li>
-                    <a class="news-item" tal:attributes="href item/url">
-                        <div tal:condition="item/image_tag"
-                             tal:content="structure item/image_tag"
-                             class="image">
-                        </div>
-                        <div tal:attributes="class python:'body show-image' if view.data.show_lead_image else 'body'">
-                          <span class="byline" tal:content="item/news_date" />
-                          <h3 class="title" tal:content="item/title" />
-                          <span class="description" tal:content="item/description" tal:condition="item/description"/>
-                        </div>
-                    </a>
-                </li>
-            </tal:loop>
+              <tal:loop tal:repeat="item items">
+                  <li>
+                      <a class="news-item" tal:attributes="href item/url">
+                          <div tal:condition="item/image_tag"
+                               tal:content="structure item/image_tag"
+                               class="image">
+                          </div>
+                          <div tal:attributes="class python:'body show-image' if view.data.show_lead_image else 'body'">
+                            <span class="byline" tal:content="item/news_date" />
+                            <h3 class="title" tal:content="item/title" />
+                            <span class="description" tal:content="item/description" tal:condition="item/description"/>
+                          </div>
+                      </a>
+                  </li>
+              </tal:loop>
 
-        </ul>
+          </ul>
+        </section>
         <tal:footer tal:define="more_news_url view/more_news_url;
                                 show_rss_link view/show_rss_link">
             <footer tal:condition="python: more_news_url or show_rss_link">

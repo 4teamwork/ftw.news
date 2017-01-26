@@ -9,7 +9,6 @@ $leadimage-max-width: 200px !default;
 
 .news-row {
   @include list();
-  margin-bottom: $margin-vertical;
 
   > li:last-child .news-item {
     margin-bottom: 0;

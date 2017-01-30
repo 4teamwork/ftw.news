@@ -3,41 +3,42 @@
       tal:omit-tag="python: 1"
       i18n:domain="ftw.news">
 
-    <section class="archive-portlet">
+    <section class="portlet archive-portlet">
 
-        <header>
+        <header class="portletHeader">
             <h2 i18n:translate="">Archive</h2>
         </header>
+        <section class="portletItem">
+          <ul class="years">
+              <li tal:repeat="year view/get_items">
 
-        <ul class="years">
-            <li tal:repeat="year view/get_items">
+                  <a href="#"
+                     tal:attributes="class year/class;
+                                     aria-controls string:year_${year/title}"
+                     aria-haspopup="true">
+                     <span class="title" tal:content="year/title"></span>
+                     <span class="count"
+                           tal:content="year/count"
+                           tal:condition="year/count"></span>
+                  </a>
 
-                <a href="#"
-                   tal:attributes="class year/class;
-                                   aria-controls string:year_${year/title}"
-                   aria-haspopup="true">
-                   <span class="title" tal:content="year/title"></span>
-                   <span class="count"
-                         tal:content="year/count"
-                         tal:condition="year/count"></span>
-                </a>
-
-                <ul tal:attributes="class year/months_expanded;
-                                    id string:year_${year/title}"
-                    aria-hidden="true">
-                    <li tal:repeat="month year/months">
-                        <a tal:attributes="href month/url;
-                                           title month/title;
-                                           class month/class"
-                           i18n:translate="">
-                           <span class="title" tal:content="month/title"></span>
-                           <span class="count"
-                                 tal:content="month/count"
-                                 tal:condition="month/count"></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+                  <ul tal:attributes="class year/months_expanded;
+                                      id string:year_${year/title}"
+                      aria-hidden="true">
+                      <li tal:repeat="month year/months">
+                          <a tal:attributes="href month/url;
+                                             title month/title;
+                                             class month/class"
+                             i18n:translate="">
+                             <span class="title" tal:content="month/title"></span>
+                             <span class="count"
+                                   tal:content="month/count"
+                                   tal:condition="month/count"></span>
+                          </a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+        </section>
     </section>
 </html>

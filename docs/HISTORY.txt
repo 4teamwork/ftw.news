@@ -5,7 +5,12 @@ Changelog
 1.6.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Unify news- and archive portlet markup
+
+  - Use porlet class for wrapper on news-portlet.
+  - Use header for title and section for body.
+
+  [Kevin Bieri]
 
 
 1.6.2 (2017-01-24)

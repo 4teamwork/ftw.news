@@ -3,6 +3,10 @@
     @include list-tree($indentation: $line-height-base);
   }
 
+  .count {
+    @include label-round();
+  }
+
   .year {
     @extend .fa-icon;
     @extend .fa-angle-right;
@@ -15,21 +19,9 @@
         display: block;
       }
     }
-
-    .count {
-      @include label-round();
-    }
   }
 
   .months {
     display: none;
-    .count {
-      &:before {
-        content: "(";
-      }
-      &:after {
-        content: ")";
-      }
-    }
   }
 }

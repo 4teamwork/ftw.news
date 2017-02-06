@@ -5,6 +5,9 @@ Changelog
 1.6.3 (unreleased)
 ------------------
 
+- Make News and NewsFolder linkable in TinyMCE
+  [raphael-s]
+
 - Unify news- and archive portlet markup
 
   - Use porlet class for wrapper on news-portlet.

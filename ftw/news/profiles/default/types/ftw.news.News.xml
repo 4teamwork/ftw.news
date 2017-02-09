@@ -27,7 +27,8 @@
         <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
         <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
         <element value="plone.app.content.interfaces.INameFromTitle" />
-        <element value="plone.app.dexterity.behaviors.metadata.ICategorization" />
+        <element value="plone.app.dexterity.behaviors.metadata.ICategorization" remove="True" />
+        <element value="ftw.keywordwidget.behavior.IKeywordCategorization" />
         <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
         <element value="plone.app.dexterity.behaviors.metadata.IPublication" />
     </property>

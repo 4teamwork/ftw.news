@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<object name="ftw.news.News">
+
+    <property name="behaviors" purge="False">
+        <element value="plone.app.dexterity.behaviors.metadata.ICategorization" remove="True" />
+        <element value="ftw.keywordwidget.behavior.IKeywordCategorization" />
+    </property>
+
+</object>

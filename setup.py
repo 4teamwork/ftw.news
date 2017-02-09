@@ -66,6 +66,7 @@ setup(
         'Plone',
         'ftw.autofeature',
         'ftw.datepicker',
+        'ftw.keywordwidget',
         'ftw.simplelayout [contenttypes]',
         'plone.api',
         'plone.dexterity',

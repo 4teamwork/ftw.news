@@ -4,5 +4,6 @@
         <dependency>profile-ftw.simplelayout.contenttypes:default</dependency>
         <dependency>profile-ftw.datepicker:default</dependency>
         <dependency>profile-ftw.upgrade:default</dependency>
+        <dependency>profile-ftw.keywordwidget:default</dependency>
     </dependencies>
 </metadata>

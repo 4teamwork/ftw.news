@@ -32,6 +32,9 @@ Installation
 - Optionally (and additionally to the "default" GenericSetup profile) you may
   install the "show-on-homepage" GenericSetup profile.
 
+- Install the "select2js" profile from "ftw.keywordwidget" if you do not
+  have installed the "select2" plugin yet.
+
 
 Usage
 =====

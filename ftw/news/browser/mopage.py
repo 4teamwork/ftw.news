@@ -202,7 +202,7 @@ class MopageNews(BrowserView):
                 'expires': self.normalize_date(brain.expires),
                 'modified_date': self.normalize_date(modified_date),
                 'uid': IUUID(obj),
-                'web_url': getattr(INewsExternalUrl(obj, None), 'external_url', ''),
+                'external_url': getattr(INewsExternalUrl(obj, None), 'external_url', ''),
                 'textlead': textlead,
                 'image_url': image_url,
                 'subjects': map(lambda subject: crop(100, subject), subjects),

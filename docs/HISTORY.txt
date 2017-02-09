@@ -5,6 +5,8 @@ Changelog
 1.6.3 (unreleased)
 ------------------
 
+- Fix the news portlet not able to render if subjects contain umlauts. [mbaechtold]
+
 - Make News and NewsFolder linkable in TinyMCE
   [raphael-s]
 

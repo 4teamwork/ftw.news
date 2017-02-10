@@ -1,6 +1,7 @@
 from ftw.news import _
+from ftw.keywordwidget.widget import KeywordFieldWidget
+from plone.autoform import directives
 from plone.directives import form
-from plone.formwidget.autocomplete import AutocompleteMultiFieldWidget
 from plone.formwidget.contenttree import MultiContentTreeFieldWidget
 from plone.formwidget.contenttree import PathSourceBinder
 from z3c.relationfield import RelationChoice
@@ -53,8 +54,7 @@ class INewsListingBaseSchema(form.Schema):
         default=5,
     )
 
-    # MAYBE: Find a better widget.
-    form.widget(subjects=AutocompleteMultiFieldWidget)
+    directives.widget('subjects', KeywordFieldWidget)
     subjects = schema.List(
         title=_(u'news_listing_config_subjects_label',
                 default=u'Filter by subject'),

@@ -5,6 +5,12 @@ Changelog
 1.6.3 (unreleased)
 ------------------
 
+- Use "ftw.keywordwidget" as the widget used to enter subjects/keywords.
+  You may need to install "select2" manually. See the README for more
+  information. [mbaechtold]
+
+- Fix the news portlet not able to render if subjects contain umlauts. [mbaechtold]
+
 - Make News and NewsFolder linkable in TinyMCE
   [raphael-s]
 

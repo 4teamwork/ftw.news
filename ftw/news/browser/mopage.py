@@ -1,4 +1,5 @@
 from DateTime import DateTime
+from ftw.keywordwidget.behavior import IKeywordCategorization
 from ftw.news.behaviors.external_url import INewsExternalUrl
 from ftw.news.behaviors.mopage import IMopageModificationDate
 from ftw.simplelayout.browser.provider import SimplelayoutRenderer
@@ -6,7 +7,6 @@ from ftw.simplelayout.contenttypes.contents.interfaces import IFileListingBlock
 from ftw.simplelayout.contenttypes.contents.interfaces import IGalleryBlock
 from ftw.simplelayout.interfaces import IPageConfiguration
 from htmlentitydefs import name2codepoint as n2cp
-from plone.app.dexterity.behaviors.metadata import ICategorization
 from plone.uuid.interfaces import IUUID
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
@@ -194,7 +194,7 @@ class MopageNews(BrowserView):
         if textlead:
             textlead = u'<![CDATA[{}]]>'.format(textlead)
 
-        subjects = getattr(ICategorization(obj, None), 'subjects', ())
+        subjects = getattr(IKeywordCategorization(obj, None), 'subjects', ())
 
         modified_date = IMopageModificationDate(obj).get_date()
         return {'title': crop(100, brain.Title),

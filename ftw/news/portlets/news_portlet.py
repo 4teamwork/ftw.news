@@ -141,7 +141,7 @@ class Renderer(base.Renderer):
             query['path'] = {'query': cat_path}
 
         if self.data.subjects:
-            query['Subject'] = self.data.subjects
+            query['Subject'] = map(utils.make_utf8, self.data.subjects)
 
         if self.data.maximum_age > 0 and not all_news:
             date = DateTime() - self.data.maximum_age

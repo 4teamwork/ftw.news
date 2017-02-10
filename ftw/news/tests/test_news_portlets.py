@@ -6,7 +6,9 @@ from ftw.news.tests import FunctionalTestCase
 from ftw.news.tests import utils
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages.statusmessages import assert_message
-
+from hashlib import md5
+from plone.i18n.normalizer import IIDNormalizer
+from zope.component import queryUtility
 
 news_portlet_action = '/++contextportlets++plone.rightcolumn/+/newsportlet'
 
@@ -294,10 +296,14 @@ class TestNewsPortlets(FunctionalTestCase):
         browser.login().visit(self.portal, view='@@manage-portlets')
         browser.forms['form-3'].fill({':action': news_portlet_action}).submit()
 
-        subjects = browser.find('Filter by subject').query('Peter')
+        term = 'Peter'
+        normalizer = queryUtility(IIDNormalizer)
+        token = '{0}-{1}'.format(md5(term).hexdigest(),
+                                 normalizer.normalize(term))
+
         portlet_config = {
             'Title': 'A News Portlet',
-            'Filter by subject': subjects[0][0],
+            'Filter by subject': [token],
         }
         self._add_portlet(browser, **portlet_config)
 

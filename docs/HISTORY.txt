@@ -5,6 +5,8 @@ Changelog
 1.6.3 (unreleased)
 ------------------
 
+- Fix news mopage template. [mbaechtold]
+
 - Use "ftw.keywordwidget" as the widget used to enter subjects/keywords.
   You may need to install "select2" manually. See the README for more
   information. [mbaechtold]

@@ -191,5 +191,5 @@ class TestMopageExport(FunctionalTestCase, XMLDiffTestCase):
         browser.open(self.portal, view='mopage.news.xml')
         self.assertEqual(
             ['http://www.4teamwork.ch/'],
-            browser.css('web_url').text
+            browser.css('url_web').text
         )

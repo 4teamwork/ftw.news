@@ -117,12 +117,7 @@ class Renderer(base.Renderer):
         if INewsFolder.providedBy(self.data):
             return False
 
-        if self.data.show_more_news_link:
-            has_news = self.get_news(all_news=True)
-        else:
-            has_news = self.get_news()
-
-        return has_news
+        return bool(self.get_news())
 
     def get_query(self, all_news):
         url_tool = getToolByName(self.context, 'portal_url')

@@ -566,3 +566,34 @@ class TestNewsPortlets(FunctionalTestCase):
             'Subscribe to the RSS feed',
             browser.css('.news-rss').first.text
         )
+
+    @browsing
+    def test_contributor_can_see_inactive_news_in_portlet(self, browser):
+        page = create(Builder('sl content page').titled(u'Content Page'))
+        news_folder = create(Builder('news folder').titled(u'News Folder')
+                             .within(page))
+
+        create(Builder('news')
+               .titled(u'Future News')
+               .within(news_folder)
+               .having(effective=datetime.now() + timedelta(days=10)))
+
+        self._add_portlet(browser, page, **{'Title': 'A News Portlet',
+                                            'Always render the portlet': True,
+                                            'Link to more news': False,
+                                            'Link to RSS feed': False})
+
+        # Make sure a contributor can see inactive news.
+        contributor = create(Builder('user').named('A', 'Contributor').with_roles('Contributor'))
+        browser.login(contributor).visit(page)
+        self.assertEquals(
+            ['Future News'],
+            browser.css('.news-portlet .news-item .title').text
+        )
+
+        # Make sure an anonymous user does not see the inactive news.
+        browser.logout().visit(page)
+        self.assertEquals(
+            [],
+            browser.css('.news-portlet .news-item .title').text
+        )

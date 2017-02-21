@@ -1,4 +1,5 @@
 from datetime import datetime
+from datetime import timedelta
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
@@ -325,3 +326,32 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
 
         browser.login().visit(block, view='@@news_listing')
         self.assertEquals(u'Awesome News', plone.first_heading())
+
+    @browsing
+    def test_contributor_can_see_inactive_news_in_news_listing_block(self, browser):
+        page = create(Builder('sl content page').titled(u'Content page'))
+        create(Builder('news listing block')
+               .within(page)
+               .titled('News listing block'))
+        news_folder = create(Builder('news folder')
+                             .titled(u'News Folder')
+                             .within(page))
+        create(Builder('news')
+               .titled(u'Future News')
+               .within(news_folder)
+               .having(effective=datetime.now() + timedelta(days=10)))
+
+        # Make sure a contributor can see inactive news.
+        contributor = create(Builder('user').named('A', 'Contributor').with_roles('Contributor'))
+        browser.login(contributor).visit(page)
+        self.assertEquals(
+            ['Future News'],
+            browser.css('.sl-block.ftw-news-newslistingblock .news-item .title').text
+        )
+
+        # Make sure an anonymous user does not see the inactive news.
+        browser.logout().visit(page)
+        self.assertEquals(
+            [],
+            browser.css('.sl-block.ftw-news-newslistingblock .news-item .title').text
+        )

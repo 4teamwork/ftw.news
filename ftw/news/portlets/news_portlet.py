@@ -6,6 +6,7 @@ from ftw.news import _
 from ftw.news import utils
 from ftw.news.contents.common import INewsListingBaseSchema
 from ftw.news.interfaces import INewsFolder
+from plone import api
 from plone.app.portlets.interfaces import IPortletPermissionChecker
 from plone.app.portlets.portlets import base
 from plone.directives.form.form import SchemaAddForm, SchemaEditForm
@@ -149,6 +150,15 @@ class Renderer(base.Renderer):
 
         query['sort_on'] = 'start'
         query['sort_order'] = 'descending'
+
+        # Show inactive news if the current user is allowed to add news items on the
+        # context where this portlet is assigned to. We must only render the inactive news
+        # if the portlet renders news items from the current context (in order not to
+        # allow the user to view news items he is not allowed to see).
+        if self.data.current_context \
+                and not self.data.filter_by_path \
+                and api.user.has_permission('ftw.news: Add News', obj=self.context):
+            query['show_inactive'] = True
 
         return query
 

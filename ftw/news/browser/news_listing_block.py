@@ -52,11 +52,9 @@ class NewsListingBlockView(BaseBlock):
     def get_news(self):
         catalog = getToolByName(self.context, 'portal_catalog')
 
-        query = self.get_query()
-        if api.user.has_permission('ftw.news: Add News', obj=api.portal.get()):
-            query['show_inactive'] = True
-
-        brains = catalog.searchResults(query)
+        brains = catalog.searchResults(
+            self.get_query()
+        )
 
         if self.context.quantity:
             brains = brains[:self.context.quantity]
@@ -97,6 +95,16 @@ class NewsListingBlockView(BaseBlock):
 
         query['sort_on'] = 'start'
         query['sort_order'] = 'descending'
+
+        # Show inactive news if the current user is allowed to add news items on the
+        # parent of the news listing block. We must only render the inactive news
+        # if the block renders news items from its parent (in order not to
+        # allow the user to view news items he is not allowed to see).
+        if self.context.current_context \
+                and not self.context.filter_by_path \
+                and api.user.has_permission('ftw.news: Add News', obj=parent):
+            query['show_inactive'] = True
+
         return query
 
     def get_item_dict(self, brain):

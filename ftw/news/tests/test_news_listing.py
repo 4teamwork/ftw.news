@@ -150,6 +150,29 @@ class TestNewsListing(FunctionalTestCase):
         news.Creator = userid
         self.assertEquals(userid, get_creator(news))
 
+    @browsing
+    def test_contributor_can_see_inactive_news_in_news_listing_view(self, browser):
+        container = create(Builder('news folder'))
+        create(Builder('news')
+               .titled(u'Future News')
+               .within(container)
+               .having(effective=datetime.now() + timedelta(days=10)))
+
+        # Make sure an editor can see inactive news.
+        contributor = create(Builder('user').named('A', 'Contributor').with_roles('Contributor'))
+        browser.login(contributor).visit(container, view='news_listing')
+        self.assertEquals(
+            ['Future News'],
+            browser.css('.news-listing .news-item .title').text
+        )
+
+        # Make sure an anonymous user does not see the inactive news.
+        browser.logout().visit(container, view='news_listing')
+        self.assertEquals(
+            [],
+            browser.css('.news-listing .news-item .title').text
+        )
+
 
 class TestNewsListingFormat(FunctionalTestCase):
 

@@ -5,6 +5,7 @@ from ftw.news import _
 from ftw.news import utils
 from ftw.news.interfaces import INewsListingView
 from ftw.simplelayout.contenttypes.contents.interfaces import IContentPage
+from plone import api
 from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.portlets.interfaces import IPortletManager
 from plone.portlets.interfaces import IPortletRenderer
@@ -55,6 +56,9 @@ class NewsListing(BrowserView):
                 'query': (start.earliestTime(), end.latestTime()),
                 'range': 'minmax',
             }
+
+        if api.user.has_permission('ftw.news: Add News', obj=self.context):
+            query['show_inactive'] = True
 
         return query
 

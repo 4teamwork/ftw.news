@@ -1,5 +1,7 @@
 from ftw.builder import builder_registry
 from ftw.builder.dexterity import DexterityBuilder
+from ftw.builder.portlets import PlonePortletBuilder
+from ftw.news.portlets import news_portlet
 from ftw.simplelayout.tests import builders
 from ftw.subsite.tests import builders
 
@@ -24,3 +26,10 @@ class NewsListingBlockBuilder(DexterityBuilder):
         return self
 
 builder_registry.register('news listing block', NewsListingBlockBuilder)
+
+
+class NewsPortletBuilder(PlonePortletBuilder):
+    manager_name = u'plone.rightcolumn'
+    assignment_class = news_portlet.Assignment
+
+builder_registry.register('news portlet', NewsPortletBuilder)

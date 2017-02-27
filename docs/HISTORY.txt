@@ -5,6 +5,9 @@ Changelog
 1.7.1 (unreleased)
 ------------------
 
+- Fix a bug where the news portlet was shown when it shouldn't have
+  been shown. [mbaechtold]
+
 - Include inactive news items in the listing view and the news portlet
   if the user has the permission to add news items. [mbaechtold]
 

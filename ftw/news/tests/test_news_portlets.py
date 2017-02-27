@@ -597,3 +597,44 @@ class TestNewsPortlets(FunctionalTestCase):
             [],
             browser.css('.news-portlet .news-item .title').text
         )
+
+    @browsing
+    def test_portlet_availability(self, browser):
+        """
+        Make sure that the portlet is not visible if it has no news to display
+        but has been configured to show a link to more items.
+        """
+        page = create(Builder('sl content page').titled(u'Content Page'))
+        news_folder = create(Builder('news folder').titled(u'News Folder')
+                             .within(page))
+        create(Builder('news').titled(u'Hello World').within(news_folder)
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
+
+        create(Builder('news portlet')
+               .within(page)
+               .having(news_listing_config_title=u'Foobar')
+               .having(maximum_age=1)
+               .having(show_more_news_link=True)
+               )
+
+        browser.login()
+
+        # Make sure the portlet is not rendered.
+        browser.visit(page)
+        self.assertFalse(
+            self._news_portlet_is_visible(browser)
+        )
+
+        # Now configure the portlet to be rendered even if it has not items
+        # to render. This is just needed to make sure that our test works correctly.
+        browser.find('Manage portlets').click()
+        browser.find('News Portlet (Foobar)').click()
+        browser.forms['form'].fill({'Always render the portlet': True}).save()
+
+        browser.visit(page)
+        self.assertTrue(
+            self._news_portlet_is_visible(browser)
+        )
+
+    def _news_portlet_is_visible(self, browser):
+        return bool(browser.css('.news-portlet'))

@@ -14,6 +14,7 @@ from Products.CMFCore.utils import _checkPermission
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFPlone.PloneBatch import Batch
+from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser import BrowserView
 from zope.component import getMultiAdapter
 from zope.component import getUtility
@@ -100,7 +101,7 @@ class NewsListing(BrowserView):
     def description(self):
         return _(u'label_feed_desc',
                  default=u'${title} - News Feed',
-                 mapping={'title': self.context.Title().decode('utf-8')})
+                 mapping={'title': safe_unicode(self.context.Title())})
 
     def format_date(self, brain):
         return self.context.toLocalizedTime(brain.start, long_format=False)

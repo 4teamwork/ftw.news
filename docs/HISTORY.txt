@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.7.1 (unreleased)
+1.8.0 (2017-02-28)
 ------------------
 
 - Fix a bug where the news portlet was shown when it shouldn't have

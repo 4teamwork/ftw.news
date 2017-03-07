@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.8.1 (unreleased)
+1.8.1 (2017-03-07)
 ------------------
 
 - Make NewsFolder and NewsListingBlock addable on plone site per default [raphael-s]

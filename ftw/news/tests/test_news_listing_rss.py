@@ -123,3 +123,33 @@ class TestNewsRssListing(FunctionalTestCase):
             news.news_date.strftime('%a, %-e %b %Y %H:%M:%S %z').strip(),
             browser.css('rdf item pubDate').first.text
         )
+
+    @browsing
+    def test_rss_channel_description_with_umlauts(self, browser):
+        """
+        The RSS browser view does not fail when the channel description
+        contains umlauts.
+        """
+        browser.login()
+
+        news_folder = create(Builder('news folder'))
+        create(Builder('news')
+               .titled(u'News Entry')
+               .within(news_folder)
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0)))
+
+        # Change the title of the the news listing block which has
+        # been created automatically.
+        news_listing_block = news_folder.listFolderContents(
+            contentFilter={'portal_type': 'ftw.news.NewsListingBlock'}
+        )[0]
+        browser.visit(news_listing_block, view='@@edit')
+        browser.fill({'Title': u'Ni\xfcs'}).find('Save').click()
+
+        # Calling the RSS view on the news listing block does not fail.
+        browser.visit(news_listing_block, view='news_listing_rss')
+        browser.parse_as_html()
+        self.assertEqual(
+            [u'Ni\xfcs - News Feed'],
+            browser.css('channel description').text
+        )

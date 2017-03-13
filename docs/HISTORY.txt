@@ -17,6 +17,9 @@ Changelog
 1.8.0 (2017-02-28)
 ------------------
 
+- Fix a unicode bug when the RSS view is called on a news listing block
+  having umlauts in its title. [mbaechtold]
+
 - Fix a bug where the news portlet was shown when it shouldn't have
   been shown. [mbaechtold]
 

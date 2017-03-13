@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.8.2 (unreleased)
+1.8.2 (2017-03-13)
 ------------------
 
 - Fix a unicode bug when the RSS view is called on a news listing block

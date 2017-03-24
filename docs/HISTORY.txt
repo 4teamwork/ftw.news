@@ -5,7 +5,8 @@ Changelog
 1.8.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix a bug which prevented inactive news from being shown in combination
+  with Solr. [mbaechtold]
 
 
 1.8.2 (2017-03-13)

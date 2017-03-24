@@ -53,7 +53,7 @@ class NewsListingBlockView(BaseBlock):
         catalog = getToolByName(self.context, 'portal_catalog')
 
         brains = catalog.searchResults(
-            self.get_query()
+            **self.get_query()
         )
 
         if self.context.quantity:

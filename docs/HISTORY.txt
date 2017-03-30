@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.8.3 (unreleased)
+1.8.3 (2017-03-30)
 ------------------
 
 - Fix a bug which prevented inactive news from being shown in combination

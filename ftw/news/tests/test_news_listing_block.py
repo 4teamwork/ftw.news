@@ -3,7 +3,7 @@ from datetime import timedelta
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
-from ftw.news.tests import FunctionalTestCase
+from ftw.news.tests.base import FunctionalTestCase
 from ftw.news.tests import utils
 from ftw.news.tests.utils import set_allow_anonymous_view_about
 from ftw.testbrowser import browsing

@@ -6,7 +6,7 @@ from ftw.builder import create
 from ftw.news.behaviors.mopage import IMopageModificationDate
 from ftw.news.behaviors.mopage import IPublisherMopageTrigger
 from ftw.news.testing import MOPAGE_TRIGGER_FUNCTIONAL
-from ftw.news.tests import FunctionalTestCase
+from ftw.news.tests.base import FunctionalTestCase
 from ftw.publisher.receiver.events import AfterCreatedEvent
 from ftw.publisher.receiver.events import AfterUpdatedEvent
 from ftw.testbrowser import browsing

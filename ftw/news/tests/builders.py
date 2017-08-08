@@ -2,8 +2,6 @@ from ftw.builder import builder_registry
 from ftw.builder.dexterity import DexterityBuilder
 from ftw.builder.portlets import PlonePortletBuilder
 from ftw.news.portlets import news_portlet
-from ftw.simplelayout.tests import builders
-from ftw.subsite.tests import builders
 
 
 class NewsFolderBuilder(DexterityBuilder):

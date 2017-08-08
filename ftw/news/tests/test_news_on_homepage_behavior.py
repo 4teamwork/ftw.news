@@ -3,7 +3,7 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.news.behaviors.show_on_homepage.news import IShowOnHomepage
 from ftw.news.behaviors.show_on_homepage.news import IShowOnHomepageSchema
-from ftw.news.tests import FunctionalTestCase
+from ftw.news.tests.base import FunctionalTestCase
 from ftw.testbrowser import browsing
 from plone.app.testing import applyProfile
 from zope.interface import directlyProvidedBy

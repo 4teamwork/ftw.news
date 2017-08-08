@@ -2,7 +2,7 @@ from datetime import datetime
 from datetime import timedelta
 from ftw.builder import Builder, create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
-from ftw.news.tests import FunctionalTestCase
+from ftw.news.tests.base import FunctionalTestCase
 from ftw.news.tests import utils
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages.statusmessages import assert_message

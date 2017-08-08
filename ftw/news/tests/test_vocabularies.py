@@ -1,7 +1,7 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
-from ftw.news.tests import FunctionalTestCase
+from ftw.news.tests.base import FunctionalTestCase
 from plone.app.testing import login, TEST_USER_NAME
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory

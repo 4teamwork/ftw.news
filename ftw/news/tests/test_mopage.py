@@ -3,9 +3,9 @@ from DateTime import DateTime
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.news.behaviors.mopage import IMopageModificationDate
-from ftw.news.tests import FunctionalTestCase
 from ftw.news.tests import utils
-from ftw.news.tests import XMLDiffTestCase
+from ftw.news.tests.base import FunctionalTestCase
+from ftw.news.tests.base import XMLDiffTestCase
 from ftw.testbrowser import browser
 from ftw.testbrowser import browsing
 from ftw.testing import freeze

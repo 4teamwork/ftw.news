@@ -45,6 +45,7 @@ class NewsListingBlockView(BaseBlock):
             'more_news_link_label': more_news_link_label,
             'rss_link_url': rss_link_url or '',
             'show_lead_image': self.context.show_lead_image,
+            'hide_empty_block': self.context.hide_empty_block,
         }
 
         return info

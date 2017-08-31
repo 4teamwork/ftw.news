@@ -10,8 +10,11 @@
 
     <tal:news tal:define="news view/get_news;">
 
-        <p tal:condition="not: news"
-           i18n:translate="">No content available</p>
+        <tal:no-items tal:condition="not: news">
+            <p i18n:translate="">No content available</p>
+            <p i18n:translate="hide_empty_block_text"
+               tal:condition="block_info/hide_empty_block">The block is only visible to editors so it can still be edited.</p>
+        </tal:no-items>
 
         <ul class="news-row">
             <li tal:repeat="item news">

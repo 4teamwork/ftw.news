@@ -8,6 +8,7 @@ from ftw.testbrowser import browsing
 from ftw.testbrowser.pages.statusmessages import assert_message
 from hashlib import md5
 from plone.i18n.normalizer import IIDNormalizer
+from z3c.relationfield import create_relation
 from zope.component import queryUtility
 
 news_portlet_action = '/++contextportlets++plone.rightcolumn/+/newsportlet'
@@ -111,6 +112,10 @@ class TestNewsPortlets(FunctionalTestCase):
         """
         This test makes sure that cancelling the editing of a portlet does
         not change the portlet.
+
+        This test may no longer be relevant because the cancel handler is
+        generic from plone. But there used to be problems with the old
+        formlib implementation.
         """
         context = self.portal
         self._add_portlet(browser, context, **{'Title': 'A News Portlet'})
@@ -118,8 +123,8 @@ class TestNewsPortlets(FunctionalTestCase):
         # Start editing the portlet.
         browser.visit(self.portal, view='manage-portlets')
         browser.find('News Portlet (A News Portlet)').click()
-        browser.fill({'Title': u'Change Title Without Saving'}).submit()
-        browser.find('form.buttons.cancel_add').click()
+        browser.fill({'Title': u'Change Title Without Saving'})
+        browser.find('Cancel').click()
 
         self.assertEqual(self.portal.absolute_url() + '/@@manage-portlets',
                          browser.url)
@@ -150,14 +155,27 @@ class TestNewsPortlets(FunctionalTestCase):
         and current context at the same time.
         """
         news_folder = create(Builder('news folder').titled(u'News Folder'))
-        browser.login().visit(self.portal, view='@@manage-portlets')
-        browser.forms['form-3'].fill({':action': news_portlet_action}).submit()
 
-        form_data = {'Title': 'A News Portlet',
-                     'Limit to path': news_folder,
-                     'Limit to current context': True}
-        browser.fill(form_data).save()
+        # Configure the portlet to filter by path and limit to the
+        # current context at the same time.
+        # This is a workaround for ftw.testbrowser not being able
+        # to fill the form due to the reference widget.
+        path_filters = [
+            create_relation('/'.join(news_folder.getPhysicalPath()))
+        ]
+        create(Builder('news portlet')
+               .titled('A News Portlet')
+               .having(current_context=True)
+               .having(filter_by_path=path_filters))
 
+        # Try to edit the portlet.
+        browser.login().open()
+        browser.find('Manage portlets').click()
+        browser.find('News Portlet (A News Portlet)').click()
+        browser.find('Save').click()
+
+        # Saving must not be possible because we cannot filter by path
+        # and limit to the current context at the same time.
         assert_message('There were some errors.')
         self.assertEqual('You can not filter by path and current '
                          'context at the same time.',
@@ -233,13 +251,15 @@ class TestNewsPortlets(FunctionalTestCase):
         create(Builder('news').titled(u'Hello World 2').within(news_folder2))
 
         # Create the portlet on plone root.
-        portlet_config = {
-            'Title': 'A News Portlet',
-            'Limit to path': news_folder2,
-            'Limit to current context': False,
-        }
-        self._add_portlet(browser, self.portal, **portlet_config)
+        path_filters = [
+            create_relation('/'.join(news_folder2.getPhysicalPath()))
+        ]
+        create(Builder('news portlet')
+               .titled('A News Portlet')
+               .having(current_context=False)
+               .having(filter_by_path=path_filters))
 
+        browser.login().open()
         self.assertEqual(1, len(browser.css('.news-item')))
         self.assertIn('Hello World 2',
                       browser.css('.news-item .title').first.text)
@@ -390,15 +410,17 @@ class TestNewsPortlets(FunctionalTestCase):
         empty_folder = create(Builder('news folder')
                               .titled(u'Empty news folder'))
 
-        portlet_config = {
-            'Title': u'A News Portlet',
-            'Limit to path': empty_folder,
-            'Limit to current context': False,
-            'Link to more news': True,
-            'Always render the portlet': True,
-        }
-        self._add_portlet(browser, **portlet_config)
+        path_filters = [
+            create_relation('/'.join(empty_folder.getPhysicalPath()))
+        ]
+        create(Builder('news portlet')
+               .titled(u'A News Portlet')
+               .having(current_context=False)
+               .having(filter_by_path=path_filters)
+               .having(show_more_news_link=True)
+               .having(always_render_portlet=True))
 
+        browser.login().open()
         self.assertIn('No recent news available.',
                       browser.css('.noRecentNews').text)
         self.assertEqual('More News', browser.find('More News').text)
@@ -413,14 +435,17 @@ class TestNewsPortlets(FunctionalTestCase):
         empty_folder = create(Builder('news folder')
                               .titled(u'Empty news folder'))
 
-        portlet_config = {
-            'Title': u'A News Portlet',
-            'Limit to path': empty_folder,
-            'Limit to current context': False,
-            'Link to more news': True,
-            'Always render the portlet': False,
-        }
-        self._add_portlet(browser, **portlet_config)
+        path_filters = [
+            create_relation('/'.join(empty_folder.getPhysicalPath()))
+        ]
+        create(Builder('news portlet')
+               .titled(u'A News Portlet')
+               .having(current_context=False)
+               .having(filter_by_path=path_filters)
+               .having(show_more_news_link=True)
+               .having(always_render_portlet=False))
+
+        browser.login().open()
         self.assertIsNone(browser.find('More News'))
 
     @browsing

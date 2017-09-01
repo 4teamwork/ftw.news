@@ -10,6 +10,8 @@ from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 from ftw.testbrowser.pages import plone
 from plone.app.testing import applyProfile
+from z3c.relationfield import create_relation
+import transaction
 
 
 class TestNewsListingBlockContentType(FunctionalTestCase):
@@ -355,3 +357,54 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
             [],
             browser.css('.sl-block.ftw-news-newslistingblock .news-item .title').text
         )
+
+    @browsing
+    def test_news_listing_block_filters_by_path(self, browser):
+        page = create(Builder('sl content page').titled(u'A page'))
+
+        block = create(Builder('news listing block')
+                       .titled(u'Awesome News'))
+
+        news_folder_1 = create(Builder('news folder')
+                               .titled(u'News Folder 1')
+                               .within(page))
+        create(Builder('news')
+               .titled(u'A News Item in News Folder 1')
+               .within(news_folder_1))
+
+        news_folder_2 = create(Builder('news folder')
+                               .titled(u'News Folder 2')
+                               .within(page))
+        create(Builder('news')
+               .titled(u'A News Item in News Folder 2')
+               .within(news_folder_2))
+
+        browser.login()
+
+        # By default, the block renders news from the children of
+        # its container.
+        browser.visit(block)
+        self.assertEqual(
+            [
+                'A News Item in News Folder 1',
+                'A News Item in News Folder 2',
+            ],
+            browser.css('.news-item .title').text
+        )
+
+        # Tell the block to only render news from a certain news folder
+        block.current_context = False
+        block.filter_by_path = [
+            create_relation('/'.join(news_folder_1.getPhysicalPath())),
+        ]
+        transaction.commit()
+
+        browser.visit(block)
+        self.assertEqual(
+            [
+                'A News Item in News Folder 1',
+            ],
+            browser.css('.news-item .title').text
+        )
+
+

@@ -62,8 +62,6 @@ class NewsListingBlockView(BaseBlock):
         return [self.get_item_dict(brain) for brain in brains]
 
     def get_query(self):
-        url_tool = getToolByName(self.context, 'portal_url')
-        portal_path = url_tool.getPortalPath()
         query = {'object_provides': {
             'query': ['ftw.news.interfaces.INews'],
         }}
@@ -75,7 +73,8 @@ class NewsListingBlockView(BaseBlock):
         elif self.context.filter_by_path:
             cat_path = []
             for item in self.context.filter_by_path:
-                cat_path.append('/'.join([portal_path, item]))
+                if item.to_object:
+                    cat_path.append('/'.join(item.to_object.getPhysicalPath()))
             query['path'] = {'query': cat_path}
 
         subjects = self.context.subjects

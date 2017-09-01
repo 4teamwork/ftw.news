@@ -120,9 +120,6 @@ class Renderer(base.Renderer):
         return bool(self.get_news())
 
     def get_query(self, all_news):
-        url_tool = getToolByName(self.context, 'portal_url')
-        portal_path = url_tool.getPortalPath()
-
         query = {'object_provides': 'ftw.news.interfaces.INews'}
 
         if self.data.current_context:
@@ -133,7 +130,8 @@ class Renderer(base.Renderer):
         elif self.data.filter_by_path:
             cat_path = []
             for item in self.data.filter_by_path:
-                cat_path.append('/'.join([portal_path, item]))
+                if item.to_object:
+                    cat_path.append('/'.join(item.to_object.getPhysicalPath()))
             query['path'] = {'query': cat_path}
 
         if self.data.subjects:

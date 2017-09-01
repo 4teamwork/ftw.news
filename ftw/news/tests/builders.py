@@ -30,4 +30,8 @@ class NewsPortletBuilder(PlonePortletBuilder):
     manager_name = u'plone.rightcolumn'
     assignment_class = news_portlet.Assignment
 
+    def titled(self, title):
+        self.arguments['news_listing_config_title'] = title
+        return self
+
 builder_registry.register('news portlet', NewsPortletBuilder)

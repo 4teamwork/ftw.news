@@ -408,3 +408,31 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
         )
 
 
+
+    @browsing
+    def test_block_without_news_can_be_marked_as_hidden(self, browser):
+        """
+        This test makes sure that there is a CSS class "hidden" on the block
+        if the block is empty and the block has been configured accordingly.
+        """
+        page = create(Builder('sl content page'))
+        block = create(Builder('news listing block')
+                       .within(page)
+                       .titled(u'News listing block'))
+
+        def _block_has_hidden_class(browser):
+            return 'hidden' in browser.css('.ftw-news-newslistingblock').first.attrib['class']
+
+        browser.login()
+
+        # Make sure the block has no "hidden" class.
+        browser.visit(page)
+        self.assertFalse(_block_has_hidden_class(browser))
+
+        # Edit the block.
+        browser.visit(block, view='edit')
+        browser.fill({u'Hide empty block': True}).find('Save').click()
+
+        # Make sure the block has a "hidden" class now.
+        browser.visit(page)
+        self.assertTrue(_block_has_hidden_class(browser))

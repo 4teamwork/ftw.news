@@ -113,3 +113,13 @@ $leadimage-max-width: 200px !default;
   }
 }
 
+// Hide empty news listing block for anonymous users.
+.portlet.SimplelayoutPortlet .ftw-news-newslistingblock.hidden {
+  display: none;
+}
+
+// Add special border to empty listing block for authenticated users.
+body.userrole-authenticated .portlet.SimplelayoutPortlet .ftw-news-newslistingblock.hidden {
+  @include boxshadow(0 0 20px 0 $color-warning);
+  display: block;
+}

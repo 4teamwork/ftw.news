@@ -5,6 +5,8 @@ Changelog
 1.9.1 (unreleased)
 ------------------
 
+- Update RSS to version 2.0 in news_listing_rss view [raphael-s]
+
 - Add option to hide emtpy news listing block. [mbaechtold]
 
 - Use "ftw.referencewidget" as the widget for selecting the paths used

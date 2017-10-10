@@ -1,6 +1,7 @@
 from Acquisition import aq_inner
 from Acquisition import aq_parent
 from DateTime import DateTime
+from DateTime import DateTime
 from ftw.news import _
 from ftw.news import utils
 from ftw.news.interfaces import INewsListingView
@@ -105,6 +106,9 @@ class NewsListing(BrowserView):
 
     def format_date(self, brain):
         return self.context.toLocalizedTime(brain.start, long_format=False)
+
+    def get_rfc822(self, item):
+        return DateTime(item.start).rfc822()
 
 
 class NewsListingRss(NewsListing):

@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-1.9.1 (unreleased)
-------------------
+1.10.0 (2017-10-12)
+-------------------
 
 - Update RSS to version 2.0 in news_listing_rss view [raphael-s]
 

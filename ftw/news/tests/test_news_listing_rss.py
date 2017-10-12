@@ -1,3 +1,4 @@
+from DateTime import DateTime
 from datetime import datetime
 from ftw.builder import Builder
 from ftw.builder import create
@@ -44,18 +45,20 @@ class TestNewsRssListing(FunctionalTestCase):
         browser.login().visit(news_folder, view='news_listing_rss')
 
         self.assertIn(
-            '<link>{0}</link>'.format(news_folder.absolute_url()),
+            '<link>{url}/{view}</link>'.format(url=news_folder.absolute_url(),
+                                               view='news_listing_rss'),
             browser.contents,
-            'Did not found the link tag of the channel'
+            'Could not find the link tag of the channel'
         )
 
         # Same test but with the view from "ftw.contentpage" for backward compatibility.
         browser.login().visit(news_folder, view='news_rss_listing')
 
         self.assertIn(
-            '<link>{0}</link>'.format(news_folder.absolute_url()),
+            '<link>{url}/{view}</link>'.format(url=news_folder.absolute_url(),
+                                               view='news_rss_listing'),
             browser.contents,
-            'Did not found the link tag of the channel'
+            'Could not find the link tag of the channel'
         )
 
     @browsing
@@ -68,24 +71,24 @@ class TestNewsRssListing(FunctionalTestCase):
 
         browser.login().visit(news_folder, view='news_listing_rss')
 
-        rdf = '<rdf:li rdf:resource="{0}"'.format(news.absolute_url())
-        self.assertIn(rdf, browser.contents,
-                      'Did not found the rdf tag for the news')
+        rss = '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">'
+        self.assertIn(rss, browser.contents,
+                      'Could not find the rss tag for the news')
 
         link = '<link>{0}</link>'.format(news.absolute_url())
         self.assertIn(link, browser.contents,
-                      'Did not found the link tag for the news')
+                      'Could not find the link tag for the news')
 
         # Same test but with the view from "ftw.contentpage" for backward compatibility.
         browser.login().visit(news_folder, view='news_rss_listing')
 
-        rdf = '<rdf:li rdf:resource="{0}"'.format(news.absolute_url())
-        self.assertIn(rdf, browser.contents,
-                      'Did not found the rdf tag for the news')
+        rss = '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">'
+        self.assertIn(rss, browser.contents,
+                      'Could not find the rss tag for the news')
 
         link = '<link>{0}</link>'.format(news.absolute_url())
         self.assertIn(link, browser.contents,
-                      'Did not found the link tag for the news')
+                      'Could not find the link tag for the news')
 
     @browsing
     def test_news_item_contains_pubdate(self, browser):
@@ -105,8 +108,8 @@ class TestNewsRssListing(FunctionalTestCase):
             # %e has a leading space on single numbers - that's why the tests
             # were failing between the 1st and the 9th every month :-)
             # %-e Removes the leading space - only works on unix machines.
-            news.news_date.strftime('%a, %-e %b %Y %H:%M:%S %z').strip(),
-            browser.css('rdf item pubDate').first.text
+            DateTime(news.news_date).rfc822(),
+            browser.css('rss item pubDate').first.text
         )
 
         # Same test but with the view from "ftw.contentpage" for backward compatibility.
@@ -120,8 +123,8 @@ class TestNewsRssListing(FunctionalTestCase):
             # %e has a leading space on single numbers - that's why the tests
             # were failing between the 1st and the 9th every month :-)
             # %-e Removes the leading space - only works on unix machines.
-            news.news_date.strftime('%a, %-e %b %Y %H:%M:%S %z').strip(),
-            browser.css('rdf item pubDate').first.text
+            DateTime(news.news_date).rfc822(),
+            browser.css('rss item pubDate').first.text
         )
 
     @browsing
@@ -150,6 +153,6 @@ class TestNewsRssListing(FunctionalTestCase):
         browser.visit(news_listing_block, view='news_listing_rss')
         browser.parse_as_html()
         self.assertEqual(
-            [u'Ni\xfcs - News Feed'],
-            browser.css('channel description').text
+            u'Ni\xfcs - News Feed',
+            browser.css('channel description').first.text
         )

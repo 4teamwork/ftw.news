@@ -383,3 +383,30 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
         # Make sure the block has a "hidden" class now.
         browser.visit(page)
         self.assertTrue(_block_has_hidden_class(browser))
+
+    @browsing
+    def test_hidden_empty_block_can_be_seen_by_admin(self, browser):
+        page = create(Builder('sl content page'))
+        create(Builder('news listing block')
+               .within(page)
+               .titled(u'News listing block')
+               .having(hide_empty_block=True))
+
+        # Authorized users can see the empty news listing block.
+        browser.login()
+        browser.visit(page)
+        self.assertEqual(
+            [
+                'No content available',
+                'The block is only visible to editors so it can still be edited.'
+            ],
+            browser.css('.ftw-news-newslistingblock p').text
+        )
+
+        # Anonymous users do not see the empty news listing block.
+        browser.logout()
+        browser.visit(page)
+        self.assertEqual(
+            [],
+            browser.css('.ftw-news-newslistingblock').text
+        )

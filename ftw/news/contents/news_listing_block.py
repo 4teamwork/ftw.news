@@ -65,7 +65,7 @@ class NewsListingBlock(Container):
 
         items = api.content.get_view(
             name='block_view', context=obj, request=obj.REQUEST
-        ).get_items()
+        ).get_news()
         return self.hide_empty_block and not items
 
     @is_hidden.setter

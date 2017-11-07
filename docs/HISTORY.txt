@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.9.2 (unreleased)
+1.9.2 (2017-11-07)
 ------------------
 
 - Bugfix of the option to hide emtpy news listing block introduced

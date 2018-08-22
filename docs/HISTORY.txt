@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.10.2 (unreleased)
+1.10.2 (2018-08-22)
 -------------------
 
 - Swap the NewsListingBlock default view from "block_view" to "@@redirect_to_parent" [Nachtalb]

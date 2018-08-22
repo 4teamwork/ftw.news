@@ -109,7 +109,7 @@ class TestNewsRssListing(FunctionalTestCase):
             # were failing between the 1st and the 9th every month :-)
             # %-e Removes the leading space - only works on unix machines.
             DateTime(news.news_date).rfc822(),
-            browser.css('rss item pubDate').first.text
+            browser.css('rss item pubdate').first.text
         )
 
         # Same test but with the view from "ftw.contentpage" for backward compatibility.
@@ -124,7 +124,7 @@ class TestNewsRssListing(FunctionalTestCase):
             # were failing between the 1st and the 9th every month :-)
             # %-e Removes the leading space - only works on unix machines.
             DateTime(news.news_date).rfc822(),
-            browser.css('rss item pubDate').first.text
+            browser.css('rss item pubdate').first.text
         )
 
     @browsing

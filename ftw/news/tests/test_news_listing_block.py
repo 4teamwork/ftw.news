@@ -383,7 +383,7 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
 
         # By default, the block renders news from the children of
         # its container.
-        browser.visit(block)
+        browser.visit(block.absolute_url() + '/block_view')
         self.assertEqual(
             [
                 'A News Item in News Folder 1',
@@ -399,7 +399,7 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
         ]
         transaction.commit()
 
-        browser.visit(block)
+        browser.reload()
         self.assertEqual(
             [
                 'A News Item in News Folder 1',

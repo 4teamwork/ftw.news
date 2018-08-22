@@ -5,7 +5,7 @@ Changelog
 1.10.2 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Swap the NewsListingBlock default view from "block_view" to "@@redirect_to_parent" [Nachtalb]
 
 
 1.10.1 (2017-12-19)

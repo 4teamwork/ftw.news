@@ -22,10 +22,10 @@
         <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
     </property>
 
-    <property name="default_view">block_view</property>
+    <property name="default_view">@@redirect_to_parent</property>
     <property name="default_view_fallback">False</property>
     <property name="view_methods">
-        <element value="block_view"/>
+        <element value="@@redirect_to_parent"/>
     </property>
 
     <alias from="(Default)" to="(dynamic view)"/>

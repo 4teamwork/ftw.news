@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<object name="ftw.news.NewsListingBlock">
+    <property name="default_view">@@redirect_to_parent</property>
+    <property name="view_methods">
+        <element value="@@redirect_to_parent"/>
+    </property>
+</object>

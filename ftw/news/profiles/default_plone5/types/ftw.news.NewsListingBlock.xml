@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<object name="ftw.news.NewsListingBlock"
+        meta_type="Dexterity FTI"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="ftw.news" >
+
+    <property name="title" i18n:translate="">NewsListingBlock</property>
+    <property name="description" i18n:translate="">The news listing block renders a configurable list of news entries.</property>
+    <property name="icon_expr"></property>
+    <property name="allow_discussion">False</property>
+    <property name="global_allow">False</property>
+    <property name="filter_content_types">True</property>
+    <property name="allowed_content_types"></property>
+
+    <property name="schema">ftw.news.contents.news_listing_block.INewsListingBlockSchema</property>
+    <property name="klass">ftw.news.contents.news_listing_block.NewsListingBlock</property>
+    <property name="add_permission">ftw.news.AddNewsListingBlock</property>
+
+    <property name="behaviors">
+        <element value="plone.app.content.interfaces.INameFromTitle" />
+        <element value="ftw.simplelayout.interfaces.ISimplelayoutBlock" />
+        <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
+    </property>
+
+    <property name="default_view">@@redirect_to_parent</property>
+    <property name="default_view_fallback">False</property>
+    <property name="view_methods">
+        <element value="@@redirect_to_parent"/>
+    </property>
+
+    <alias from="(Default)" to="(dynamic view)"/>
+    <alias from="edit" to="@@edit"/>
+    <alias from="sharing" to="@@sharing"/>
+    <alias from="view" to="(selected layout)"/>
+
+</object>

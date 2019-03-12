@@ -5,7 +5,7 @@ Changelog
 1.10.3 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Move ressources to plone bundle. [busykoala]
 
 
 1.10.2 (2018-08-22)

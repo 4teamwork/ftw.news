@@ -1,3 +1,4 @@
+from ftw.testing import IS_PLONE_5
 from plone import api
 
 
@@ -24,9 +25,14 @@ def can_view_about():
 
     :rtype: bool
     """
-    site_props = api.portal.get_tool(name='portal_properties').site_properties
-    allow_anonymous_view_about = site_props.getProperty(
-        'allowAnonymousViewAbout', False)
+    if IS_PLONE_5:
+        allow_anonymous_view_about = api.portal.get_registry_record(
+            'plone.allow_anon_views_about')
+    else:
+        site_props = api.portal.get_tool(
+            name='portal_properties').site_properties
+        allow_anonymous_view_about = site_props.getProperty(
+            'allowAnonymousViewAbout', False)
 
     if not allow_anonymous_view_about and api.user.is_anonymous():
         return False

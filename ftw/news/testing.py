@@ -3,14 +3,15 @@ from collective.taskqueue.testing import ZSERVER_FIXTURE
 from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import functional_session_factory
 from ftw.builder.testing import set_builder_session_factory
-from ftw.testing.layer import COMPONENT_REGISTRY_ISOLATION
-from plone.app.testing import applyProfile
-from plone.app.testing import FunctionalTesting
-from plone.app.testing import PloneSandboxLayer
-from plone.testing import z2
-from zope.configuration import xmlconfig
 from ftw.simplelayout.tests import builders
 from ftw.subsite.tests import builders
+from ftw.testing import IS_PLONE_5
+from ftw.testing.layer import COMPONENT_REGISTRY_ISOLATION
+from plone.app.testing import FunctionalTesting
+from plone.app.testing import PloneSandboxLayer
+from plone.app.testing import applyProfile
+from plone.testing import z2
+from zope.configuration import xmlconfig
 import ftw.news.tests.builders
 
 
@@ -33,6 +34,8 @@ class FtwNewsLayer(PloneSandboxLayer):
         # Install into Plone site using portal_setup
         applyProfile(portal, 'ftw.news:default')
         applyProfile(portal, 'ftw.subsite:default')
+        if IS_PLONE_5:
+            applyProfile(portal, 'plone.app.contenttypes:default')
 
 
 FTW_NEWS_FIXTURE = FtwNewsLayer()

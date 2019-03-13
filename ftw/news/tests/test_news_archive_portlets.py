@@ -28,7 +28,8 @@ class TestNewsArchivePortlets(FunctionalTestCase):
         """
         context = context or self.portal
         browser.login().visit(context, view='@@manage-portlets')
-        browser.forms['form-3'].fill({':action': news_portlet_action}).submit()
+        browser.css('#portletmanager-plone-rightcolumn form')[0].fill(
+            {':action': news_portlet_action}).submit()
         browser.open(context)
 
     @browsing

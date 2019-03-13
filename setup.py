@@ -14,6 +14,7 @@ tests_require = [
     'path.py',
     'plone.app.testing',
     'plone.testing',
+    'plone.app.contenttypes',
 ]
 
 extras_require = {

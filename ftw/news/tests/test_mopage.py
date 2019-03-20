@@ -1,4 +1,7 @@
+import re
 from datetime import datetime
+
+import transaction
 from DateTime import DateTime
 from ftw.builder import Builder
 from ftw.builder import create
@@ -8,13 +11,12 @@ from ftw.news.tests.base import FunctionalTestCase
 from ftw.news.tests.base import XMLDiffTestCase
 from ftw.testbrowser import browser
 from ftw.testbrowser import browsing
+from ftw.testing import IS_PLONE_5
 from ftw.testing import freeze
 from ftw.testing import staticuid
 from path import Path
 from plone.app.textfield import RichTextValue
 from Products.CMFCore.utils import getToolByName
-import re
-import transaction
 
 
 class TestMopageExport(FunctionalTestCase, XMLDiffTestCase):
@@ -58,7 +60,10 @@ class TestMopageExport(FunctionalTestCase, XMLDiffTestCase):
         create(Builder('file').with_dummy_content().within(listingblock))
 
         with freeze(datetime(2011, 1, 2, 3, 4)):
-            self.assert_mopage_export('01_export_news.xml', news_folder)
+            if IS_PLONE_5:
+                self.assert_mopage_export('01_export_news_plone5.xml', news_folder)
+            else:
+                self.assert_mopage_export('01_export_news.xml', news_folder)
 
     @browsing
     def test_pagination(self, browser):

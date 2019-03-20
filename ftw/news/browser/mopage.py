@@ -90,6 +90,7 @@ class NewsMopageRenderer(SimplelayoutRenderer):
         We therefore convert the HTML to text and back to HTML.
         We also need to make sure that the result is less than 10000 long.
         """
+        self.request.RESPONSE.setHeader('X-Theme-Disabled', 'True')
         html = self.render_slot().strip()
 
         doc = lxml.html.fromstring(html)
@@ -132,6 +133,7 @@ class MopageNews(BrowserView):
     """
 
     def __call__(self):
+        self.request.RESPONSE.setHeader('X-Theme-Disabled', 'True')
         self.request.RESPONSE.setHeader('Cache-Control', 'no-store')
         self.request.RESPONSE.setHeader('Content-Type',
                                         'text/xml;charset=utf-8')

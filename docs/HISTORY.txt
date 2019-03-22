@@ -5,7 +5,8 @@ Changelog
 1.11.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Bugfix: Add missing comma in setup.py [busykoala]
+
 
 
 1.11.0 (2019-03-22)

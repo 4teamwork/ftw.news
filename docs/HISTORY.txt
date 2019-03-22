@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.10.3 (unreleased)
+1.11.0 (2019-03-22)
 -------------------
 
 - Move ressources to plone bundle and adapt tests for plone 5.1 (especially

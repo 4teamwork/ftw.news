@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<rolemap>
+    <permissions>
+
+        <permission name="ftw.news: Add NewsFolder" acquire="False">
+            <role name="Manager"/>
+            <role name="Site Administrator"/>
+            <role name="Contributor"/>
+        </permission>
+
+        <permission name="ftw.news: Add News" acquire="False">
+            <role name="Manager"/>
+            <role name="Site Administrator"/>
+            <role name="Contributor"/>
+        </permission>
+
+        <permission name="ftw.news: Add NewsListingBlock" acquire="False">
+            <role name="Manager"/>
+            <role name="Site Administrator"/>
+            <role name="Contributor"/>
+        </permission>
+
+        <permission name="ftw.news: Configure mopage trigger" acquire="False">
+            <role name="Manager"/>
+            <role name="Site Administrator"/>
+        </permission>
+
+        <permission name="ftw.news: Edit news external url" acquire="False">
+            <role name="Manager"/>
+            <role name="Site Administrator"/>
+        </permission>
+
+    </permissions>
+</rolemap>

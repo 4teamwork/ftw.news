@@ -1,5 +1,7 @@
 from ftw.simplelayout.interfaces import IPageConfiguration
 from plone import api
+
+from ftw.testing import IS_PLONE_5
 from plone.uuid.interfaces import IUUID
 import transaction
 
@@ -26,6 +28,10 @@ def create_page_state(obj, block):
 
 
 def set_allow_anonymous_view_about(state):
-    site_props = api.portal.get_tool(name='portal_properties').site_properties
-    site_props.allowAnonymousViewAbout = state
+
+    if IS_PLONE_5:
+        api.portal.set_registry_record('plone.allow_anon_views_about', state)
+    else:
+        site_props = api.portal.get_tool(name='portal_properties').site_properties
+        site_props.allowAnonymousViewAbout = state
     transaction.commit()

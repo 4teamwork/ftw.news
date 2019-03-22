@@ -5,6 +5,7 @@ from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
 from ftw.news.tests.base import FunctionalTestCase
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
+from ftw.testbrowser.pages import statusmessages
 from ftw.testing import freeze
 
 
@@ -23,9 +24,8 @@ class TestContentTypes(FunctionalTestCase):
 
         news_folder_title = u'This is a news folder'
         browser.fill({'Title': news_folder_title}).save()
-        browser.find(news_folder_title).click()
-        self.assertEqual(news_folder_title,
-                         browser.css('h1.documentFirstHeading').first.text)
+
+        statusmessages.assert_message(u'Item created')
 
     @browsing
     def test_news_folder_has_empty_listing_block(self, browser):

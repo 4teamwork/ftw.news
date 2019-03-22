@@ -1,9 +1,11 @@
+from StringIO import StringIO
+
+import transaction
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
 from lxml import etree
-from plone.app.testing import setRoles, TEST_USER_ID
-from StringIO import StringIO
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import setRoles
 from unittest2 import TestCase
-import transaction
 
 
 class FunctionalTestCase(TestCase):
@@ -19,8 +21,11 @@ class FunctionalTestCase(TestCase):
 
 class XMLDiffTestCase(TestCase):
 
-    def _canonicalize_xml(self, text, node_sorter=None):
-        parser = etree.XMLParser(remove_blank_text=True)
+    def _canonicalize_xml(self, text, node_sorter=None, encoding=None):
+        if not encoding:
+            encoding = 'utf-8'
+
+        parser = etree.XMLParser(remove_blank_text=True, encoding=encoding)
         try:
             xml = etree.fromstring(text, parser)
         except etree.XMLSyntaxError, exc:
@@ -45,7 +50,7 @@ class XMLDiffTestCase(TestCase):
                               encoding='utf-8')
 
     def assert_xml(self, xml1, xml2):
-        norm1 = self._canonicalize_xml(xml1)
-        norm2 = self._canonicalize_xml(xml2)
+        norm1 = self._canonicalize_xml(xml1, encoding='iso-8859-15')
+        norm2 = self._canonicalize_xml(xml2, encoding='utf-8')
         self.maxDiff = None
         self.assertMultiLineEqual(norm1, norm2)

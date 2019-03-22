@@ -2,10 +2,11 @@ from datetime import datetime
 from datetime import timedelta
 from ftw.builder import Builder, create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
-from ftw.news.tests.base import FunctionalTestCase
 from ftw.news.tests import utils
+from ftw.news.tests.base import FunctionalTestCase
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages.statusmessages import assert_message
+from ftw.testing import IS_PLONE_5
 from hashlib import md5
 from plone.i18n.normalizer import IIDNormalizer
 from z3c.relationfield import create_relation
@@ -31,7 +32,8 @@ class TestNewsPortlets(FunctionalTestCase):
         """
         context = context or self.portal
         browser.login().visit(context, view='@@manage-portlets')
-        browser.forms['form-3'].fill({':action': news_portlet_action}).submit()
+        browser.css('#portletmanager-plone-rightcolumn form')[0].fill(
+            {':action': news_portlet_action}).submit()
         browser.forms['form'].fill(kwargs).save()
         browser.visit(context)
 
@@ -77,17 +79,32 @@ class TestNewsPortlets(FunctionalTestCase):
 
         # Make sure the portlet is available on @@manage-portlets.
         browser.login().visit(context, view='@@manage-portlets')
-        self.assertEqual(1, len(browser.css('div.portletAssignments '
-                                            'div.managedPortlet.portlet')))
+        if IS_PLONE_5:
+            portlet_titles = browser.css(
+                'div.portletAssignments ' 'div.managedPortlet.portlet .portletHeader a').text
+            self.assertEqual(3, len(portlet_titles),
+                             'We expect that there are three portlet titles.')
+        else:
+            self.assertEqual(1, len(browser.css('div.portletAssignments '
+                                                'div.managedPortlet.portlet')))
 
         # Go to the portlet add form to add a second portlet
         # but cancel the creation.
-        browser.forms['form-3'].fill({':action': news_portlet_action}).submit()
+        browser.css('#portletmanager-plone-rightcolumn form')[0].fill(
+            {':action': news_portlet_action}).submit()
         browser.find('form.buttons.cancel').click()
 
-        # Make sure there is still only one portlet.
-        self.assertEqual(1, len(browser.css('div.portletAssignments '
-                                            'div.managedPortlet.portlet')))
+        # Make sure there is still only one (two in plone5) portlet.
+        if IS_PLONE_5:
+            portlet_titles = browser.css(
+                'div.portletAssignments ' 'div.managedPortlet.portlet .portletHeader a').text
+            self.assertEqual(3, len(portlet_titles),
+                             'We expect that there are still three portlet '
+                             'titles, because we pressed cancel.')
+        else:
+            self.assertEqual(1, len(browser.css('div.portletAssignments '
+                                                'div.managedPortlet.portlet')))
+
 
     @browsing
     def test_portlet_edit_form_success(self, browser):
@@ -170,7 +187,7 @@ class TestNewsPortlets(FunctionalTestCase):
 
         # Try to edit the portlet.
         browser.login().open()
-        browser.find('Manage portlets').click()
+        self.press_manage_portlet(browser)
         browser.find('News Portlet (A News Portlet)').click()
         browser.find('Save').click()
 
@@ -314,7 +331,8 @@ class TestNewsPortlets(FunctionalTestCase):
                .having(subjects=['Peter']))
 
         browser.login().visit(self.portal, view='@@manage-portlets')
-        browser.forms['form-3'].fill({':action': news_portlet_action}).submit()
+        browser.css('#portletmanager-plone-rightcolumn form')[0].fill(
+            {':action': news_portlet_action}).submit()
 
         term = 'Peter'
         normalizer = queryUtility(IIDNormalizer)
@@ -550,7 +568,7 @@ class TestNewsPortlets(FunctionalTestCase):
 
         # Configure the portlet not to show the lead image and make sure the
         # lead image is not rendered anymore.
-        browser.find('Manage portlets').click()
+        self.press_manage_portlet(browser)
         browser.find('News Portlet (A News Portlet)').click()
         browser.forms['form'].fill({'Show lead image': False}).save()
 
@@ -582,7 +600,7 @@ class TestNewsPortlets(FunctionalTestCase):
         )
 
         # Now make sure the footer is there if it has content.
-        browser.find('Manage portlets').click()
+        self.press_manage_portlet(browser)
         browser.find('News Portlet (A News Portlet)').click()
         browser.forms['form'].fill({'Link to RSS feed': True}).save()
 
@@ -652,7 +670,7 @@ class TestNewsPortlets(FunctionalTestCase):
 
         # Now configure the portlet to be rendered even if it has not items
         # to render. This is just needed to make sure that our test works correctly.
-        browser.find('Manage portlets').click()
+        self.press_manage_portlet(browser)
         browser.find('News Portlet (Foobar)').click()
         browser.forms['form'].fill({'Always render the portlet': True}).save()
 
@@ -663,3 +681,10 @@ class TestNewsPortlets(FunctionalTestCase):
 
     def _news_portlet_is_visible(self, browser):
         return bool(browser.css('.news-portlet'))
+
+    @staticmethod
+    def press_manage_portlet(browser):
+        if IS_PLONE_5:
+            browser.css('#plone-contentmenu-portletmanager a').first.click()
+        else:
+            browser.find('Manage portlets').click()

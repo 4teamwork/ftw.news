@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<object>
+    <resourcetypes>
+        <linkable purge="False">
+            <element value="ftw.news.NewsFolder"/>
+            <element value="ftw.news.News"/>
+        </linkable>
+    </resourcetypes>
+</object>

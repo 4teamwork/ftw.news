@@ -1,0 +1,38 @@
+<registry>
+
+    <records
+        interface="Products.CMFPlone.interfaces.controlpanel.IImagingSchema"
+        prefix="plone">
+        <value key="allowed_sizes" purge="false">
+            <element>news_listing_image 480:480</element>
+        </value>
+    </records>
+
+    <records prefix="plone.resources/ftw-news-js"
+             interface='Products.CMFPlone.interfaces.IResourceRegistry'>
+        <value key="js">++resource++ftw.news.resources/archive.js</value>
+        <value key="deps">jquery</value>
+    </records>
+
+    <records prefix="plone.resources/ftw-news-styles"
+             interface='Products.CMFPlone.interfaces.IResourceRegistry'>
+        <value key="css">
+            <element>++resource++ftw.news.resources/news.css</element>
+        </value>
+    </records>
+
+    <records prefix="plone.bundles/ftw-news-resources"
+             interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+        <value key="resources">
+            <element>ftw-news-styles</element>
+            <element>ftw-news-js</element>
+        </value>
+        <value key="enabled">True</value>
+        <value key="depends">plone-legacy</value>
+        <value key="compile">False</value>
+        <value key="jscompilation">++plone++datetimepicker/ftw-news-compiled.js</value>
+        <value key="csscompilation">++plone++datetimepicker/ftw-news-compiled.css</value>
+        <value key="merge_with">default</value>
+    </records>
+
+</registry>

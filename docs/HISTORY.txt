@@ -5,7 +5,7 @@ Changelog
 1.11.2 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Bugfix: Adapt flaky test to not check list order [busykoala]
 
 
 1.11.1 (2019-03-22)

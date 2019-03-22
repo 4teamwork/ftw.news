@@ -384,7 +384,7 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
         # By default, the block renders news from the children of
         # its container.
         browser.visit(block.absolute_url() + '/block_view')
-        self.assertEqual(
+        self.assertItemsEqual(
             [
                 'A News Item in News Folder 1',
                 'A News Item in News Folder 2',

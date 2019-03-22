@@ -5,7 +5,8 @@ Changelog
 1.10.3 (unreleased)
 -------------------
 
-- Move ressources to plone bundle. [busykoala]
+- Move ressources to plone bundle and adapt tests for plone 5.1 (especially
+  an adaption in xml parsing) [busykoala]
 
 
 1.10.2 (2018-08-22)

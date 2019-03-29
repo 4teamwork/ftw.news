@@ -1,5 +1,7 @@
-from ftw.testing import IS_PLONE_5
 from plone import api
+import pkg_resources
+
+IS_PLONE_5 = pkg_resources.get_distribution('Products.CMFPlone').version >= '5'
 
 
 def get_creator(item):

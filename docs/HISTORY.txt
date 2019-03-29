@@ -6,6 +6,7 @@ Changelog
 -------------------
 
 - Bugfix: Adapt flaky test to not check list order [busykoala]
+- Bugfix: Add IS_PLONE_5 implementation independent of ftw.testing [busykoala]
 
 
 1.11.1 (2019-03-22)

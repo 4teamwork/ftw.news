@@ -76,7 +76,6 @@ setup(
         'plone.directives.form',
         'ftw.upgrade',
         'setuptools',
-        'ftw.testing',
     ],
 
     tests_require=tests_require,

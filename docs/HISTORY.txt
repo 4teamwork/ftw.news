@@ -5,7 +5,7 @@ Changelog
 1.11.3 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix news folder not shown in navigation (plone5) [Nachtalb]
 
 
 1.11.2 (2019-03-29)

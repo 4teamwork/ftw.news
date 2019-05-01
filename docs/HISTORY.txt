@@ -6,7 +6,7 @@ Changelog
 -------------------
 
 - Fix news folder not shown in navigation (plone5) [Nachtalb]
-
+- Remove src checkouts of plone5 branches of in the meantime released packages [Nachtalb]
 
 1.11.2 (2019-03-29)
 -------------------

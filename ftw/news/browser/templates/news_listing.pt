@@ -17,8 +17,10 @@
     </metal:title>
 
     <metal:description fill-slot="content-description">
-        <metal:comment tal:content="nothing">
-            No description
+        <metal:comment>
+            <div class="documentDescription description"
+                 tal:condition="view/description"
+                 tal:content="view/description" />
         </metal:comment>
     </metal:description>
 

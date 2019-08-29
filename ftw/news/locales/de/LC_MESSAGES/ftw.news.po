@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-09-07 15:39+0000\n"
+"POT-Creation-Date: 2019-08-29 12:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,12 +19,9 @@ msgid "<span class=\"title\">${DYNAMIC_CONTENT}</span> <span class=\"count\">${D
 msgstr ""
 
 #: ./ftw/news/profiles/default/types/ftw.news.NewsFolder.xml
+#: ./ftw/news/profiles/default_plone5/types/ftw.news.NewsFolder.xml
 msgid "A container for news items."
 msgstr "Ein Behälter für News-Einträge"
-
-#: ./ftw/news/portlets/templates/news_archive_portlet.pt:9
-msgid "Archive"
-msgstr "Archiv"
 
 #: ./ftw/news/browser/configure.zcml:84
 msgid "Display the contents of a news folder."
@@ -34,7 +31,7 @@ msgstr ""
 msgid "External URL (for mobile app)"
 msgstr "Externe URL (für Mobile-App)"
 
-#: ./ftw/news/configure.zcml:38
+#: ./ftw/news/configure.zcml:57
 msgid "Installs a feature allowing to mark news to show on homepage."
 msgstr "Installiert ein zusätzliches Feature für die Anzeige von News-Einträgen auf der Startseite."
 
@@ -55,10 +52,12 @@ msgid "Mopage trigger configuration"
 msgstr "Mopage auslöser konfiguration"
 
 #: ./ftw/news/profiles/default/types/ftw.news.News.xml
+#: ./ftw/news/profiles/default_plone5/types/ftw.news.News.xml
 msgid "News"
 msgstr "News-Eintrag"
 
 #: ./ftw/news/profiles/default/types/ftw.news.NewsFolder.xml
+#: ./ftw/news/profiles/default_plone5/types/ftw.news.NewsFolder.xml
 msgid "News Folder"
 msgstr "News-Verzeichnis"
 
@@ -75,6 +74,7 @@ msgid "News on homepage"
 msgstr ""
 
 #: ./ftw/news/profiles/default/types/ftw.news.NewsListingBlock.xml
+#: ./ftw/news/profiles/default_plone5/types/ftw.news.NewsListingBlock.xml
 msgid "NewsListingBlock"
 msgstr "News-Auflistung"
 
@@ -94,13 +94,27 @@ msgstr "Felder für die Konfiguration des Mopage Auslösers."
 msgid "RSS"
 msgstr ""
 
+#: ./ftw/news/configure.zcml:31
+msgid "Register ftw.news generally"
+msgstr ""
+
 #: ./ftw/news/browser/templates/news_listing_block.pt:57
 msgid "Subscribe to the RSS feed"
 msgstr "RSS abonnieren"
 
 #: ./ftw/news/profiles/default/types/ftw.news.NewsListingBlock.xml
+#: ./ftw/news/profiles/default_plone5/types/ftw.news.NewsListingBlock.xml
 msgid "The news listing block renders a configurable list of news entries."
 msgstr "Der Newsauflistungsblock zeigt eine konfigurierbare Liste von Nachrichten-Meldungen an."
+
+#: ./ftw/news/configure.zcml:49
+msgid "Uninstall ftw.news"
+msgstr ""
+
+#. Default: "Archive"
+#: ./ftw/news/portlets/news_archive_portlet.py:168
+msgid "archive"
+msgstr ""
 
 #. Default: "Hide the block if there are no news items to be shown."
 #: ./ftw/news/contents/news_listing_block.py:37
@@ -127,11 +141,11 @@ msgstr "Dieses Label wird nicht übersetzt."
 msgid "description_show_on_homepage"
 msgstr "Ermöglicht die Anzeige dieses Eintrages auf der Startseite."
 
-#: ./ftw/news/configure.zcml:30
+#: ./ftw/news/configure.zcml:31
 msgid "ftw.news"
 msgstr "ftw.news"
 
-#: ./ftw/news/configure.zcml:38
+#: ./ftw/news/configure.zcml:57
 msgid "ftw.news (show on homepage feature)"
 msgstr ""
 
@@ -141,7 +155,7 @@ msgid "hide_empty_block_text"
 msgstr "Dieser Block ist nur noch für Benutzer sichtbar, die Inhalte bearbeiten dürfen. So kann der Block weiterhin bearbeitet werden."
 
 #. Default: "${title} - News Feed"
-#: ./ftw/news/browser/news_listing.py:102
+#: ./ftw/news/browser/news_listing.py:103
 msgid "label_feed_desc"
 msgstr "${title} - News Feed"
 
@@ -189,6 +203,26 @@ msgstr "News-Einträge für Anzeige auf Startseite markieren"
 #: ./ftw/news/portlets/templates/news_portlet.pt:39
 msgid "more_news_link_label"
 msgstr "Weitere Einträge"
+
+#. Default: "Add News Archive Portlet"
+#: ./ftw/news/portlets/news_archive_portlet.py:223
+msgid "news_archive_portlet_add_form"
+msgstr "News Archiv Portlet Hinzufügen"
+
+#. Default: "Edit News Archive Portlet"
+#: ./ftw/news/portlets/news_archive_portlet.py:254
+msgid "news_archive_portlet_edit_form"
+msgstr "News Archiv Portlet Editieren"
+
+#. Default: "Cancel"
+#: ./ftw/news/portlets/news_archive_portlet.py:290
+msgid "news_archive_portlet_edit_form_cancel"
+msgstr "Abbrechen"
+
+#. Default: "Save"
+#: ./ftw/news/portlets/news_archive_portlet.py:273
+msgid "news_archive_portlet_edit_form_save"
+msgstr "Speichern"
 
 #. Default: "News will be sorted by this date"
 #: ./ftw/news/contents/news.py:22
@@ -380,6 +414,11 @@ msgstr "Keine Einträge vorhanden."
 #: ./ftw/news/portlets/templates/news_portlet.pt:45
 msgid "rss_link_title"
 msgstr "RSS abonnieren"
+
+#. Default: "Title"
+#: ./ftw/news/portlets/news_archive_portlet.py:153
+msgid "title"
+msgstr "Titel"
 
 #. Default: "News"
 #: ./ftw/news/contents/news_folder.py:31

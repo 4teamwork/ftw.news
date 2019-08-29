@@ -5,7 +5,7 @@ Changelog
 1.11.3 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Remove obsolete source checkouts [Nachtalb]
 
 
 1.11.2 (2019-03-29)

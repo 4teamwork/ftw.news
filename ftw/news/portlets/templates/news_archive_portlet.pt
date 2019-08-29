@@ -6,7 +6,7 @@
     <section class="portlet archive-portlet">
 
         <header class="portletHeader">
-            <h2 i18n:translate="">Archive</h2>
+            <h2 tal:content="view/data/portlet_title"></h2>
         </header>
         <section class="portletItem">
           <ul class="years">

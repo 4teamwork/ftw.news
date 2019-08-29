@@ -6,6 +6,7 @@ Changelog
 -------------------
 
 - Remove obsolete source checkouts [Nachtalb]
+- Add customizable title to archive portlet [Nachtalb]
 
 
 1.11.2 (2019-03-29)

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-08-29 12:03+0000\n"
+"POT-Creation-Date: 2019-09-10 12:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,7 +117,7 @@ msgid "archive"
 msgstr ""
 
 #. Default: "Hide the block if there are no news items to be shown."
-#: ./ftw/news/contents/news_listing_block.py:37
+#: ./ftw/news/contents/news_listing_block.py:56
 msgid "description_hide_empty_block"
 msgstr "Der Block wird nicht angezeigt, wenn keine News-Einträge vorhanden sind."
 
@@ -132,7 +132,7 @@ msgid "description_mopage_trigger_url"
 msgstr "Die Trigger-URL zeigt auf die Mopage-API. Sie enthält kein \"?url\"-Parameter, dieser wird automatisch angefügt. Beispiel: https://un:pw@xml.mopage.ch/infoservice/xml.php"
 
 #. Default: "This custom label will not be translated."
-#: ./ftw/news/contents/news_listing_block.py:26
+#: ./ftw/news/contents/news_listing_block.py:36
 msgid "description_more_news_link_label"
 msgstr "Dieses Label wird nicht übersetzt."
 
@@ -160,7 +160,7 @@ msgid "label_feed_desc"
 msgstr "${title} - News Feed"
 
 #. Default: "Hide empty block"
-#: ./ftw/news/contents/news_listing_block.py:35
+#: ./ftw/news/contents/news_listing_block.py:54
 msgid "label_hide_empty_block"
 msgstr "Leeren Block ausblenden"
 
@@ -175,7 +175,7 @@ msgid "label_mopage_trigger_url"
 msgstr "Mopage Trigger URL"
 
 #. Default: "Label for the \"more news\" link"
-#: ./ftw/news/contents/news_listing_block.py:24
+#: ./ftw/news/contents/news_listing_block.py:34
 msgid "label_more_news_link_label"
 msgstr "Label für den Link \"Weitere Einträge\""
 
@@ -241,7 +241,7 @@ msgid "news_listing_author_label"
 msgstr "von ${author}"
 
 #. Default: "Show title"
-#: ./ftw/news/contents/news_listing_block.py:18
+#: ./ftw/news/contents/news_listing_block.py:28
 msgid "news_listing_block_show_title_label"
 msgstr "Titel anzeigen"
 
@@ -279,6 +279,11 @@ msgstr "Nur Einträge aus einem bestimmten Pfad anzeigen"
 #: ./ftw/news/contents/common.py:27
 msgid "news_listing_config_filter_path_label"
 msgstr "Auf Pfad einschränken"
+
+#. Default: "Link to more items"
+#: ./ftw/news/contents/news_listing_block.py:43
+msgid "news_listing_config_items_link"
+msgstr "Link zu weiteren Einträgen"
 
 #. Default: "Only news younger than this value will be rendered. Enter 0 for no limitation."
 #: ./ftw/news/contents/common.py:86
@@ -333,7 +338,7 @@ msgstr "Einen Link zu weiteren Einträgen anzeigen (wird nur angezeigt, wenn es 
 #. Default: "Link to more news"
 #: ./ftw/news/contents/common.py:94
 msgid "news_listing_config_show_more_news_link_label"
-msgstr "Link zu weiteren Einträgen"
+msgstr "Link zu weiteren Einträgen anzeigen"
 
 #. Default: "Render a link to the RSS feed of the news."
 #: ./ftw/news/contents/common.py:106

@@ -29,8 +29,10 @@ class NewsListingBlockView(BaseBlock):
 
         more_news_link_url = ''
         if self.context.show_more_news_link:
-            more_news_link_url = '/'.join([self.context.absolute_url(),
-                                           'news_listing'])
+            if self.context.link_to_more_items and self.context.link_to_more_items.to_object:
+                more_news_link_url = self.context.link_to_more_items.to_object.absolute_url()
+            else:
+                more_news_link_url = '/'.join([self.context.absolute_url(), 'news_listing'])
 
         more_news_link_label = (
             self.context.more_news_link_label or

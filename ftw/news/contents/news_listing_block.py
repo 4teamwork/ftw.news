@@ -2,16 +2,26 @@ from Acquisition import aq_inner, aq_parent
 from ftw.news import _
 from ftw.news.contents.common import INewsListingBaseSchema
 from ftw.news.interfaces import INewsListingBlock
+from ftw.referencewidget.sources import DefaultSelectable
+from ftw.referencewidget.sources import ReferenceObjSourceBinder
+from ftw.referencewidget.widget import ReferenceWidgetFactory
 from ftw.simplelayout.contenttypes.behaviors import IHiddenBlock
 from plone import api
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.content import Container
 from plone.directives import form
 from plone.uuid.interfaces import IUUID
+from z3c.relationfield import RelationChoice
 from zope import schema
 from zope.interface import alsoProvides
 from zope.interface import implements
 
+
+class FilterByPathSelectable(DefaultSelectable):
+
+    def is_selectable(self):
+        """ Allow to reference any path"""
+        return True
 
 class INewsListingBlockSchema(INewsListingBaseSchema):
     show_title = schema.Bool(
@@ -28,8 +38,18 @@ class INewsListingBlockSchema(INewsListingBaseSchema):
         required=False,
     )
 
+    form.widget(link_to_more_items=ReferenceWidgetFactory)
+    link_to_more_items = RelationChoice(
+        title=_(u'news_listing_config_items_link', default=u'Link to more items'),
+        source=ReferenceObjSourceBinder(
+            selectable_class=FilterByPathSelectable),
+        default=None,
+        required=False,
+    )
+
     form.order_after(show_title='news_listing_config_title')
-    form.order_after(more_news_link_label='show_more_news_link')
+    form.order_after(link_to_more_items='show_more_news_link')
+    form.order_after(more_news_link_label='link_to_more_items')
 
     hide_empty_block = schema.Bool(
         title=_(u'label_hide_empty_block',

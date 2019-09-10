@@ -13,6 +13,7 @@ from plone.app.testing import applyProfile
 from plone.testing import z2
 from zope.configuration import xmlconfig
 import ftw.news.tests.builders
+import ftw.referencewidget.tests.widgets
 
 
 class FtwNewsLayer(PloneSandboxLayer):

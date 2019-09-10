@@ -3,14 +3,17 @@ from datetime import timedelta
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
-from ftw.news.tests.base import FunctionalTestCase
 from ftw.news.tests import utils
+from ftw.news.tests.base import FunctionalTestCase
 from ftw.news.tests.utils import set_allow_anonymous_view_about
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 from ftw.testbrowser.pages import plone
 from plone.app.testing import applyProfile
+from z3c.relationfield import RelationValue
 from z3c.relationfield import create_relation
+from zope.component import getUtility
+from zope.intid import IIntIds
 import transaction
 
 
@@ -462,4 +465,69 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
         self.assertEqual(
             [],
             browser.css('.ftw-news-newslistingblock').text
+        )
+
+    @browsing
+    def test_custom_link_to_show_more_news(self, browser):
+
+        page = create(Builder('sl content page')
+                      .titled(u'Content Page'))
+
+        page_to_link = create(Builder('sl content page')
+                              .titled(u'Content Page'))
+
+        news_folder = create(Builder('news folder').
+                             titled(u'news Folder')
+                             .within(page))
+        create(Builder('news')
+               .titled(u'News')
+               .within(news_folder))
+        block = create(Builder('news listing block')
+                       .within(page)
+                       .having(show_more_news_link=True)
+                       .titled(u'This is a NewsListingBlock'))
+
+        browser.login().visit(page)
+        self.assertEqual(
+            'http://nohost/plone/content-page/ftw-news-newslistingblock/news_listing',
+            browser.find('More News').attrib['href']
+        )
+
+        browser.login().visit(block, view='@@edit')
+        browser.fill({'Link to more items': page_to_link}).submit()
+        browser.login().visit(page)
+
+        self.assertEqual(
+            page_to_link.absolute_url(),
+            browser.find('More News').attrib['href']
+        )
+
+    @browsing
+    def test_custom_link_to_show_more_items_when_target_is_deleted(self, browser):
+
+        page = create(Builder('sl content page').titled(u'A page'))
+
+        target = create(Builder('sl content page')
+                        .titled(u'Target of the link to more items'))
+
+        create(Builder('news listing block')
+               .within(page)
+               .having(show_more_news_link=True)
+               .having(link_to_more_items=RelationValue(getUtility(IIntIds).getId(target)))
+               .titled(u'This is a NewsListingBlock'))
+
+        browser.login().visit(page)
+        self.assertEqual(
+            'http://nohost/plone/target-of-the-link-to-more-items',
+            browser.find('More News').attrib['href']
+        )
+
+        self.portal.manage_delObjects(ids=[target.getId()])
+        transaction.commit()
+
+        browser.login().visit(page)
+
+        self.assertEqual(
+            'http://nohost/plone/a-page/ftw-news-newslistingblock/news_listing',
+            browser.find('More News').attrib['href']
         )

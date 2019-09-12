@@ -1,0 +1,9 @@
+<registry>
+
+  <record name="plone.displayed_types">
+    <value purge="false">
+      <element>ftw.news.NewsFolder</element>
+    </value>
+  </record>
+
+</registry>

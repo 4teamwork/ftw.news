@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.12.1 (unreleased)
+1.13.0 (2019-09-12)
 -------------------
 
 - Be able to add custom "more items" link for NewsListingBlocks. [tinagerber]

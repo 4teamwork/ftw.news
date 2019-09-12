@@ -1,7 +1,6 @@
 from Acquisition import aq_inner
 from Acquisition import aq_parent
 from DateTime import DateTime
-from DateTime import DateTime
 from ftw.news import _
 from ftw.news import utils
 from ftw.news.interfaces import INewsListingView
@@ -29,6 +28,10 @@ class NewsListing(BrowserView):
     def __init__(self, context, request):
         super(NewsListing, self).__init__(context, request)
         self.batch_size = 10
+
+    @property
+    def description(self):
+        return self.context.Description()
 
     @property
     def batch(self):
@@ -98,12 +101,6 @@ class NewsListing(BrowserView):
     def link(self):
         return self.context.absolute_url() + '/' + self.__name__
 
-    @property
-    def description(self):
-        return _(u'label_feed_desc',
-                 default=u'${title} - News Feed',
-                 mapping={'title': safe_unicode(self.context.Title())})
-
     def format_date(self, brain):
         return self.context.toLocalizedTime(brain.start, long_format=False)
 
@@ -117,6 +114,12 @@ class NewsListingRss(NewsListing):
 
     def get_items(self):
         return super(NewsListingRss, self).get_items()[:self.max_items]
+
+    @property
+    def description(self):
+        return _(u'label_feed_desc',
+                 default=u'${title} - News Feed',
+                 mapping={'title': safe_unicode(self.context.Title())})
 
     def get_channel_link_tag(self):
         """
@@ -143,6 +146,10 @@ class NewsListingPortlet(NewsListing):
     def __init__(self, context, request):
         super(NewsListingPortlet, self).__init__(context, request)
         self.portlet = self.get_portlet()
+
+    @property
+    def description(self):
+        return
 
     def get_portlet(self):
         manager_name = self.request.form.get('manager', None)
@@ -224,4 +231,8 @@ class NewsListingOfNewsListingBlock(NewsListing):
 
 class NewsListingRssOfNewsListingBlock(NewsListingOfNewsListingBlock,
                                        NewsListingRss):
-    pass
+    @property
+    def description(self):
+        return _(u'label_feed_desc',
+                 default=u'${title} - News Feed',
+                 mapping={'title': safe_unicode(self.context.Title())})

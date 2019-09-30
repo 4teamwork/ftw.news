@@ -248,7 +248,7 @@ msgstr "Titel anzeigen"
 #. Default: "You can not filter by path and current context at the same time."
 #: ./ftw/news/contents/common.py:125
 msgid "news_listing_config_current_context_and_path_error"
-msgstr "Es nicht möglich, gleichzeitig nach Pfad und aktuellem Bereich zu filtern."
+msgstr "Es ist nicht möglich, gleichzeitig nach Pfad und aktuellem Bereich zu filtern."
 
 #. Default: "The maximum length of the news item's description. Longer descriptions will be cropped. Enter 0 for no limitation."
 #: ./ftw/news/contents/common.py:76

@@ -8,6 +8,7 @@ tests_require = [
     'ftw.builder',
     'ftw.chameleon',
     'ftw.news[mopage_publisher_receiver]',
+    'ftw.referencewidget[tests]',
     'ftw.subsite',
     'ftw.testbrowser',
     'ftw.testing>=1.11.0',

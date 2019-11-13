@@ -5,7 +5,7 @@ from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
 from lxml import etree
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
-from unittest2 import TestCase
+from unittest import TestCase
 
 
 class FunctionalTestCase(TestCase):

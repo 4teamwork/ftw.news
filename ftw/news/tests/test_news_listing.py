@@ -53,7 +53,7 @@ class TestNewsListing(FunctionalTestCase):
         browser.visit(self.news_folder, view='@@news_listing')
         self.assertEqual(
             'by test_user_1_',
-            browser.css('.news-item .author').first.text,
+            browser.css('.news-item .news-author').first.text,
             'Authenticated member should see author if '
             'allowAnonymousViewAbout is False.')
 
@@ -64,14 +64,14 @@ class TestNewsListing(FunctionalTestCase):
         browser.visit(self.news_folder, view='@@news_listing')
         self.assertEqual(
             'by test_user_1_',
-            browser.css('.author').first.text,
+            browser.css('.news-author').first.text,
             'Authenticated member should see author.')
 
     @browsing
     def test_anonymous_cannot_see_author_when_aava_disabled(self, browser):
         set_allow_anonymous_view_about(False)
         browser.logout().visit(self.news_folder, view='@@news_listing')
-        self.assertEquals([], browser.css('.news-item .author'),
+        self.assertEquals([], browser.css('.news-item .news-author'),
                           'Anonymous user should not see author if '
                           'allowAnonymousViewAbout is False.')
 
@@ -81,7 +81,7 @@ class TestNewsListing(FunctionalTestCase):
         browser.logout().visit(self.news_folder, view='@@news_listing')
         self.assertEqual(
             'by test_user_1_',
-            browser.css('.author').first.text,
+            browser.css('.news-author').first.text,
             'Anonymous user should see author if '
             'allowAnonymousViewAbout is True.')
 
@@ -163,14 +163,14 @@ class TestNewsListing(FunctionalTestCase):
         browser.login(contributor).visit(container, view='news_listing')
         self.assertEquals(
             ['Future News'],
-            browser.css('.news-listing .news-item .title').text
+            browser.css('.news-listing .news-item .news-title').text
         )
 
         # Make sure an anonymous user does not see the inactive news.
         browser.logout().visit(container, view='news_listing')
         self.assertEquals(
             [],
-            browser.css('.news-listing .news-item .title').text
+            browser.css('.news-listing .news-item .news-title').text
         )
 
 
@@ -190,8 +190,7 @@ class TestNewsListingFormat(FunctionalTestCase):
                .having(news_date=DateTime('2015/03/13 16:15')))
 
         browser.login().open(self.news_folder)
-
-        self.assertEquals('Mar 13, 2015', browser.css('.dtstart').first.text)
+        self.assertEquals('Mar 13, 2015', browser.css('.news-date').first.text)
 
     @browsing
     def test_show_full_creation_date_if_minute_is_not_set(self, browser):
@@ -201,7 +200,7 @@ class TestNewsListingFormat(FunctionalTestCase):
 
         browser.login().open(self.news_folder)
 
-        self.assertEquals('Mar 13, 2015', browser.css('.dtstart').first.text)
+        self.assertEquals('Mar 13, 2015', browser.css('.news-date').first.text)
 
     @browsing
     def test_show_full_creation_date_if_hour_is_not_set(self, browser):
@@ -211,7 +210,7 @@ class TestNewsListingFormat(FunctionalTestCase):
 
         browser.login().open(self.news_folder)
 
-        self.assertEquals('Mar 13, 2015', browser.css('.dtstart').first.text)
+        self.assertEquals('Mar 13, 2015', browser.css('.news-date').first.text)
 
     @browsing
     def test_show_no_time_if_minute_and_hour_are_not_set(self, browser):
@@ -221,4 +220,4 @@ class TestNewsListingFormat(FunctionalTestCase):
 
         browser.login().open(self.news_folder)
 
-        self.assertEquals('Mar 13, 2015', browser.css('.dtstart').first.text)
+        self.assertEquals('Mar 13, 2015', browser.css('.news-date').first.text)

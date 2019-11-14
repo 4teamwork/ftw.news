@@ -76,14 +76,15 @@ class NewsListing(BrowserView):
     def get_item_dict(self, brain):
         obj = brain.getObject()
 
+        image_tag = obj.restrictedTraverse('@@leadimage')('news_listing_image', direction='thumbnail')
         item = {
             'title': brain.Title,
             'description': brain.Description,
             'url': brain.getURL(),
             'author': utils.get_creator(obj) if utils.can_view_about() else '',
             'news_date': self.format_date(brain),
-            'image_tag': obj.restrictedTraverse('@@leadimage')(
-                'news_listing_image'),
+            'image_tag': image_tag,
+            'has_image_class': image_tag and 'has-image' or 'no-image',
         }
         return item
 

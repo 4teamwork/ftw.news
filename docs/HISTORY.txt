@@ -6,6 +6,7 @@ Changelog
 -------------------
 
 - Fix german translation [Nachtalb]
+- New styling for news_listing view [jone, tinagerber]
 
 
 1.13.1 (2019-09-12)

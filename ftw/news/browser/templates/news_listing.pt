@@ -5,60 +5,61 @@
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="ftw.news">
 
-    <metal:block metal:fill-slot="head_slot">
-        <link rel="alternate" type="application/rss+xml" title="RSS"
-              i18n:attributes="title"
-              tal:attributes="href string:${context/absolute_url}/news_listing_rss"
-            />
-    </metal:block>
+  <metal:block metal:fill-slot="head_slot">
+    <link rel="alternate" type="application/rss+xml" title="RSS"
+          i18n:attributes="title"
+          tal:attributes="href string:${context/absolute_url}/news_listing_rss"
+          />
+  </metal:block>
 
-    <metal:title fill-slot="content-title">
-        <h1 class="documentFirstHeading" tal:content="view/title"></h1>
-    </metal:title>
+  <metal:title fill-slot="content-title">
+    <h1 class="documentFirstHeading" tal:content="view/title"></h1>
+  </metal:title>
 
-    <metal:description fill-slot="content-description">
-        <metal:comment>
-            <div class="documentDescription description"
-                 tal:condition="view/description"
-                 tal:content="view/description" />
-        </metal:comment>
-    </metal:description>
+  <metal:description fill-slot="content-description">
+    <metal:comment>
+      <div class="documentDescription description"
+           tal:condition="view/description"
+           tal:content="view/description" />
+    </metal:comment>
+  </metal:description>
 
-    <metal:main fill-slot="content-core" tal:define="batch view/batch">
+  <metal:main fill-slot="content-core" tal:define="batch view/batch">
 
-        <p tal:condition="not:batch"
-           i18n:translate="news_listing_no_content_text">No content available</p>
+    <div class="news-listing">
+      <p tal:condition="not:nocall:batch" class="no-news" i18n:translate="news_listing_no_content_text">
+        No content available
+      </p>
 
+      <ul tal:condition="nocall:batch">
+        <tal:batch repeat="brain batch">
+          <li tal:define="item python:view.get_item_dict(brain)" tal:attributes="class string:news-item ${item/has_image_class}">
+            <a tal:attributes="href item/url">
 
-        <ul class="news-listing news-row">
-            <tal:batch repeat="lazy_item batch">
-                <li tal:define="item python:view.get_item_dict(lazy_item)">
-                    <a class="news-item" tal:attributes="href item/url">
+              <h2 tal:content="item/title" class="news-title" />
 
-                      <div tal:attributes="class python:'image' if item['image_tag'] else 'no-image image'">
-                        <img tal:condition="item/image_tag" tal:replace="structure item/image_tag" />
-                      </div>
+              <div tal:attributes="class string:news-image ${item/has_image_class}">
+                <img tal:condition="item/image_tag" tal:replace="structure item/image_tag" />
+              </div>
 
-                      <div class="body show-image">
-                          <span class="byline">
-                              <span class="dtstart" tal:content="item/news_date" />
-                              <tal:author condition="item/author">
-                                  <span class="author"
-                                        i18n:translate="news_listing_author_label">
-                                      by
-                                      <span tal:content="item/author" i18n:name="author" />
-                                  </span>
-                              </tal:author>
-                          </span>
-                          <h3 class="title" tal:content="item/title" />
-                          <span class="description" tal:content="item/description" tal:condition="item/description"/>
-                      </div>
-                    </a>
-                </li>
-            </tal:batch>
-        </ul>
+              <div class="news-byline">
+                <span class="news-date" tal:content="item/news_date" />
+                <span tal:condition="item/author" class="news-author" i18n:translate="news_listing_author_label">
+                  by
+                  <span tal:content="item/author" i18n:name="author" />
+                </span>
+              </div>
 
-        <div metal:use-macro="context/batch_macros/macros/navigation" />
+              <p class="news-description" tal:content="item/description" tal:condition="item/description" />
 
-    </metal:main>
+            </a>
+          </li>
+        </tal:batch>
+      </ul>
+
+      <div metal:use-macro="context/batch_macros/macros/navigation" />
+
+    </div>
+
+  </metal:main>
 </html>

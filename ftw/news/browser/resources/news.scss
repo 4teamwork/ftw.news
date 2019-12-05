@@ -2,10 +2,14 @@
 @include portal-type-font-awesome-icon(ftw-news-newsfolder, newspaper-o);
 @include portal-type-font-awesome-icon(ftw-news-newslistingblock, newspaper-o);
 
-$leadimage-width: $scale-news-listing-image-width;
-$leadimage-height: $scale-news-listing-image-height;
-
 $leadimage-max-width: 200px !default;
+$news-listing-image-size: 360px !default;
+$news-listing-image-padding: $padding-vertical !default;
+$news-listing-image-border: 1px solid $color-disabled !default;
+$news-listing-item-vertical-paddding: $margin-vertical !default;
+$news-listing-separator: 1px solid $color-disabled !default;
+$news-listing-byline-color: $color-text-light !default;
+$news-listing-byline-font-size: inherit !default;
 
 .news-row {
   @include list();
@@ -122,4 +126,65 @@ $leadimage-max-width: 200px !default;
 body.userrole-authenticated .portlet.SimplelayoutPortlet .ftw-news-newslistingblock.hidden {
   @include boxshadow(0 0 20px 0 $color-warning);
   display: block;
+}
+
+div.news-listing {
+  .no-news {
+    text-align: center;
+  }
+
+  > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li.news-item {
+    @include clearfix();
+    padding-top: $news-listing-item-vertical-paddding;
+    padding-bottom: $news-listing-item-vertical-paddding;
+    margin-bottom: 0;
+    border-bottom: $news-listing-separator;
+    &:last-child {
+      border-bottom: none;
+    }
+
+    > a {
+      @include no-link();
+      display: block;
+
+      .news-image.has-image {
+        width: 100%;
+        padding: 0;
+        padding-bottom: $news-listing-image-padding;
+        margin: 0;
+        text-align: center;
+        @include screen-medium() {
+          float: right;
+          width: $news-listing-image-size;
+          padding: $news-listing-image-padding;
+          margin:  $news-listing-image-padding;
+          border: $news-listing-image-border;
+        }
+        img {
+          display: block;
+        }
+      }
+      .news-image.no-image {
+        display: none;
+      }
+
+      .news-byline {
+        margin-bottom: $margin-heading-vertical;
+        .news-date, .news-author {
+          font-size: $news-listing-byline-font-size;
+          color: $news-listing-byline-color;
+        }
+      }
+
+      .news-description {
+        margin-bottom: 0;
+      }
+    }
+  }
 }

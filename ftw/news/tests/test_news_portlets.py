@@ -529,7 +529,7 @@ class TestNewsPortlets(FunctionalTestCase):
         browser.find('More News').click()
         self.assertEqual(
             ['Hello Again', 'Hello World'],
-            browser.css('.news-listing .title').text
+            browser.css('.news-listing .news-title').text
         )
 
     @browsing

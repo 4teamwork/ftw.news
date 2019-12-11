@@ -6,6 +6,14 @@
         </value>
     </record>
 
+    <record name="plone.types_not_searched"
+            interface="Products.CMFPlone.interfaces.controlpanel.ISearchSchema"
+            field="types_not_searched">
+        <value purge="false">
+            <element>ftw.news.NewsListingBlock</element>
+        </value>
+    </record>
+
     <records
         interface="Products.CMFPlone.interfaces.controlpanel.IImagingSchema"
         prefix="plone">
@@ -40,5 +48,7 @@
         <value key="csscompilation">++plone++datetimepicker/ftw-news-compiled.css</value>
         <value key="merge_with">default</value>
     </records>
+
+
 
 </registry>

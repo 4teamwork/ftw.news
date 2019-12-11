@@ -1,0 +1,1 @@
+require(['archive'], function (archive) {});

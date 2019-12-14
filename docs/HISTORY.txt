@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.14.1 (unreleased)
+1.14.1 (2019-12-14)
 -------------------
 
 - Plone 5: use registry instead of properties. [jone]

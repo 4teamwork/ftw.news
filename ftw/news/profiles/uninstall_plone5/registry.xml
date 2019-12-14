@@ -1,11 +1,5 @@
 <?xml version="1.0"?>
 <registry>
-    <records prefix="plone.resources/ftw-news-styles"
-             interface='Products.CMFPlone.interfaces.IResourceRegistry'
-             remove="True"/>
-    <records prefix="plone.resources/ftw-news-js"
-             interface='Products.CMFPlone.interfaces.IResourceRegistry'
-             remove="True"/>
     <records prefix="plone.bundles/ftw-news-resources"
              interface='Products.CMFPlone.interfaces.IBundleRegistry'
              remove="True"/>

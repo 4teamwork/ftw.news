@@ -6,6 +6,7 @@ Changelog
 -------------------
 
 - Plone 5: use registry instead of properties. [jone]
+- Provide precompiled bundle. [tinagerber]
 
 
 1.14.0 (2019-12-05)

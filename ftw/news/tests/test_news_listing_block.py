@@ -9,9 +9,10 @@ from ftw.news.tests.utils import set_allow_anonymous_view_about
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 from ftw.testbrowser.pages import plone
+from plone import api
 from plone.app.testing import applyProfile
-from z3c.relationfield import RelationValue
 from z3c.relationfield import create_relation
+from z3c.relationfield import RelationValue
 from zope.component import getUtility
 from zope.intid import IIntIds
 import transaction
@@ -531,3 +532,31 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
             'http://nohost/plone/a-page/ftw-news-newslistingblock/news_listing',
             browser.find('More News').attrib['href']
         )
+
+    @browsing
+    def test_show_review_state_for_news_items(self, browser):
+        wf_tool = api.portal.get_tool('portal_workflow')
+        wf_tool.setDefaultChain('one_state_workflow')
+
+        page = create(Builder('sl content page'))
+        news_folder = create(Builder('news folder').within(page))
+        create(Builder('news')
+               .within(news_folder)
+               .having(news_date=datetime(2000, 12, 31, 15, 0, 0))
+               .titled(u'A news'))
+
+        create(Builder('news listing block')
+               .within(page)
+               .titled(u'News listing block')
+               .having(show_review_state=True))
+
+        # With permission
+        browser.login().visit(page)
+        self.assertEqual('Dec 31, 2000 by test_user_1_ Published',
+                         browser.css('.news-item .byline').first.text)
+
+        # Without permission
+        self.grant()
+        browser.login().visit(page)
+        self.assertEqual('Dec 31, 2000 by test_user_1_',
+                         browser.css('.news-item .byline').first.text)

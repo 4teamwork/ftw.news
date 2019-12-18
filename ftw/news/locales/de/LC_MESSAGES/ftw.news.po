@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-09-10 12:38+0000\n"
+"POT-Creation-Date: 2019-12-18 12:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,7 +98,7 @@ msgstr ""
 msgid "Register ftw.news generally"
 msgstr ""
 
-#: ./ftw/news/browser/templates/news_listing_block.pt:57
+#: ./ftw/news/browser/templates/news_listing_block.pt:62
 msgid "Subscribe to the RSS feed"
 msgstr "RSS abonnieren"
 
@@ -117,7 +117,7 @@ msgid "archive"
 msgstr ""
 
 #. Default: "Hide the block if there are no news items to be shown."
-#: ./ftw/news/contents/news_listing_block.py:56
+#: ./ftw/news/contents/news_listing_block.py:57
 msgid "description_hide_empty_block"
 msgstr "Der Block wird nicht angezeigt, wenn keine News-Einträge vorhanden sind."
 
@@ -141,6 +141,11 @@ msgstr "Dieses Label wird nicht übersetzt."
 msgid "description_show_on_homepage"
 msgstr "Ermöglicht die Anzeige dieses Eintrages auf der Startseite."
 
+#. Default: "Shows the review state for each item."
+#: ./ftw/news/contents/news_listing_block.py:66
+msgid "description_show_review_state"
+msgstr "Zeigt den Workflow-Status für jeden News-Eintrag an. Der Status wird nur angezeigt, wenn der Benutzer die Einträge bearbeiten kann."
+
 #: ./ftw/news/configure.zcml:31
 msgid "ftw.news"
 msgstr "ftw.news"
@@ -155,14 +160,19 @@ msgid "hide_empty_block_text"
 msgstr "Dieser Block ist nur noch für Benutzer sichtbar, die Inhalte bearbeiten dürfen. So kann der Block weiterhin bearbeitet werden."
 
 #. Default: "${title} - News Feed"
-#: ./ftw/news/browser/news_listing.py:103
+#: ./ftw/news/browser/news_listing.py:121
 msgid "label_feed_desc"
 msgstr "${title} - News Feed"
 
 #. Default: "Hide empty block"
-#: ./ftw/news/contents/news_listing_block.py:54
+#: ./ftw/news/contents/news_listing_block.py:55
 msgid "label_hide_empty_block"
 msgstr "Leeren Block ausblenden"
+
+#. Default: "Show review state"
+#: ./ftw/news/contents/news_listing_block.py:64
+msgid "label_hide_show_review_state"
+msgstr "Workflow-Status anzeigen"
 
 #. Default: "Mopage data endpoint URL (Plone)"
 #: ./ftw/news/behaviors/mopage.py:61
@@ -198,8 +208,8 @@ msgid "mark news items to show up on home page"
 msgstr "News-Einträge für Anzeige auf Startseite markieren"
 
 #. Default: "More News"
-#: ./ftw/news/browser/news_listing_block.py:37
-#: ./ftw/news/browser/templates/news_listing_block.pt:51
+#: ./ftw/news/browser/news_listing_block.py:40
+#: ./ftw/news/browser/templates/news_listing_block.pt:56
 #: ./ftw/news/portlets/templates/news_portlet.pt:39
 msgid "more_news_link_label"
 msgstr "Weitere Einträge"
@@ -235,7 +245,7 @@ msgid "news_date_label"
 msgstr "Datum des Eintrages"
 
 #. Default: "by ${author}"
-#: ./ftw/news/browser/templates/news_listing.pt:47
+#: ./ftw/news/browser/templates/news_listing.pt:49
 #: ./ftw/news/browser/templates/news_listing_block.pt:33
 msgid "news_listing_author_label"
 msgstr "von ${author}"
@@ -366,7 +376,7 @@ msgid "news_listing_config_title_label"
 msgstr "Titel"
 
 #. Default: "No content available"
-#: ./ftw/news/browser/templates/news_listing.pt:27
+#: ./ftw/news/browser/templates/news_listing.pt:30
 msgid "news_listing_no_content_text"
 msgstr "Keine Inhalte vorhanden"
 

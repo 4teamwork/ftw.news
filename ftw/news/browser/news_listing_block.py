@@ -9,6 +9,7 @@ from ftw.simplelayout.browser.blocks.base import BaseBlock
 from plone import api
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
+from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.i18n import translate
 
@@ -128,6 +129,10 @@ class NewsListingBlockView(BaseBlock):
             image_tag = obj.restrictedTraverse('@@leadimage')(
                 'news_listing_image')
 
+        show_review_state = self.context.show_review_state and \
+            api.user.has_permission('ftw.news: Add News', obj=aq_parent(obj))
+        review_state_title = self.get_translated_review_state_title_for(obj)
+
         item = {
             'title': brain.Title,
             'description': description,
@@ -136,8 +141,21 @@ class NewsListingBlockView(BaseBlock):
             'news_date': self.format_date(brain),
             'image_tag': image_tag,
             'brain': brain,
+            'review_state': {
+                'show_review_state': show_review_state and review_state_title,
+                'review_state_title': review_state_title,
+                'review_state_id': brain.review_state,
+            },
         }
         return item
 
     def format_date(self, brain):
         return self.context.toLocalizedTime(brain.start, long_format=False)
+
+    def get_translated_review_state_title_for(self, obj):
+        plone_utils = api.portal.get_tool('plone_utils')
+        title = plone_utils.getReviewStateTitleFor(obj)
+        if not title:
+            return ''
+
+        return translate(safe_unicode(title), domain='plone', context=self.request)

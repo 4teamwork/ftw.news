@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.14.2 (unreleased)
+1.14.2 (2020-01-09)
 -------------------
 
 - Add ftw.news portal_types translations to plone domain. [tinagerber]

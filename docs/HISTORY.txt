@@ -5,7 +5,7 @@ Changelog
 1.14.3 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Add option to show the review state in the byline of news listing items. [elioschmutz]
 
 
 1.14.2 (2020-01-09)

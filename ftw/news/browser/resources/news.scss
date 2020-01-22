@@ -79,6 +79,10 @@ $news-listing-byline-font-size: inherit !default;
       font-weight: bold;
       display: block;
     }
+
+    .reviewstateSeparator:before {
+      content: '|';
+    }
   }
 }
 

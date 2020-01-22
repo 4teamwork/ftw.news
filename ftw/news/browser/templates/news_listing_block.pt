@@ -34,6 +34,12 @@
                                           i18n:name="author">Author</span>
                                 </span>
                             </tal:author>
+                            <tal:review_state condition="item/review_state/show_review_state">
+                                <span class="reviewstateSeparator"></span>
+                                <span tal:content="item/review_state/review_state_title"
+                                              tal:attributes="class item/review_state/review_state_id">Review state</span>
+
+                            </tal:review_state>
                         </span>
                         <h3 class="title" tal:content="item/title" />
                         <span class="description" tal:content="item/description">Description</span>

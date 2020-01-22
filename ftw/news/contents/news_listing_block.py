@@ -60,6 +60,15 @@ class INewsListingBlockSchema(INewsListingBaseSchema):
         required=False,
     )
 
+    show_review_state = schema.Bool(
+        title=_(u'label_hide_show_review_state',
+                default=u'Show review state'),
+        description=_(u'description_show_review_state',
+                      default=u'Shows the review state for each item.'),
+        default=False,
+        required=False,
+    )
+
 alsoProvides(INewsListingBlockSchema, IFormFieldProvider)
 
 

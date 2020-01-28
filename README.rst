@@ -14,6 +14,8 @@ Compatibility
 
 Plone 4.3.x
 
+- From ftw.news version 1.14.0 you need at least ftw.simplelayout 1.24.0 or 2.4.0.
+
 
 Installation
 ============

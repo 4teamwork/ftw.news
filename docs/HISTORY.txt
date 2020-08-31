@@ -5,7 +5,7 @@ Changelog
 1.15.3 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Respect lead image config of NewsListingBlock on new_listing view. [mathias.leimgruber]
 
 
 1.15.2 (2020-07-30)

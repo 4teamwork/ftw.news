@@ -159,12 +159,19 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
             'Textblock with image',
             browser.css(lead_image_css_selector).first.attrib['title']
         )
+        browser.login().visit(block, view='news_listing')
+        self.assertEqual(
+            'Textblock with image',
+            browser.css(lead_image_css_selector).first.attrib['title']
+        )
 
         # Now edit the block so it will not show the lead image.
         browser.visit(block, view='edit')
         browser.fill({'Show lead image': False}).save()
 
         browser.visit(page)
+        self.assertEqual([], browser.css(lead_image_css_selector))
+        browser.login().visit(block, view='news_listing')
         self.assertEqual([], browser.css(lead_image_css_selector))
 
     @browsing

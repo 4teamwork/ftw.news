@@ -3,6 +3,7 @@ from Acquisition import aq_parent
 from DateTime import DateTime
 from ftw.news import _
 from ftw.news import utils
+from ftw.news.contents.common import INewsListingBaseSchema
 from ftw.news.interfaces import INewsListingView
 from ftw.simplelayout.contenttypes.contents.interfaces import IContentPage
 from plone import api
@@ -76,7 +77,11 @@ class NewsListing(BrowserView):
     def get_item_dict(self, brain):
         obj = brain.getObject()
 
-        image_tag = obj.restrictedTraverse('@@leadimage')('news_listing_image', direction='thumbnail')
+        news_listing_block = INewsListingBaseSchema(self.context, None)
+        image_tag = ''
+        if getattr(news_listing_block, 'show_lead_image', True):
+            image_tag = obj.restrictedTraverse('@@leadimage')('news_listing_image', direction='thumbnail')
+
         item = {
             'title': brain.Title,
             'description': brain.Description,

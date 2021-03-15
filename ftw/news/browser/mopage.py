@@ -109,7 +109,8 @@ class NewsMopageRenderer(SimplelayoutRenderer):
         # We have text here, but will convert it to HTML, so it will be larger
         # and we need to crop more to compensate.
         for attempt in range(100):
-            text = crop(10000 - (len(text) * 0.1), text)
+            fraction = int(len(text) * .1)
+            text = crop(10000 if fraction < 0 else 10000 - fraction, text)
             html = portal_transforms.convertToData(
                 'text/html',
                 text,

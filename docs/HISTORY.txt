@@ -6,6 +6,8 @@ Changelog
 -------------------
 
 - Respect lead image config of NewsListingBlock on new_listing view. [mathias.leimgruber]
+- Fix error in mopage when 0.1 fraction of text length has decimal places [Nachtalb]
+- Fix error in mopage when text exceeds 100'000 characters [Nachtalb]
 
 
 1.15.2 (2020-07-30)

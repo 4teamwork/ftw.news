@@ -129,6 +129,36 @@ class TestMopageExport(FunctionalTestCase, XMLDiffTestCase):
         self.assert_news_in_browser(['A' * 95 + ' ...'])
 
     @browsing
+    def test_text_cropped_to_max_10000_chars(self, browser):
+        self.grant('Manager')
+        create(Builder('sl textblock')
+               .having(text=RichTextValue('a' * 20000))
+               .within(
+                   create(Builder('news').titled(u'A').within(
+                       create(Builder('news folder'))))))
+
+        create(Builder('sl textblock')
+               .having(text=RichTextValue('a' * 100000))
+               .within(
+                   create(Builder('news').titled(u'B').within(
+                       create(Builder('news folder'))))))
+
+        browser.open(self.portal, view='mopage.news.xml')
+        texts = browser.css('textmobile').text
+
+        self.assertEquals(
+            'a' * 7995 + ' ...',  # 10000 - (textlength * 0.1) - 5
+            texts[0],
+            'Text should be cropped to a max of 10000 chars'
+        )
+
+        self.assertEquals(
+            'a' * 9995 + ' ...',  # if (textlength * 0.1 > 9000) crop at 10000 - 5
+            texts[1],
+            'The text shouldn\'t be cropped to be smaller than 1000 chars if possible'
+        )
+
+    @browsing
     def test_include_root_arguments_when_submitted_as_GET_param(self, browser):
         self.grant('Manager')
         create(Builder('news').within(create(Builder('news folder'))))

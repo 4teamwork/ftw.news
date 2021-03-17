@@ -110,7 +110,7 @@ class NewsMopageRenderer(SimplelayoutRenderer):
         # and we need to crop more to compensate.
         for attempt in range(100):
             fraction = int(len(text) * .1)
-            text = crop(10000 if fraction < 0 else 10000 - fraction, text)
+            text = crop(10000 if fraction >= 9000 else 10000 - fraction, text)
             html = portal_transforms.convertToData(
                 'text/html',
                 text,

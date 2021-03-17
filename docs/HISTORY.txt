@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.15.3 (unreleased)
+1.15.3 (2021-03-17)
 -------------------
 
 - Respect lead image config of NewsListingBlock on new_listing view. [mathias.leimgruber]

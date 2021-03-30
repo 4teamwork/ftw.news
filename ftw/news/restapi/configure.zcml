@@ -6,4 +6,5 @@
   <include package="plone.rest" file="meta.zcml" />
   <include package="plone.restapi" />
 
+  <adapter factory=".content.SerializeNewsListingBlockToJson" />
 </configure>

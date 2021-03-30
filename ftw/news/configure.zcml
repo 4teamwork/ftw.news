@@ -18,6 +18,7 @@
     <include file="permissions.zcml" />
     <include file="lawgiver.zcml" zcml:condition="installed ftw.lawgiver" />
     <include file="resources.zcml" zcml:condition="installed ftw.theming" />
+    <include package=".restapi" zcml:condition="installed plone.restapi" />
 
     <i18n:registerTranslations directory="locales" />
 

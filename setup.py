@@ -16,6 +16,7 @@ tests_require = [
     'plone.app.testing',
     'plone.testing',
     'plone.app.contenttypes',
+    'plone.restapi',
 ]
 
 extras_require = {

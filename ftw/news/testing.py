@@ -35,6 +35,7 @@ class FtwNewsLayer(PloneSandboxLayer):
         # Install into Plone site using portal_setup
         applyProfile(portal, 'ftw.news:default')
         applyProfile(portal, 'ftw.subsite:default')
+        applyProfile(portal, 'plone.restapi:default')
         if IS_PLONE_5:
             applyProfile(portal, 'plone.app.contenttypes:default')
 

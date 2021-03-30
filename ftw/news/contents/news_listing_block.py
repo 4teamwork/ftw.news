@@ -23,6 +23,7 @@ class FilterByPathSelectable(DefaultSelectable):
         """ Allow to reference any path"""
         return True
 
+
 class INewsListingBlockSchema(INewsListingBaseSchema):
     show_title = schema.Bool(
         title=_(u'news_listing_block_show_title_label', default=u'Show title'),
@@ -68,6 +69,7 @@ class INewsListingBlockSchema(INewsListingBaseSchema):
         default=False,
         required=False,
     )
+
 
 alsoProvides(INewsListingBlockSchema, IFormFieldProvider)
 

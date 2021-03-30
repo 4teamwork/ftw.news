@@ -7,4 +7,5 @@
   <include package="plone.restapi" />
 
   <adapter factory=".content.SerializeNewsListingBlockToJson" />
+  <adapter factory=".content.SerializeNewsFolderToJson" />
 </configure>

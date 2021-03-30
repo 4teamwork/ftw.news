@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.15.4 (unreleased)
+1.16.0 (2021-03-30)
 -------------------
 
 - Implement restapi endpoint for Newslistingblock. [mathias.leimgruber]

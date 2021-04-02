@@ -33,6 +33,9 @@ extras_require = {
         'requests',
         'ftw.simplelayout >= 1.15.0',
     ],
+    'restapi': [
+        'plone.restapi'
+    ]
 }
 
 setup(

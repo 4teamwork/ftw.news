@@ -16,6 +16,10 @@ Plone 4.3.x
 
 - From ftw.news version 1.14.0 you need at least ftw.simplelayout 1.24.0 or 2.4.0.
 
+plone.restapi
+
+- ftw.news 1.16.0 needs at least ftw.simplelayout 1.27.0 for Plone 4.3.x and ftw.simplelayout 2.8.0 for Plone 5.1.x
+
 
 Installation
 ============

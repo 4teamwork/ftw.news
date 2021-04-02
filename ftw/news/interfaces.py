@@ -2,6 +2,8 @@
 # E0211: Method has no argument
 # E0213: Method should have "self" as first argument
 
+
+from ftw.simplelayout.interfaces import ISimplelayoutBlock
 from zope.interface import Interface
 
 
@@ -21,5 +23,5 @@ class INewsListingView(Interface):
     """Marker interface for the news listing view"""
 
 
-class INewsListingBlock(Interface):
+class INewsListingBlock(ISimplelayoutBlock):
     """Marker interface for the news listing blocks"""

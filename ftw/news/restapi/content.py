@@ -1,5 +1,7 @@
 from ftw.news.interfaces import INewsFolder
 from ftw.news.interfaces import INewsListingBlock
+from ftw.simplelayout.interfaces import IBlockConfiguration
+from ftw.simplelayout.restapi.content import PersistenceDecoder
 from plone import api
 from plone.restapi.batching import HypermediaBatch
 from plone.restapi.deserializer import boolean_value
@@ -10,6 +12,7 @@ from zope.component import adapter
 from zope.component import getMultiAdapter
 from zope.interface import Interface
 from zope.interface import implementer
+import json
 
 
 @implementer(ISerializeToJson)
@@ -21,7 +24,6 @@ class SerializeNewsListingBlockToJson(SerializeToJson):
         include_items = self.request.form.get("include_items", include_items)
         include_items = boolean_value(include_items)
         if include_items:
-            query = self.context.restrictedTraverse('@@news_listing').get_query()
             catalog = api.portal.get_tool('portal_catalog')
 
             brains = catalog.searchResults(**self.get_query())
@@ -45,6 +47,11 @@ class SerializeNewsListingBlockToJson(SerializeToJson):
                     getMultiAdapter((brain, self.request), ISerializeToJsonSummary)()
                     for brain in batch
                 ]
+
+        result['block-configuration'] = json.loads(json.dumps(
+            IBlockConfiguration(self.context).load(),
+            cls=PersistenceDecoder)
+        )
 
         return result
 

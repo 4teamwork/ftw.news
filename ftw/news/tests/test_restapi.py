@@ -39,6 +39,12 @@ class TestRestApiIntegration(FunctionalTestCase):
         self.assertNotIn('items', browser.json)
 
     @browsing
+    def test_newslistingblock_has_block_configuration(self, browser):
+        browser.open(self.newslistingblock.absolute_url(), method='GET',
+                     headers={'Accept': 'application/json'})
+        self.assertIn('block-configuration', browser.json)
+
+    @browsing
     def test_include_news(self, browser):
         browser.open(self.newslistingblock.absolute_url() + '?include_items=true', method='GET',
                      headers={'Accept': 'application/json'})
@@ -64,7 +70,7 @@ class TestRestApiIntegration(FunctionalTestCase):
     def test_serialize_news_by_default_on_newsfolder(self, browser):
         browser.open(self.newsfolder.absolute_url(), method='GET',
                      headers={'Accept': 'application/json'})
-        self.assertNotIn('items', browser.json)
+        self.assertIn('items', browser.json)
 
     def test_query_is_from_news_listing_folder_view(self):
         self.assertDictEqual(

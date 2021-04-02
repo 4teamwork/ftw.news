@@ -5,7 +5,7 @@ Changelog
 1.16.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Restapi: Add block-configuration to NewsListingBlock. [mathias.leimgruber]
 
 
 1.16.0 (2021-03-30)

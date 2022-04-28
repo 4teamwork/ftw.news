@@ -57,9 +57,3 @@ class SerializeNewsListingBlockToJson(SerializeToJson):
 
     def get_query(self):
         return self.context.restrictedTraverse('@@news_listing').get_query()
-
-
-@adapter(INewsFolder, Interface)
-class SerializeNewsFolderToJson(SerializeNewsListingBlockToJson):
-    def __call__(self, version=None, include_items=True):
-        return super(SerializeNewsFolderToJson, self).__call__(version=version)

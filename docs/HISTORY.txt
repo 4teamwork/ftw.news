@@ -6,6 +6,7 @@ Changelog
 -------------------
 
 - Restapi: Add block-configuration to NewsListingBlock. [mathias.leimgruber]
+- Restapi: Remove NewsFolder customization, since this made the items loaded always. [mathias.leimgruber]
 
 
 1.16.0 (2021-03-30)

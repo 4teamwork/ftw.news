@@ -1,4 +1,3 @@
-from ftw.news.interfaces import INewsFolder
 from ftw.news.interfaces import INewsListingBlock
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.restapi.content import PersistenceDecoder

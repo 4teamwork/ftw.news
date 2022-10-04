@@ -1,6 +1,5 @@
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.news.restapi.content import SerializeNewsFolderToJson
 from ftw.news.restapi.content import SerializeNewsListingBlockToJson
 from ftw.news.testing import FTW_NEWS_FUNCTIONAL_TESTING
 from ftw.news.tests.base import FunctionalTestCase
@@ -71,9 +70,3 @@ class TestRestApiIntegration(FunctionalTestCase):
         browser.open(self.newsfolder.absolute_url(), method='GET',
                      headers={'Accept': 'application/json'})
         self.assertIn('items', browser.json)
-
-    def test_query_is_from_news_listing_folder_view(self):
-        self.assertDictEqual(
-            self.newsfolder.restrictedTraverse('@@news_listing').get_query(),
-            SerializeNewsFolderToJson(self.newsfolder, self.newsfolder.REQUEST).get_query()
-        )

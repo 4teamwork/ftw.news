@@ -1,4 +1,3 @@
-from ftw.news.interfaces import INewsFolder
 from ftw.news.interfaces import INewsListingBlock
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.restapi.content import PersistenceDecoder
@@ -27,6 +26,9 @@ class SerializeNewsListingBlockToJson(SerializeToJson):
             catalog = api.portal.get_tool('portal_catalog')
 
             brains = catalog.searchResults(**self.get_query())
+
+            original = self.request.get('ACTUAL_URL')
+            self.request['ACTUAL_URL'] = self.context.absolute_url()
             batch = HypermediaBatch(self.request, brains)
 
             if not self.request.form.get("fullobjects"):
@@ -47,6 +49,8 @@ class SerializeNewsListingBlockToJson(SerializeToJson):
                     getMultiAdapter((brain, self.request), ISerializeToJsonSummary)()
                     for brain in batch
                 ]
+
+            self.request['ACTUAL_URL'] = original
 
         result['block-configuration'] = json.loads(json.dumps(
             IBlockConfiguration(self.context).load(),

@@ -5,6 +5,7 @@ Changelog
 1.16.1 (unreleased)
 -------------------
 
+- Make news archive portlet init api work with publisher [mathias.leimgruber]
 - Restapi: Add block-configuration to NewsListingBlock. [mathias.leimgruber]
 - Restapi: Remove NewsFolder customization, since this made the items loaded always. [mathias.leimgruber]
 - Restapi: Fix batch links for news listing block. [mathias.leimgruber]

@@ -159,8 +159,8 @@ class INewsArchivePortlet(IPortletDataProvider):
 class Assignment(base.Assignment):
     implements(INewsArchivePortlet)
 
-    def __init__(self, portlet_title=''):
-        self._portlet_title = portlet_title
+    def __init__(self, portlet_title='', _portlet_title=''):
+        self._portlet_title = portlet_title or _portlet_title
 
     @property
     def portlet_title(self):

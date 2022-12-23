@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.16.1 (unreleased)
+1.16.1 (2022-12-23)
 -------------------
 
 - Make news archive portlet init api work with publisher [mathias.leimgruber]

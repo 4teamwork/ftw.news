@@ -71,6 +71,12 @@ class NewsListingBlockView(BaseBlock):
         }}
         parent = aq_parent(aq_inner((self.context)))
 
+        # Default page of a plone root
+        if not IPloneSiteRoot.providedBy(parent) and IPloneSiteRoot.providedBy(parent.aq_parent):
+            if parent.restrictedTraverse('@@plone_context_state').is_default_page():
+                # Current obj is a default page of a plone root
+                parent = parent.aq_parent
+
         if self.context.current_context:
             path = '/'.join(parent.getPhysicalPath())
             query['path'] = {'query': path}

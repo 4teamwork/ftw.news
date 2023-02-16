@@ -5,7 +5,7 @@ Changelog
 1.16.2 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Support show news on homepage for NewsListingBlocks within conten page, which is defined as defaultpage within a plone root. [mathias.leimgruber]
 
 
 1.16.1 (2022-12-23)

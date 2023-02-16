@@ -88,7 +88,7 @@ class TestNewsArchivePortlets(FunctionalTestCase, LanguageSetter):
         news_folder = create(Builder('news folder').titled(u'News Folder')
                              .with_property('layout', 'news_listing'))
         create(Builder('news').titled(u'News Entry 1').within(news_folder)
-               .having(news_date=datetime(2013, 1, 1)))
+               .having(news_date=datetime(2013, 1, 5)))
         create(Builder('news').titled(u'News Entry 2').within(news_folder)
                .having(news_date=datetime(2013, 1, 11)))
         create(Builder('news').titled(u'News Entry 3').within(news_folder)
@@ -138,7 +138,7 @@ class TestNewsArchivePortlets(FunctionalTestCase, LanguageSetter):
         news_folder = create(Builder('news folder').titled(u'News Folder')
                              .with_property('layout', 'news_listing'))
         create(Builder('news').titled(u'News Entry 1').within(news_folder)
-               .having(news_date=datetime(2013, 1, 1)))
+               .having(news_date=datetime(2013, 1, 5)))
         create(Builder('news').titled(u'News Entry 2').within(news_folder)
                .having(news_date=datetime(2013, 1, 11)))
 
@@ -154,7 +154,7 @@ class TestNewsArchivePortlets(FunctionalTestCase, LanguageSetter):
         news_folder = create(Builder('news folder').titled(u'News Folder')
                              .with_property('layout', 'news_listing'))
         create(Builder('news').titled(u'News Entry 1').within(news_folder)
-               .having(news_date=datetime(2013, 3, 1)))
+               .having(news_date=datetime(2013, 3, 5)))
 
         # Helper method sets the title in english and not in german
         browser.login().visit(news_folder, view='@@manage-portlets')

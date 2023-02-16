@@ -8,6 +8,7 @@ from ftw.news.utils import make_utf8
 from ftw.simplelayout.browser.blocks.base import BaseBlock
 from plone import api
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.defaultpage import is_default_page
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -70,6 +71,12 @@ class NewsListingBlockView(BaseBlock):
             'query': ['ftw.news.interfaces.INews'],
         }}
         parent = aq_parent(aq_inner((self.context)))
+
+        # Default page of a plone root
+        if not IPloneSiteRoot.providedBy(parent) and IPloneSiteRoot.providedBy(parent.aq_parent):
+            if is_default_page(parent.aq_parent, parent):
+                # Current obj is a default page of a plone root
+                parent = parent.aq_parent
 
         if self.context.current_context:
             path = '/'.join(parent.getPhysicalPath())

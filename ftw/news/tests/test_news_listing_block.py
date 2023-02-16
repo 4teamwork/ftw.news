@@ -313,6 +313,40 @@ class TestNewsListingBlockContentType(FunctionalTestCase):
         )
 
     @browsing
+    def test_news_listing_block_on_homepage_as_defaultpage(self, browser):
+        applyProfile(self.portal, 'ftw.news:show-on-homepage')
+
+        newsfolder = create(Builder('news folder'))
+
+        page = create(Builder('sl content page').titled(u'A page'))
+        self.portal.setDefaultPage(page.getId())
+
+        create(Builder('news')
+               .within(newsfolder)
+               .titled(u'News On Homepage')
+               .having(show_on_homepage=True)
+               .having(news_date=datetime(2011, 1, 2, 15, 0, 0)))
+
+        create(Builder('news')
+               .within(newsfolder)
+               .having(show_on_homepage=False)
+               .titled(u'News Not On Homepage')
+               .having(news_date=datetime(2011, 1, 2, 15, 0, 0)))
+
+        create(Builder('news listing block')
+               .within(page)
+               .having(news_on_homepage=True))
+
+        browser.login()
+        browser.visit(page)
+        self.assertEqual(
+            ['News On Homepage'],
+            browser.css('.sl-block-content .news-item .title').text,
+            "The news listing block on the Plone Site must only render "
+            "news items having been marked to be shown on the homepage."
+        )
+
+    @browsing
     def test_first_heading_of_news_listing_on_news_listing_block_within_root(self, browser):
         """
         This test makes sure that the first heading is correct when the
